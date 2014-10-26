@@ -28,6 +28,7 @@ public class Lanceur {
 		//
 		// Get an enumeration of all ports known to JavaComm
 		//
+		@SuppressWarnings("rawtypes")
 		Enumeration portIdentifiers = CommPortIdentifier.getPortIdentifiers();
 		//
 		// Check each port identifier if 
