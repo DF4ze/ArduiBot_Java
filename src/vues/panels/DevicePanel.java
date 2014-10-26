@@ -1,23 +1,55 @@
 package vues.panels;
 
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
-public class DevicePanel extends JPanel {
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+
+import modeles.CtrlCat;
+
+public class DevicePanel extends JPanel implements Observer{
 
 	private static final long serialVersionUID = 1L;
 
-	public DevicePanel() {
-		// TODO Auto-generated constructor stub
+	private JButton btnConnect;
+	private JComboBox<String> combCamChoix;
+	
+	private CtrlCat oModel;
+	
+	
+	public DevicePanel( CtrlCat oModel ) {
+		this.oModel = oModel;
+		oModel.addObserver(this);
 		
-		JCheckBox cb = new JCheckBox("LocalCam");
+		btnConnect = new JButton("Connect");	
+		combCamChoix = new JComboBox<String>(this.oModel.getDevices());
 		
-		JTextField tf = new JTextField("Chemin");
-		
-		add( cb );
-		add( tf );
+		add( combCamChoix );
+		add( btnConnect );
 	}
 
 
+	@Override
+	public void update(Observable o, Object arg) {
+		if( o == oModel ){
+			
+		}
+		
+	}
+	
+	public void setListener( ActionListener ac){		
+		combCamChoix.addActionListener( ac );
+		combCamChoix.setActionCommand("SELECTEDDEVICE");
+		
+		btnConnect.addActionListener( ac );
+		btnConnect.setActionCommand("BTNCONNECT");
+	}
+	
+	public String setSelectedDevice(){
+		return (String)(combCamChoix.getSelectedItem());
+	}
+	
 }
