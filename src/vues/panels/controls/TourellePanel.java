@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import controleurs.Debug;
 import modeles.CtrlCat;
 
 public class TourellePanel extends JPanel implements Observer {
@@ -71,8 +72,12 @@ public class TourellePanel extends JPanel implements Observer {
 	}
 
 	@Override
-	public void update(Observable model, Object arg1) {
-		if( model == oModel ){
+	public void update(Observable o, Object message) {
+
+		if( o == oModel && message.equals("TOURELLEENABLE")){
+			if( Debug.isEnable() )
+				System.out.println("Tourelle Panel : Update Receved");
+
 			if( oModel.isTourelleEnable() ){
 				btTourDOWN.setEnabled(true);
 				btTourLEFT.setEnabled(true);

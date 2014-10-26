@@ -70,12 +70,13 @@ public class DirectionPanel extends JPanel implements Observer{
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
-		if( Debug.isEnable() )
-			System.out.println("Update Receved");
+	public void update(Observable o, Object message) {
 
-		
-		if( o == oModel ){
+		if( o == oModel && message.equals("DIRECTIONENABLE")){
+			
+			if( Debug.isEnable() )
+				System.out.println("Direction Panel : Update Receved");
+			
 			if( oModel.isDirectionEnable() ){
 				btDirDOWN.setEnabled(true);
 				btDirLEFT.setEnabled(true);
@@ -87,6 +88,7 @@ public class DirectionPanel extends JPanel implements Observer{
 				btDirRIGHT.setEnabled(false);
 				btDirUP.setEnabled(false);
 			}
+	
 		}
 	}
 	

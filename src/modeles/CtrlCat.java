@@ -30,12 +30,12 @@ public class CtrlCat extends Observable {
 
 	public void setDirectionEnable(boolean directionEnable) {
 		if( Debug.isEnable() )
-			System.out.println("SetDirectionEnable: "+directionEnable);
+			System.out.println("Model : SetDirectionEnable: "+directionEnable);
 
 		this.directionEnable = directionEnable;
 		
 		setChanged();
-		notifyObservers();
+		notifyObservers("DIRECTIONENABLE");
 	}
 
 
@@ -44,7 +44,13 @@ public class CtrlCat extends Observable {
 		return tourelleEnable;
 	}
 	public void setTourelleEnable(boolean tourelleEnable) {
+		if( Debug.isEnable() )
+			System.out.println("Model : SetTourelleEnable: "+tourelleEnable);
+		
 		this.tourelleEnable = tourelleEnable;
+		
+		setChanged();
+		notifyObservers("TOURELLEENABLE");
 	}
 
 
@@ -53,7 +59,12 @@ public class CtrlCat extends Observable {
 		return cameraEnable;
 	}
 	public void setCameraEnable(boolean cameraEnable) {
+		if( Debug.isEnable() )
+			System.out.println("Model : setCameraEnable: "+cameraEnable);
+		
 		this.cameraEnable = cameraEnable;
+		setChanged();
+		notifyObservers("CAMERAENABLE");
 	}
 
 
@@ -62,7 +73,12 @@ public class CtrlCat extends Observable {
 		return extraEnable;
 	}
 	public void setExtraEnable(boolean extraEnable) {
+		if( Debug.isEnable() )
+			System.out.println("Model : setExtraEnable: "+extraEnable);
+
 		this.extraEnable = extraEnable;
+		setChanged();
+		notifyObservers("EXTRAENABLE");
 	}
 
 
@@ -71,7 +87,12 @@ public class CtrlCat extends Observable {
 		return Devices;
 	}
 	public void setDevices(String[] devices) {
+		if( Debug.isEnable() )
+			System.out.println("Model : setDevices: "+devices);
+		
 		Devices = devices;
+		setChanged();
+		notifyObservers("SETDEVICE");
 	}
 
 
@@ -80,7 +101,12 @@ public class CtrlCat extends Observable {
 		return selectedDevice;
 	}
 	public void setSelectedDevice(String selectedDevice) {
+		if( Debug.isEnable() )
+			System.out.println("Model : setSelectedDevice: "+selectedDevice);
+
 		this.selectedDevice = selectedDevice;
+		setChanged();
+		notifyObservers("SELECTEDDEVICE");
 	}
 
 }

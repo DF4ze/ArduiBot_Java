@@ -42,7 +42,7 @@ public class DevicePanel extends JPanel implements Observer{
 	
 	public void setListener( ActionListener ac){		
 		combCamChoix.addActionListener( ac );
-		combCamChoix.setActionCommand("COMBCAMCHOIX");
+		combCamChoix.setActionCommand("SELECTEDDEVICE");
 		
 		btnConnect.addActionListener( ac );
 		btnConnect.setActionCommand("BTNCONNECT");

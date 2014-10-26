@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import modeles.CtrlCat;
 import vues.CamFrame;
+import exceptions.CamException;
 
 
 
@@ -29,17 +30,30 @@ public class Controleur implements ActionListener{
 			System.out.println("Action recu : "+action);
 		
 		if (action.equals("BTNCONNECT")) {
-			 if( oModel.isDirectionEnable() )
-				 oModel.setDirectionEnable(false);
-			 else{
-				 oModel.setDirectionEnable(true);
-				 cfFrame.showCam();
-				 cfFrame.repaint();
-			 }
+
+				 
+			try {
+				cfFrame.showCam();
+				oModel.setDirectionEnable(true);
+				oModel.setTourelleEnable(true);
+				oModel.setExtraEnable(true);
+				 
+				cfFrame.repaint();
+				
+			} catch (CamException e1) {
+				
+				cfFrame.setCamError(e1.getMessage());
+
+				oModel.setDirectionEnable(false);
+				oModel.setTourelleEnable(false);
+				oModel.setExtraEnable(false);
+
+				if( Debug.isEnable() )
+					e1.printStackTrace();
+			}
 			 
-		 }else 
-		
-		if (action.equals("COMBCAMCHOIX")) {
+			 
+		 }else if (action.equals("SELECTEDDEVICE")) {
 			if( Debug.isEnable() )
 				System.out.println("SelectedCam : "+cfFrame.setSelectedDevice());
 			

@@ -9,6 +9,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
+import controleurs.Debug;
 import modeles.CtrlCat;
 
 public class ExtraPanel extends JPanel implements Observer{
@@ -54,8 +55,12 @@ public class ExtraPanel extends JPanel implements Observer{
 		
 	}
 	@Override
-	public void update(Observable o, Object arg) {
-		if( o == oModel ){
+	public void update(Observable o, Object message) {
+		
+		if( o == oModel && message.equals("EXTRAENABLE")){
+			if( Debug.isEnable() )
+				System.out.println("Extra Panel : Update Receved");
+
 			if( oModel.isExtraEnable() ){
 				cbLight.setEnabled(true);
 				cbStrob.setEnabled(true);

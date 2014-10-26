@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
+import exceptions.CamException;
 import modeles.CtrlCat;
 import vues.panels.BigPanel;
 
@@ -37,8 +38,16 @@ public class CamFrame extends JFrame {
 		return bp.setSelectedDevice();
 	}
 	
-	public void showCam(){
+	public void setCamError( String sError ){
+		bp.setCamError( sError );
+		validate();
+		pack();
+	}
+	
+	public void showCam() throws CamException{
 		bp.showCam();
+		validate();
+		pack();
 	}
 	
 

@@ -1,7 +1,11 @@
 package vues.panels;
 
+import java.awt.BorderLayout;
 import java.net.MalformedURLException;
+import java.util.Observable;
+import java.util.Observer;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import modeles.CtrlCat;
@@ -14,27 +18,37 @@ import com.github.sarxos.webcam.ds.ipcam.IpCamDriver;
 import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
 
 import controleurs.Debug;
+import exceptions.CamException;
 
-public class CamPanel extends JPanel {
+public class CamPanel extends JPanel implements Observer{
 
 	private static final long serialVersionUID = 1L;
+	
+	private CtrlCat oModel;
+	private WebcamPanel panel;
 	
 	static {
 		Webcam.setDriver(new IpCamDriver());
 	}
 
 	
-	public CamPanel(CtrlCat oModel){
+	public CamPanel(CtrlCat oModel) throws CamException{
+		this.oModel = oModel;
+		this.oModel.addObserver(this);
+		
 		String cam = oModel.getSelectedDevice();
-		WebcamPanel panel = null;
+		panel = null;
 		
 		if( cam.equals("local") ){
 			Webcam webcam = Webcam.getDefault();
 			if( webcam != null )
 				panel = new WebcamPanel(webcam);
-			else
+			else{
 				if( Debug.isEnable() )
 					System.out.println("Cam Local HS");
+				
+				throw new CamException( "La caméra locale n'est pas reconnue" );
+			}
 			//panel = new WebcamPanel(Webcam.getDefault());
 			
 		}else{
@@ -47,9 +61,10 @@ public class CamPanel extends JPanel {
 				myIpCam = new IpCamDevice(name, url, mode);
 				IpCamDeviceRegistry.register(myIpCam);
 				panel = new WebcamPanel(Webcam.getWebcams().get(0));
+				
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new CamException( "L'URL n'est pas correcte" );
 			}
 		}
 
@@ -57,7 +72,25 @@ public class CamPanel extends JPanel {
 			panel.setFillArea(true);
 			panel.setFPSLimit(1);
 			add(panel);
+			
+			
+
 		}
+	}
+
+
+
+	@Override
+	public void update(Observable o, Object message) {
+		if( o == oModel ){
+			if( message.equals("SELECTEDDEVICE") ){
+				IpCamDeviceRegistry.unregisterAll();
+				
+				if( Debug.isEnable() )
+					System.out.println("CamPanel: cam unregistred");
+			}
+		}
+		
 	}
 
 }
