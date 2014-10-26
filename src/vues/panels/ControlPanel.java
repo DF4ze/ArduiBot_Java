@@ -1,4 +1,4 @@
-package vues.camPanels;
+package vues.panels;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

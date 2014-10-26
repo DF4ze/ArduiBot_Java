@@ -1,4 +1,4 @@
-package vues.camPanels;
+package vues.panels;
 
 import java.net.MalformedURLException;
 
@@ -8,11 +8,16 @@ import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDevice;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDeviceRegistry;
+import com.github.sarxos.webcam.ds.ipcam.IpCamDriver;
 import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
 
 public class CamPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	
+	static {
+		Webcam.setDriver(new IpCamDriver());
+	}
 
 	
 	public CamPanel(){
@@ -24,13 +29,23 @@ public class CamPanel extends JPanel {
 		try {
 			myIpCam = new IpCamDevice(name, url, mode);
 			IpCamDeviceRegistry.register(myIpCam);
+			//daCam = IpCamDeviceRegistry.register(myIpCam);
 			
-			WebcamPanel panel = new WebcamPanel(Webcam.getWebcams().get(0));
-			panel.setFPSLimit(1);
+			WebcamPanel panel = new WebcamPanel(Webcam.getDefault());
 			
-			add(panel);
 			
-
+			if( Webcam.getWebcams().size() == 0 ){
+				System.out.println("Il n'y a pas de WebCam...");
+				
+				
+			}else{
+				//WebcamPanel panel = new WebcamPanel(Webcam.getWebcams().get(0));
+//				panel.setFPSDisplayed(true);
+				panel.setFillArea(true);
+				panel.setFPSLimit(1);
+				add(panel);
+			}
+			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

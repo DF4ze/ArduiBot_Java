@@ -1,4 +1,4 @@
-package vues.camPanels;
+package vues.panels;
 
 import java.awt.BorderLayout;
 
@@ -15,6 +15,7 @@ public class BigPanel extends JPanel {
 		add( ctrlP, BorderLayout.EAST );
 		
 		CamPanel camP = new CamPanel();
+		
 		add( camP, BorderLayout.CENTER );
 	}
 
