@@ -37,8 +37,9 @@ public class Controleur implements ActionListener{
 				oModel.setDirectionEnable(true);
 				oModel.setTourelleEnable(true);
 				oModel.setExtraEnable(true);
+				oModel.setCameraEnable(true);
 				 
-				cfFrame.repaint();
+				
 				
 			} catch (CamException e1) {
 				
@@ -47,6 +48,7 @@ public class Controleur implements ActionListener{
 				oModel.setDirectionEnable(false);
 				oModel.setTourelleEnable(false);
 				oModel.setExtraEnable(false);
+				oModel.setCameraEnable(false);
 
 				if( Debug.isEnable() )
 					e1.printStackTrace();

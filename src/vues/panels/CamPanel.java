@@ -1,17 +1,17 @@
 package vues.panels;
 
-import java.awt.BorderLayout;
 import java.net.MalformedURLException;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import modeles.CtrlCat;
 
 import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamCompositeDriver;
 import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.ds.buildin.WebcamDefaultDriver;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDevice;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDeviceRegistry;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDriver;
@@ -25,45 +25,50 @@ public class CamPanel extends JPanel implements Observer{
 	private static final long serialVersionUID = 1L;
 	
 	private CtrlCat oModel;
-	private WebcamPanel panel;
-	
-	static {
-		Webcam.setDriver(new IpCamDriver());
-	}
+	private WebcamPanel panel = null;
 
+    static {
+        Webcam.setDriver(new WebcamCompositeDriver(new WebcamDefaultDriver(), new IpCamDriver()));
+    }
 	
 	public CamPanel(CtrlCat oModel) throws CamException{
 		this.oModel = oModel;
 		this.oModel.addObserver(this);
 		
 		String cam = oModel.getSelectedDevice();
-		panel = null;
+				
 		
 		if( cam.equals("local") ){
 			Webcam webcam = Webcam.getDefault();
 			if( webcam != null )
 				panel = new WebcamPanel(webcam);
+			
 			else{
-				if( Debug.isEnable() )
-					System.out.println("Cam Local HS");
-				
 				throw new CamException( "La caméra locale n'est pas reconnue" );
 			}
-			//panel = new WebcamPanel(Webcam.getDefault());
 			
 		}else{
+//			if( Debug.isEnable() )
+//				System.out.println("***Cam SetDriver");
+			//Webcam.setDriver(new IpCamDriver());
+			
 			String name = cam;
 			String url = cam;			
 			IpCamMode mode = IpCamMode.PUSH;
 			IpCamDevice myIpCam = null;
 			
 			try {
+				if( Debug.isEnable() )
+					System.out.println("***Cam IpcamDevice");
 				myIpCam = new IpCamDevice(name, url, mode);
+				if( Debug.isEnable() )
+					System.out.println("***Cam Registry");
 				IpCamDeviceRegistry.register(myIpCam);
-				panel = new WebcamPanel(Webcam.getWebcams().get(0));
+				if( Debug.isEnable() )
+					System.out.println("***Cam WebcamPanel");
+				panel = new WebcamPanel(Webcam.getWebcams().get(1));
 				
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
 				throw new CamException( "L'URL n'est pas correcte" );
 			}
 		}
@@ -71,24 +76,30 @@ public class CamPanel extends JPanel implements Observer{
 		if( panel != null ){
 			panel.setFillArea(true);
 			panel.setFPSLimit(1);
+			if( Debug.isEnable() )
+				System.out.println("***Cam add");
 			add(panel);
-			
 			
 
 		}
 	}
 
-
+	public void resetCam(){
+		if( panel != null )
+			panel.stop();
+		//Webcam.resetDriver();
+		//IpCamDeviceRegistry.unregisterAll();
+	}
 
 	@Override
 	public void update(Observable o, Object message) {
 		if( o == oModel ){
-			if( message.equals("SELECTEDDEVICE") ){
-				IpCamDeviceRegistry.unregisterAll();
-				
-				if( Debug.isEnable() )
-					System.out.println("CamPanel: cam unregistred");
-			}
+//			if( message.equals("CAMERAENABLE") ){
+//				IpCamDeviceRegistry.unregisterAll();
+//				
+//				if( Debug.isEnable() )
+//					System.out.println("CamPanel: cam unregistred");
+//			}
 		}
 		
 	}
