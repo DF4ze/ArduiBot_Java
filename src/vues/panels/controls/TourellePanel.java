@@ -25,6 +25,7 @@ public class TourellePanel extends JPanel implements Observer {
 	
 	public TourellePanel( CtrlCat oModel ) {
 		this.oModel = oModel;
+		oModel.addObserver(this);
 		
 		setLayout(new GridBagLayout());
 		setBorder(BorderFactory.createTitledBorder("Tourelle"));

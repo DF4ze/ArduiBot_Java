@@ -24,6 +24,7 @@ public class ExtraPanel extends JPanel implements Observer{
 
 	public ExtraPanel( CtrlCat oModel ) {
 		this.oModel = oModel;
+		oModel.addObserver(this);
 		
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		setBorder(BorderFactory.createTitledBorder("Options"));

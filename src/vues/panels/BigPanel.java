@@ -15,23 +15,31 @@ public class BigPanel extends JPanel {
 	private CamPanel camP;
 	private DevicePanel devP;
 	
+	private CtrlCat oModel;
+	
 	public BigPanel(CtrlCat oModel) {
+		this.oModel = oModel;
 		setLayout(new BorderLayout());
 		
 		ctrlP = new ControlPanel( oModel);
 		add( ctrlP, BorderLayout.EAST );
 		
-		camP = new CamPanel(oModel);
-		add( camP, BorderLayout.CENTER );
-		
 		devP = new DevicePanel(oModel);
-		add( devP, BorderLayout.NORTH );
-		
+		add( devP, BorderLayout.NORTH );	
 	}
 
 	public void setListener( ActionListener ac){
 		ctrlP.setListener( ac );
 		//camP.setListener( ac );
 		devP.setListener( ac );
+	}
+	
+	public String setSelectedDevice(){
+		return devP.setSelectedDevice();
+	}
+	
+	public void showCam(){
+		camP = new CamPanel(oModel);
+		add( camP, BorderLayout.CENTER );
 	}
 }

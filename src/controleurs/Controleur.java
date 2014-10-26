@@ -31,10 +31,20 @@ public class Controleur implements ActionListener{
 		if (action.equals("BTNCONNECT")) {
 			 if( oModel.isDirectionEnable() )
 				 oModel.setDirectionEnable(false);
-			 else
+			 else{
 				 oModel.setDirectionEnable(true);
+				 cfFrame.showCam();
+				 cfFrame.repaint();
+			 }
 			 
-		 }
+		 }else 
+		
+		if (action.equals("COMBCAMCHOIX")) {
+			if( Debug.isEnable() )
+				System.out.println("SelectedCam : "+cfFrame.setSelectedDevice());
+			
+			oModel.setSelectedDevice(cfFrame.setSelectedDevice());	
+		}
 		
 	}
 

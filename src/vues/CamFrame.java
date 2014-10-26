@@ -32,5 +32,14 @@ public class CamFrame extends JFrame {
 	public void setListener( ActionListener ac){
 		bp.setListener( ac );
 	}
+	
+	public String setSelectedDevice(){
+		return bp.setSelectedDevice();
+	}
+	
+	public void showCam(){
+		bp.showCam();
+	}
+	
 
 }

@@ -103,6 +103,7 @@ public class DirectionPanel extends JPanel implements Observer{
 		btDirUP.addActionListener( ac );
 		btDirUP.setActionCommand("BTDIRUP");
 		
-		System.out.println("Listener Set");
+		if( Debug.isEnable() )
+			System.out.println("Listener Set");
 	}
 }

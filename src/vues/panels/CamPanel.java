@@ -13,6 +13,8 @@ import com.github.sarxos.webcam.ds.ipcam.IpCamDeviceRegistry;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDriver;
 import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
 
+import controleurs.Debug;
+
 public class CamPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -23,36 +25,39 @@ public class CamPanel extends JPanel {
 
 	
 	public CamPanel(CtrlCat oModel){
-		String name = "Test255";
-		String url = "http://192.168.1.33:8080/?action=stream";
-		IpCamMode mode = IpCamMode.PUSH;
-		IpCamDevice myIpCam = null;
+		String cam = oModel.getSelectedDevice();
+		WebcamPanel panel = null;
 		
-		try {
-			myIpCam = new IpCamDevice(name, url, mode);
-			IpCamDeviceRegistry.register(myIpCam);
-			//daCam = IpCamDeviceRegistry.register(myIpCam);
+		if( cam.equals("local") ){
+			Webcam webcam = Webcam.getDefault();
+			if( webcam != null )
+				panel = new WebcamPanel(webcam);
+			else
+				if( Debug.isEnable() )
+					System.out.println("Cam Local HS");
+			//panel = new WebcamPanel(Webcam.getDefault());
 			
-			//WebcamPanel panel = new WebcamPanel(Webcam.getDefault());
+		}else{
+			String name = cam;
+			String url = cam;			
+			IpCamMode mode = IpCamMode.PUSH;
+			IpCamDevice myIpCam = null;
 			
-			
-			if( Webcam.getWebcams().size() == 0 ){
-				System.out.println("Il n'y a pas de WebCam...");
-				
-				
-			}else{
-				WebcamPanel panel = new WebcamPanel(Webcam.getWebcams().get(0));
-//				panel.setFPSDisplayed(true);
-				panel.setFillArea(true);
-				panel.setFPSLimit(1);
-				add(panel);
+			try {
+				myIpCam = new IpCamDevice(name, url, mode);
+				IpCamDeviceRegistry.register(myIpCam);
+				panel = new WebcamPanel(Webcam.getWebcams().get(0));
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		
+
+		if( panel != null ){
+			panel.setFillArea(true);
+			panel.setFPSLimit(1);
+			add(panel);
+		}
 	}
 
 }
