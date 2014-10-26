@@ -31,7 +31,7 @@ public class CamPanel extends JPanel {
 			IpCamDeviceRegistry.register(myIpCam);
 			//daCam = IpCamDeviceRegistry.register(myIpCam);
 			
-			WebcamPanel panel = new WebcamPanel(Webcam.getDefault());
+			//WebcamPanel panel = new WebcamPanel(Webcam.getDefault());
 			
 			
 			if( Webcam.getWebcams().size() == 0 ){
@@ -39,7 +39,7 @@ public class CamPanel extends JPanel {
 				
 				
 			}else{
-				//WebcamPanel panel = new WebcamPanel(Webcam.getWebcams().get(0));
+				WebcamPanel panel = new WebcamPanel(Webcam.getWebcams().get(0));
 //				panel.setFPSDisplayed(true);
 				panel.setFillArea(true);
 				panel.setFPSLimit(1);
