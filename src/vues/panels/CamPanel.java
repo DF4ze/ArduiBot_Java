@@ -4,6 +4,8 @@ import java.net.MalformedURLException;
 
 import javax.swing.JPanel;
 
+import modeles.CtrlCat;
+
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDevice;
@@ -20,7 +22,7 @@ public class CamPanel extends JPanel {
 	}
 
 	
-	public CamPanel(){
+	public CamPanel(CtrlCat oModel){
 		String name = "Test255";
 		String url = "http://192.168.1.33:8080/?action=stream";
 		IpCamMode mode = IpCamMode.PUSH;
@@ -51,8 +53,6 @@ public class CamPanel extends JPanel {
 			e.printStackTrace();
 		}
 		
-		
 	}
-
 
 }
