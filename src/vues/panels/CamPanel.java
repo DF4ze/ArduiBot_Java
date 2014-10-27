@@ -61,9 +61,11 @@ public class CamPanel extends JPanel implements Observer{
 				if( Debug.isEnable() )
 					System.out.println("***Cam IpcamDevice");
 				myIpCam = new IpCamDevice(name, url, mode);
+				
 				if( Debug.isEnable() )
 					System.out.println("***Cam Registry");
 				IpCamDeviceRegistry.register(myIpCam);
+				
 				if( Debug.isEnable() )
 					System.out.println("***Cam WebcamPanel");
 				panel = new WebcamPanel(Webcam.getWebcams().get(1));

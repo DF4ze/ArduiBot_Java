@@ -42,8 +42,8 @@ public class BigPanel extends JPanel {
 		devP.setListener( ac );
 	}
 	
-	public String setSelectedDevice(){
-		return devP.setSelectedDevice();
+	public String getSelectedDevice(){
+		return devP.getSelectedDevice();
 	}
 	
 	public void showCam() throws CamException{

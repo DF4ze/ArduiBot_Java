@@ -34,8 +34,8 @@ public class CamFrame extends JFrame {
 		bp.setListener( ac );
 	}
 	
-	public String setSelectedDevice(){
-		return bp.setSelectedDevice();
+	public String getSelectedDevice(){
+		return bp.getSelectedDevice();
 	}
 	
 	public void setCamError( String sError ){

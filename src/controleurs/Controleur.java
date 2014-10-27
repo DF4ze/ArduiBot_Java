@@ -57,9 +57,9 @@ public class Controleur implements ActionListener{
 			 
 		 }else if (action.equals("SELECTEDDEVICE")) {
 			if( Debug.isEnable() )
-				System.out.println("SelectedCam : "+cfFrame.setSelectedDevice());
+				System.out.println("SelectedCam : "+cfFrame.getSelectedDevice());
 			
-			oModel.setSelectedDevice(cfFrame.setSelectedDevice());	
+			oModel.setSelectedDevice(cfFrame.getSelectedDevice());	
 		}
 		
 	}

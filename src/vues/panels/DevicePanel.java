@@ -48,7 +48,7 @@ public class DevicePanel extends JPanel implements Observer{
 		btnConnect.setActionCommand("BTNCONNECT");
 	}
 	
-	public String setSelectedDevice(){
+	public String getSelectedDevice(){
 		return (String)(combCamChoix.getSelectedItem());
 	}
 	
