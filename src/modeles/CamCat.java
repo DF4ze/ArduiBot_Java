@@ -17,9 +17,9 @@ import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
 
 public class CamCat extends Observable{
 	
-	private ArrayList<String> cams = null;
-	private ArrayList<IpCamDevice> devices = null;
-	private String selectedDevice = "local";
+	private ArrayList<String> cams = new  ArrayList<String>();
+	private ArrayList<IpCamDevice> devices = new ArrayList<IpCamDevice>();
+	private int indexSelectedDevice = 0;
 	
 	public static final String FILECAM = "ipcams/listIPCams.txt";
 	
@@ -40,7 +40,7 @@ public class CamCat extends Observable{
 		
 		// les transformer en DEVICE
 		for( String url : cams ){
-			if( cams.equals("local") )
+			if( url.equals("local") )
 				devices.add(null);
 			else{
 				IpCamDevice myIpCam = new IpCamDevice( url, url, IpCamMode.PUSH);
@@ -57,7 +57,15 @@ public class CamCat extends Observable{
 	public ArrayList<String> getCams() {
 		return cams;
 	}
+	public String[] getArrayCams() {
+		String[] retour = new String[ cams.size() ];
+		int i=0;
+		for( String cam : cams )
+			retour[i++] = cam;
+		return retour;
+	}
 
+	
 	public ArrayList<IpCamDevice> getDevices() {
 		return devices;
 	}
@@ -65,11 +73,14 @@ public class CamCat extends Observable{
 
 
 
-	public String getSelectedDevice() {
-		return selectedDevice;
-	}
-	public void setSelectedDevice(String selectedDevice) {
-		this.selectedDevice = selectedDevice;
+//	public String getSelectedCam() {
+//		return selectedCam;
+//	}
+	public void setSelectedCam(String selectedCam) {
+		indexSelectedDevice = cams.indexOf( selectedCam );
 	}
 
+	public int getIndexSelectedDevice(){
+		return indexSelectedDevice;
+	}
 }

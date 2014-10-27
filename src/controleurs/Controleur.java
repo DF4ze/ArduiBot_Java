@@ -2,7 +2,10 @@ package controleurs;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 
+import modeles.CamCat;
 import modeles.CtrlCat;
 import vues.CamFrame;
 import exceptions.CamException;
@@ -12,12 +15,28 @@ import exceptions.CamException;
 public class Controleur implements ActionListener{
 
 	private CtrlCat oModel;
+	private CamCat oModCam;
 	private CamFrame cfFrame;
 	
 	
 	public Controleur() {
 		oModel = new CtrlCat();
-		cfFrame = new CamFrame("DroneCtrl", oModel);
+		
+		try {
+			oModCam = new CamCat();
+		} catch (FileNotFoundException e) {
+			if( Debug.isEnable() ){
+				System.out.println("fichier de config cam non trouvé");
+				e.printStackTrace();
+			}
+		} catch (MalformedURLException e) {
+			if( Debug.isEnable() ){
+				System.out.println("Une adresse de cam n'est pas valide");
+				e.printStackTrace();
+			}
+		}
+		
+		cfFrame = new CamFrame("DroneCtrl", oModel, oModCam);
 		cfFrame.setListener(this);
 	}
 
@@ -57,9 +76,9 @@ public class Controleur implements ActionListener{
 			 
 		 }else if (action.equals("SELECTEDDEVICE")) {
 			if( Debug.isEnable() )
-				System.out.println("SelectedCam : "+cfFrame.getSelectedDevice());
+				System.out.println("SelectedCam : "+cfFrame.getSelectedCam());
 			
-			oModel.setSelectedDevice(cfFrame.getSelectedDevice());	
+			oModCam.setSelectedCam(cfFrame.getSelectedCam());	
 		}
 		
 	}

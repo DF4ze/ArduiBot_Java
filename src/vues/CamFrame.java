@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 import exceptions.CamException;
+import modeles.CamCat;
 import modeles.CtrlCat;
 import vues.panels.BigPanel;
 
@@ -17,11 +18,11 @@ public class CamFrame extends JFrame {
 	
 	private BigPanel bp;
 
-	public CamFrame(String arg0, CtrlCat oModel) throws HeadlessException {
+	public CamFrame(String arg0, CtrlCat oModel, CamCat oModCam) throws HeadlessException {
 		super(arg0);
 		
 		
-		bp = new BigPanel( oModel );
+		bp = new BigPanel( oModel, oModCam );
 		add( bp);		
 		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -34,8 +35,8 @@ public class CamFrame extends JFrame {
 		bp.setListener( ac );
 	}
 	
-	public String getSelectedDevice(){
-		return bp.getSelectedDevice();
+	public String getSelectedCam(){
+		return bp.getSelectedCam();
 	}
 	
 	public void setCamError( String sError ){
