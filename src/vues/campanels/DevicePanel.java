@@ -1,4 +1,4 @@
-package vues.panels;
+package vues.campanels;
 
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -15,6 +15,8 @@ public class DevicePanel extends JPanel implements Observer{
 	private static final long serialVersionUID = 1L;
 
 	private JButton btnConnect;
+	private JButton btnAddCam;
+	private JButton btnSaveCams;
 	private JComboBox<String> combCamChoix;
 	
 	private CamCat oModCam;
@@ -22,13 +24,17 @@ public class DevicePanel extends JPanel implements Observer{
 	
 	public DevicePanel( CamCat oModCam ) {
 		this.oModCam = oModCam;
-		oModCam.addObserver(this);
+//		oModCam.addObserver(this);
 		
 		btnConnect = new JButton("Connect");	
+		btnAddCam = new JButton("Add Cam");	
+		btnSaveCams = new JButton("Save Cams");	
 		combCamChoix = new JComboBox<String>(this.oModCam.getArrayCams());
 		
 		add( combCamChoix );
 		add( btnConnect );
+		add( btnAddCam );
+		add( btnSaveCams );
 	}
 
 
@@ -46,6 +52,12 @@ public class DevicePanel extends JPanel implements Observer{
 		
 		btnConnect.addActionListener( ac );
 		btnConnect.setActionCommand("BTNCONNECT");
+		
+		btnAddCam.addActionListener( ac );
+		btnAddCam.setActionCommand("BTNADDCAM");
+		
+		btnSaveCams.addActionListener( ac );
+		btnSaveCams.setActionCommand("BTNSAVECAMS");
 	}
 	
 	public String getSelectedCam(){

@@ -1,4 +1,4 @@
-package vues.panels.controls;
+package vues.campanels.controls;
 
 import java.awt.event.ActionListener;
 import java.util.Observable;

@@ -1,4 +1,4 @@
-package vues.panels;
+package vues.campanels;
 
 import java.awt.event.ActionListener;
 
@@ -6,9 +6,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import modeles.CtrlCat;
-import vues.panels.controls.DirectionPanel;
-import vues.panels.controls.ExtraPanel;
-import vues.panels.controls.TourellePanel;
+import vues.campanels.controls.DirectionPanel;
+import vues.campanels.controls.ExtraPanel;
+import vues.campanels.controls.TourellePanel;
 
 public class ControlPanel extends JPanel {
 

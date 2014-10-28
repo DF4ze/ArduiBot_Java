@@ -1,4 +1,4 @@
-package vues.panels;
+package vues.campanels;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;

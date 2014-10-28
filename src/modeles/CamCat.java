@@ -15,13 +15,15 @@ import com.github.sarxos.webcam.ds.ipcam.IpCamDeviceRegistry;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDriver;
 import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
 
+import controleurs.Debug;
+
 public class CamCat extends Observable{
 	
 	private ArrayList<String> cams = new  ArrayList<String>();
 	private ArrayList<IpCamDevice> devices = new ArrayList<IpCamDevice>();
 	private int indexSelectedDevice = 0;
 	
-	public static final String FILECAM = "ipcams/listIPCams.txt";
+	public static final String FILECAM = "ipcams/listIPCams.properties";
 	
     static {
         Webcam.setDriver(new WebcamCompositeDriver(new WebcamDefaultDriver(), new IpCamDriver()));
@@ -29,26 +31,39 @@ public class CamCat extends Observable{
     
     
     
-	public CamCat() throws FileNotFoundException, MalformedURLException {
+	public CamCat(){
 		// savoir s'il y a la cam locale de connecté
 		if( Webcam.getDefault() != null ) {
 			cams.add("local");
 		} 
 		
 		// Récupérer les IP des cam distantes
-		this.cams.addAll( FileIPCamReader.readCams() );
+		try {
+			this.cams.addAll( FileIPCamReader.readCams() );
 		
-		// les transformer en DEVICE
-		for( String url : cams ){
-			if( url.equals("local") )
-				devices.add(null);
-			else{
-				IpCamDevice myIpCam = new IpCamDevice( url, url, IpCamMode.PUSH);
-				devices.add( myIpCam );
-				// les ajouter au registre
-				IpCamDeviceRegistry.register( myIpCam );
+			// les transformer en DEVICE
+			for( String url : cams ){
+				if( url.equals("local") )
+					devices.add(null);
+				else{
+					// on tente la création d'un IPDEVICE
+					try {
+						IpCamDevice myIpCam = new IpCamDevice( url, url, IpCamMode.PUSH);
+						devices.add( myIpCam );
+						// les ajouter au registre
+						IpCamDeviceRegistry.register( myIpCam );
+					} catch (MalformedURLException e) {
+						if( Debug.isEnable() )
+							e.printStackTrace();
+					}
+	
+				}
 			}
+		} catch (FileNotFoundException e1) {
+			if( Debug.isEnable() )
+				e1.printStackTrace();
 		}
+
 		
 	}
 
@@ -82,5 +97,10 @@ public class CamCat extends Observable{
 
 	public int getIndexSelectedDevice(){
 		return indexSelectedDevice;
+	}
+	
+	
+	public void saveCams(){
+		FileIPCamReader.writeIPCamToProperties(devices);
 	}
 }

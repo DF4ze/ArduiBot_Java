@@ -2,11 +2,10 @@ package controleurs;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
 
 import modeles.CamCat;
 import modeles.CtrlCat;
+import vues.AddCamFrame;
 import vues.CamFrame;
 import exceptions.CamException;
 
@@ -17,24 +16,12 @@ public class Controleur implements ActionListener{
 	private CtrlCat oModel;
 	private CamCat oModCam;
 	private CamFrame cfFrame;
+	private AddCamFrame cfAddFrame;
 	
 	
 	public Controleur() {
 		oModel = new CtrlCat();
-		
-		try {
-			oModCam = new CamCat();
-		} catch (FileNotFoundException e) {
-			if( Debug.isEnable() ){
-				System.out.println("fichier de config cam non trouvé");
-				e.printStackTrace();
-			}
-		} catch (MalformedURLException e) {
-			if( Debug.isEnable() ){
-				System.out.println("Une adresse de cam n'est pas valide");
-				e.printStackTrace();
-			}
-		}
+		oModCam = new CamCat();
 		
 		cfFrame = new CamFrame("DroneCtrl", oModel, oModCam);
 		cfFrame.setListener(this);
@@ -79,6 +66,20 @@ public class Controleur implements ActionListener{
 				System.out.println("SelectedCam : "+cfFrame.getSelectedCam());
 			
 			oModCam.setSelectedCam(cfFrame.getSelectedCam());	
+			
+		}else if (action.equals("BTNSAVECAMS")) {			
+			oModCam.saveCams();	
+			
+			
+		}else if( action.equals("BTNADDCAM") ){
+			cfAddFrame = new AddCamFrame("Ajouter une caméra");
+			cfAddFrame.setListener(this);
+			
+		}else if( action.equals("OKADDCAM") ){
+			// Do Job
+			cfAddFrame.dispose();
+		}else if( action.equals("ANNULERADDCAM") ){
+			cfAddFrame.dispose();
 		}
 		
 	}

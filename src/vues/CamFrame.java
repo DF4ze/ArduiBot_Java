@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import exceptions.CamException;
 import modeles.CamCat;
 import modeles.CtrlCat;
-import vues.panels.BigPanel;
+import vues.campanels.BigPanel;
 
 public class CamFrame extends JFrame {
 
