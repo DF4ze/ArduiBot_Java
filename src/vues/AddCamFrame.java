@@ -2,9 +2,11 @@ package vues;
 
 import java.awt.HeadlessException;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 
+import modeles.CamCat;
 import vues.addcampanels.BigPanel;
 
 public class AddCamFrame extends JFrame {
@@ -14,10 +16,10 @@ public class AddCamFrame extends JFrame {
 
 	private BigPanel bp;
 	
-	public AddCamFrame(String title) throws HeadlessException {
+	public AddCamFrame(String title, CamCat oModCam) throws HeadlessException {
 		super(title);
 		
-		bp = new BigPanel( );
+		bp = new BigPanel( oModCam );
 		add( bp);
 		
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -29,4 +31,7 @@ public class AddCamFrame extends JFrame {
 		bp.setListener(ac);
 	}
 
+	public HashMap<String, String> getValues(){
+		return bp.getValues();
+	}
 }

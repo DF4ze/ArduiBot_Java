@@ -35,7 +35,7 @@ public class CamFrame extends JFrame {
 		bp.setListener( ac );
 	}
 	
-	public String getSelectedCam(){
+	public int getSelectedCam(){
 		return bp.getSelectedCam();
 	}
 	

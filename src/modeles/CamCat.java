@@ -1,11 +1,14 @@
 package modeles;
 
-import java.io.FileNotFoundException;
+import java.awt.Dimension;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Observable;
 
-import modeles.reader.FileIPCamReader;
+import modeles.tools.CamDimension;
+import modeles.tools.CamMode;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamCompositeDriver;
@@ -16,12 +19,21 @@ import com.github.sarxos.webcam.ds.ipcam.IpCamDriver;
 import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
 
 import controleurs.Debug;
+import exceptions.CamException;
 
 public class CamCat extends Observable{
 	
-	private ArrayList<String> cams = new  ArrayList<String>();
-	private ArrayList<IpCamDevice> devices = new ArrayList<IpCamDevice>();
+//	private ArrayList<String> cams = new  ArrayList<String>();
+//	private ArrayList<IpCamDevice> devices = new ArrayList<IpCamDevice>();
 	private int indexSelectedDevice = 0;
+	private CamDimension[] camDimensions = new CamDimension[]{
+			new CamDimension(320, 240, "QVGA"),
+			new CamDimension(640, 480, "VGA"), 
+			new CamDimension(800, 600, "SVGA"),
+			new CamDimension(1024, 768, "XGA")};
+	private CamMode[] camModes = new CamMode[]{ 
+			new CamMode(IpCamMode.PUSH, "PUSH" ),
+			new CamMode(IpCamMode.PULL, "PULL" )};
 	
 	public static final String FILECAM = "ipcams/listIPCams.properties";
 	
@@ -32,7 +44,7 @@ public class CamCat extends Observable{
     
     
 	public CamCat(){
-		// savoir s'il y a la cam locale de connecté
+/*		// savoir s'il y a la cam locale de connecté
 		if( Webcam.getDefault() != null ) {
 			cams.add("local");
 		} 
@@ -64,26 +76,55 @@ public class CamCat extends Observable{
 				e1.printStackTrace();
 		}
 
-		
+*/		
 	}
 
 
 
-	public ArrayList<String> getCams() {
-		return cams;
-	}
+//	public ArrayList<String> getCams() {
+//		return cams;
+//	}
 	public String[] getArrayCams() {
-		String[] retour = new String[ cams.size() ];
+		//On récupère le(s) cam(s) locale(s)
+		Collection<Webcam> webCams = Webcam.getWebcams();
+		
+		//On récupère le(s) cam(s) IP(s)
+		Collection<IpCamDevice> ipCams = IpCamDeviceRegistry.getIpCameras();
+		
+		// Préparation du tableau de retour
+		String[] retour = new String[ webCams.size() ];
 		int i=0;
-		for( String cam : cams )
-			retour[i++] = cam;
+		
+		// On fait le tour des webcams
+		for( Webcam webCam : webCams ){
+			String fullName = webCam.getName();
+			boolean bFinded = false;
+			// est-ce qu'on retrouve ce nom dans une camIP?
+			for( IpCamDevice cam : ipCams ){
+				// si oui, on affiche l'IP
+				if( fullName.equals(cam.getName()) ){
+					bFinded = true;
+					fullName += " ("+cam.getURL()+")";
+					break;
+				}
+			}
+			// si non on affiche LOCALE
+			if( !bFinded )
+				fullName += " (locale)";
+			
+			retour[i++] = fullName;
+		}
+		
+		if( Debug.isEnable() )
+			System.out.println("Nb Cams : "+retour.length);
+		
 		return retour;
 	}
 
 	
-	public ArrayList<IpCamDevice> getDevices() {
-		return devices;
-	}
+//	public ArrayList<IpCamDevice> getDevices() {
+//		return devices;
+//	}
 	
 
 
@@ -91,8 +132,8 @@ public class CamCat extends Observable{
 //	public String getSelectedCam() {
 //		return selectedCam;
 //	}
-	public void setSelectedCam(String selectedCam) {
-		indexSelectedDevice = cams.indexOf( selectedCam );
+	public void setSelectedCam(int selectedCam) {
+		indexSelectedDevice = selectedCam;
 	}
 
 	public int getIndexSelectedDevice(){
@@ -100,7 +141,109 @@ public class CamCat extends Observable{
 	}
 	
 	
-	public void saveCams(){
-		FileIPCamReader.writeIPCamToProperties(devices);
+//	public void saveCams(){
+//		FileIPCamReader.writeIPCamToProperties(devices);
+//	}
+	
+	public void addCam( HashMap<String, String> alDatas ) throws CamException, MalformedURLException{
+		// formatage des Datas
+		String name = null;
+		String url = null;
+		IpCamMode mode = null;
+		Dimension size = null;
+		
+		Iterator<String> keySetIterator = alDatas.keySet().iterator();
+
+		while(keySetIterator.hasNext()){
+		  String key = keySetIterator.next();
+
+		  if( key.equals("name") ){
+			  if( alDatas.get(key).equals("") )
+				  throw new CamException( "Le nom de la caméra ne peut pas être vide" );
+			  else
+				  name = alDatas.get(key);
+			  
+		  }else if( key.equals("url") ){
+			  if( alDatas.get(key).equals("") )
+				  throw new CamException( "L'URL de la caméra ne peut pas être vide" );
+			  else
+				  url = alDatas.get(key);
+			  
+		  }else if( key.equals("mode") ){
+			  for( CamMode unMode : camModes ){
+				  if( alDatas.get(key).equals(unMode) )
+					  mode = unMode.getMode();
+			  }
+			  
+		  }else if( key.equals("size") ){
+			  for( CamDimension cdDim : camDimensions ){
+				  if( alDatas.get(key).equals(cdDim) ){
+					  size = cdDim;
+					  break;
+				  }
+			  }
+		  }else
+			  ;
+		}
+		
+		// vérifications...
+		if( name == null )
+			  throw new CamException( "Le nom de la caméra ne peut pas être vide" );
+			
+		if( url == null)
+			  throw new CamException( "L'URL de la caméra ne peut pas être vide" );
+			
+		if( mode == null )
+			mode = IpCamMode.PUSH;
+		
+		
+		// on tente la création d'un IPDEVICE
+		// création du device
+		IpCamDevice myIpCam = new IpCamDevice( name, url, mode );
+		
+		// Application de la résolution
+		if( size != null )
+			myIpCam.setResolution(size);
+		
+		// les ajouter au registre
+		IpCamDeviceRegistry.register( myIpCam );
+		
+		// ajout a la liste
+		//devices.add( myIpCam );
+			
+		// On prévient les observateurs
+		setChanged();
+		notifyObservers("CAMADDED");
+
 	}
+
+
+
+
+
+	public CamDimension[] getCamDimensions() {
+		return camDimensions;
+	}
+	protected void setCamDimensions(CamDimension[] camDimensions) {
+		this.camDimensions = camDimensions;
+	}
+
+
+
+	public CamMode[] getCamModes() {
+		return camModes;
+	}
+	protected void setCamModes(CamMode[] camModes) {
+		this.camModes = camModes;
+	}
+
 }
+
+
+
+
+
+
+
+
+

@@ -4,10 +4,12 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+import controleurs.Debug;
 import modeles.CamCat;
 
 public class DevicePanel extends JPanel implements Observer{
@@ -18,18 +20,20 @@ public class DevicePanel extends JPanel implements Observer{
 	private JButton btnAddCam;
 	private JButton btnSaveCams;
 	private JComboBox<String> combCamChoix;
+	private DefaultComboBoxModel<String> combModelCamChoix;
 	
 	private CamCat oModCam;
 	
 	
 	public DevicePanel( CamCat oModCam ) {
 		this.oModCam = oModCam;
-//		oModCam.addObserver(this);
+		oModCam.addObserver(this);
 		
 		btnConnect = new JButton("Connect");	
 		btnAddCam = new JButton("Add Cam");	
-		btnSaveCams = new JButton("Save Cams");	
-		combCamChoix = new JComboBox<String>(this.oModCam.getArrayCams());
+		btnSaveCams = new JButton("Save Cams");
+		combModelCamChoix = new DefaultComboBoxModel<String>(this.oModCam.getArrayCams());
+		combCamChoix = new JComboBox<String>(combModelCamChoix);
 		
 		add( combCamChoix );
 		add( btnConnect );
@@ -39,9 +43,14 @@ public class DevicePanel extends JPanel implements Observer{
 
 
 	@Override
-	public void update(Observable o, Object arg) {
+	public void update(Observable o, Object message) {
 		if( o == oModCam ){
-			
+			if( message.equals("CAMADDED") ){
+				if( Debug.isEnable() )
+					System.out.println( "DevicePanel : CamAdded" );
+				combModelCamChoix = new DefaultComboBoxModel<String>(this.oModCam.getArrayCams());
+				combCamChoix.setModel(combModelCamChoix);
+			}
 		}
 		
 	}
@@ -60,8 +69,8 @@ public class DevicePanel extends JPanel implements Observer{
 		btnSaveCams.setActionCommand("BTNSAVECAMS");
 	}
 	
-	public String getSelectedCam(){
-		return (String)(combCamChoix.getSelectedItem());
+	public int getSelectedCam(){
+		return combCamChoix.getSelectedIndex();
 	}
 	
 }

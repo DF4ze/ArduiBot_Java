@@ -2,40 +2,50 @@ package vues.addcampanels;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-import vues.tools.PlaceholderTextField;
+import modeles.CamCat;
+import modeles.tools.CamDimension;
+import modeles.tools.CamMode;
 
 public class BigPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private PlaceholderTextField tfName;
-	private PlaceholderTextField tfURL;
-	private JComboBox<String> combMode;
+	private JTextField tfName;
+	private JTextField tfURL;
+	private JComboBox<CamMode> combMode;
 	private JCheckBox chkbMode;
-	private PlaceholderTextField tfHeight;
-	private PlaceholderTextField tfWidth;
+	private JComboBox<CamDimension> combSize;
 	private JCheckBox chkbSize;
 	private JButton btnOK;
 	private JButton btnAnnuler;
 	
 	
-	public BigPanel() {
+	public BigPanel( CamCat oModCam ) {
 		setLayout(new GridBagLayout());
+		setBorder(BorderFactory.createTitledBorder("Ajouter Caméra"));
+
 		
 		// Création des éléments
-		tfName = new PlaceholderTextField("Nom de la caméra");
-		tfURL = new PlaceholderTextField("URL de la caméra");
-		tfHeight = new PlaceholderTextField("Hauteur de la caméra");
-		tfWidth = new PlaceholderTextField("Largeur de la caméra");
+		tfName = new JTextField();
+		JLabel lblName = new JLabel("Nom : ");
+		tfURL = new JTextField();
+		JLabel lblURL = new JLabel("URL : ");
+		combSize = new JComboBox<CamDimension>( oModCam.getCamDimensions());
 		
-		combMode = new JComboBox<String>(new String[]{"PUSH", "PULL"});
+		combMode = new JComboBox<CamMode>(oModCam.getCamModes());
 		
 		chkbMode = new JCheckBox();
 		chkbSize = new JCheckBox();
@@ -43,53 +53,82 @@ public class BigPanel extends JPanel {
 		btnOK = new JButton("OK");
 		btnAnnuler = new JButton("Annuler");
 		
-		tfHeight.setEnabled(false);
-		tfWidth.setEnabled(false);
+		combSize.setEnabled(false);
 		combMode.setEnabled(false);
 		
 		
+		// Insertion des éléments
 		GridBagConstraints c = new GridBagConstraints();
-		
 		int iLigne = 0;
-		c.gridx = 1;
+		Insets i = new Insets(5, 5, 5, 5);
+		c.insets = i;
+		
+		// Name
+		c.gridx = 0;
 		c.gridy = iLigne++;
-		c.gridwidth = 2;
+		c.gridwidth = 1;
 		c.gridheight = 1;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		add( lblName, c );
+		c.gridx = 1;
+		c.gridwidth = 3;
 		add( tfName, c );
 		
+		// URL
 		c.gridy = iLigne++;
+		c.gridx = 0;
+		c.gridwidth = 1;
+		add( lblURL, c );
+		c.gridx = 1;
+		c.gridwidth = 3;
 		add( tfURL, c );
 		
-		c.gridy = iLigne;
+		// Mode
+		c.gridy = iLigne++;
 		c.gridx = 0;
 		c.gridwidth = 1;
 		add( chkbMode, c );
-		
 		c.gridx = 1;
-		c.gridy = iLigne++;
+		c.gridwidth = 3;
 		add( combMode, c );
 		
+		// Size
 		c.gridx = 0;
-		c.gridy = iLigne;
+		c.gridy = iLigne++;
 		c.gridwidth = 1;
 		add( chkbSize, c );
-		
 		c.gridx = 1;
-		c.gridy = iLigne++;
-		add( tfHeight, c );
+		c.gridwidth = 3;
+		add( combSize, c );
 		
+		// Boutons
 		c.gridx = 1;
-		c.gridy = iLigne++;
-		add( tfWidth, c );
-		
-		c.gridx = 0;
 		c.gridy = iLigne;
+		c.gridwidth = 2;
 		add( btnOK, c );
 		
-		c.gridx = 1;
+		c.gridx = 3;
+		c.gridwidth = 1;
 		add( btnAnnuler, c );
 		
 		
+		// Gestion en local du grisage/dégrisable des comboBox
+		chkbMode.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if( combMode.isEnabled() )
+					combMode.setEnabled(false);		
+				else
+					combMode.setEnabled(true);	
+			}
+		});
+		chkbSize.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if( combSize.isEnabled() )
+					combSize.setEnabled(false);		
+				else
+					combSize.setEnabled(true);	
+			}
+		});
 	}
 
 	public void setListener( ActionListener ac ){
@@ -99,4 +138,22 @@ public class BigPanel extends JPanel {
 		btnAnnuler.addActionListener( ac );
 		btnAnnuler.setActionCommand("ANNULERADDCAM");
 	}
+	
+	public HashMap<String, String> getValues(){
+		HashMap<String, String> alDatas = new HashMap<String, String>();
+		
+		alDatas.put("name", tfName.getText());
+		alDatas.put("url", tfURL.getText());
+		if( chkbMode.isSelected() )
+			alDatas.put( "mode", (String)(combMode.getSelectedItem()) );
+		if( chkbSize.isSelected() )
+			alDatas.put( "size", (String)(combSize.getSelectedItem()) );
+		
+		return alDatas;
+	}
 }
+
+
+
+
+

@@ -49,7 +49,7 @@ public class BigPanel extends JPanel {
 		devP.setListener( ac );
 	}
 	
-	public String getSelectedCam(){
+	public int getSelectedCam(){
 		return devP.getSelectedCam();
 	}
 	
