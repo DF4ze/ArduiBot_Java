@@ -1,14 +1,19 @@
 package modeles;
 
 import java.awt.Dimension;
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Observable;
 
+import modeles.dao.FileIPCamStream;
 import modeles.tools.CamDimension;
 import modeles.tools.CamMode;
+
+import org.json.simple.parser.ParseException;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamCompositeDriver;
@@ -35,7 +40,7 @@ public class CamCat extends Observable{
 			new CamMode(IpCamMode.PUSH, "PUSH" ),
 			new CamMode(IpCamMode.PULL, "PULL" )};
 	
-	public static final String FILECAM = "ipcams/listIPCams.properties";
+	public static final String FILECAM = "ipcams/listIPCams.json";
 	
     static {
         Webcam.setDriver(new WebcamCompositeDriver(new WebcamDefaultDriver(), new IpCamDriver()));
@@ -77,6 +82,14 @@ public class CamCat extends Observable{
 		}
 
 */		
+		try {
+			readCams();
+		} catch (IOException | ParseException | CamException e) {
+			if( Debug.isEnable() ){
+				System.out.println("Erreur de lecture des cams lors du chargement");
+				e.printStackTrace();
+			}
+		}
 	}
 
 
@@ -141,9 +154,19 @@ public class CamCat extends Observable{
 	}
 	
 	
-//	public void saveCams(){
-//		FileIPCamReader.writeIPCamToProperties(devices);
-//	}
+	public void saveCams() throws IOException{
+
+		FileIPCamStream.ipCamToJSON(IpCamDeviceRegistry.getIpCameras(), CamCat.FILECAM);
+	}
+	
+	public void readCams() throws IOException, ParseException, CamException{
+		
+		ArrayList<HashMap<String, String>> cams = FileIPCamStream.JSONToIpCam(CamCat.FILECAM);
+		
+		for( HashMap<String, String> cam : cams ){
+			addCam(cam);
+		}
+	}
 	
 	public void addCam( HashMap<String, String> alDatas ) throws CamException, MalformedURLException{
 		// formatage des Datas

@@ -2,9 +2,12 @@ package controleurs;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.MalformedURLException;
 
 import javax.swing.JOptionPane;
+
+import org.json.simple.parser.ParseException;
 
 import modeles.CamCat;
 import modeles.CtrlCat;
@@ -71,7 +74,30 @@ public class Controleur implements ActionListener{
 			oModCam.setSelectedCam(cfFrame.getSelectedCam());	
 			
 		}else if (action.equals("BTNSAVECAMS")) {			
-//			oModCam.saveCams();	
+			try {
+				oModCam.saveCams();
+			} catch (IOException e1) {
+				JOptionPane.showMessageDialog(null,
+					    "Erreur lors de la sauvegarde des caméras...",
+					    "Erreur de sauvegarde des Caméras",
+					    JOptionPane.ERROR_MESSAGE);
+			}
+			
+			
+		}else if (action.equals("BTNREADCAMS")) {			
+			try {
+				oModCam.readCams();
+			} catch (IOException e1) {
+				JOptionPane.showMessageDialog(null,
+					    "Erreur lors de la lecture du fichier de caméra...",
+					    "Erreur de chargement des Caméras",
+					    JOptionPane.ERROR_MESSAGE);
+			} catch (ParseException|CamException e1) {
+				JOptionPane.showMessageDialog(null,
+					    "Erreur lors du décryptage du fichier de caméra...",
+					    "Erreur de chargement des Caméras",
+					    JOptionPane.ERROR_MESSAGE);
+			}
 			
 			
 		}else if( action.equals("BTNADDCAM") ){

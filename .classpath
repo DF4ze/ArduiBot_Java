@@ -17,5 +17,6 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/Klm&amp;Didie/Dropbox/sources/eclipse/ArduiBot_Java/libs_rxtx"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="libs_JSON/json-simple-1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

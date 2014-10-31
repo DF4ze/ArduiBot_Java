@@ -19,6 +19,7 @@ public class DevicePanel extends JPanel implements Observer{
 	private JButton btnConnect;
 	private JButton btnAddCam;
 	private JButton btnSaveCams;
+	private JButton btnReadCams;
 	private JComboBox<String> combCamChoix;
 	private DefaultComboBoxModel<String> combModelCamChoix;
 	
@@ -32,6 +33,7 @@ public class DevicePanel extends JPanel implements Observer{
 		btnConnect = new JButton("Connect");	
 		btnAddCam = new JButton("Add Cam");	
 		btnSaveCams = new JButton("Save Cams");
+		btnReadCams = new JButton("Read Cams");
 		combModelCamChoix = new DefaultComboBoxModel<String>(this.oModCam.getArrayCams());
 		combCamChoix = new JComboBox<String>(combModelCamChoix);
 		
@@ -39,6 +41,7 @@ public class DevicePanel extends JPanel implements Observer{
 		add( btnConnect );
 		add( btnAddCam );
 		add( btnSaveCams );
+		add( btnReadCams );
 	}
 
 
@@ -67,6 +70,9 @@ public class DevicePanel extends JPanel implements Observer{
 		
 		btnSaveCams.addActionListener( ac );
 		btnSaveCams.setActionCommand("BTNSAVECAMS");
+		
+		btnReadCams.addActionListener( ac );
+		btnReadCams.setActionCommand("BTNREADCAMS");
 	}
 	
 	public int getSelectedCam(){
