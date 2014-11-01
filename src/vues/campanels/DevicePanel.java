@@ -23,6 +23,8 @@ public class DevicePanel extends JPanel implements Observer{
 	private JIconButton btnDelCam;
 	private JIconButton btnSaveCams;
 	private JIconButton btnReadCams;
+	private JIconButton btnTakePicture;
+	private JIconButton btnTakeVideo;
 	private JComboBox<String> combCamChoix;
 	private DefaultComboBoxModel<String> combModelCamChoix;
 	
@@ -33,12 +35,14 @@ public class DevicePanel extends JPanel implements Observer{
 		this.oModCam = oModCam;
 		oModCam.addObserver(this);
 		
-		btnConnect 	= new JIconButton( new ImageIcon("images/play.png"), new ImageIcon("images/play_over.png"), new ImageIcon("images/play_down.png") );
-		btnStop 	= new JIconButton( new ImageIcon("images/stop.png"), new ImageIcon("images/stop_over.png"), new ImageIcon("images/stop_down.png") );	
-		btnAddCam 	= new JIconButton( new ImageIcon("images/add.png"), new ImageIcon("images/add_over.png"), new ImageIcon("images/add_down.png") );	
-		btnDelCam 	= new JIconButton( new ImageIcon("images/del.png"), new ImageIcon("images/del_over.png"), new ImageIcon("images/del_down.png") );	
-		btnSaveCams = new JIconButton( new ImageIcon("images/save.png"), new ImageIcon("images/save_over.png"), new ImageIcon("images/save_down.png") );
-		btnReadCams = new JIconButton( new ImageIcon("images/open.png"),new ImageIcon("images/open_over.png"), new ImageIcon("images/open_down.png") );
+		btnConnect 		= new JIconButton( new ImageIcon("images/play.png"), new ImageIcon("images/play_over.png"), new ImageIcon("images/play_down.png") );
+		btnStop 		= new JIconButton( new ImageIcon("images/stop.png"), new ImageIcon("images/stop_over.png"), new ImageIcon("images/stop_down.png") );	
+		btnAddCam 		= new JIconButton( new ImageIcon("images/add.png"), new ImageIcon("images/add_over.png"), new ImageIcon("images/add_down.png") );	
+		btnDelCam 		= new JIconButton( new ImageIcon("images/del.png"), new ImageIcon("images/del_over.png"), new ImageIcon("images/del_down.png") );	
+		btnSaveCams 	= new JIconButton( new ImageIcon("images/save.png"), new ImageIcon("images/save_over.png"), new ImageIcon("images/save_down.png") );
+		btnReadCams 	= new JIconButton( new ImageIcon("images/open.png"),new ImageIcon("images/open_over.png"), new ImageIcon("images/open_down.png") );
+		btnTakePicture 	= new JIconButton( new ImageIcon("images/photo.png"),new ImageIcon("images/photo.png"), new ImageIcon("images/photo.png") );
+		btnTakeVideo 	= new JIconButton( new ImageIcon("images/video.png"),new ImageIcon("images/video.png"), new ImageIcon("images/video.png") );
 		
 		combModelCamChoix 	= new DefaultComboBoxModel<String>(this.oModCam.getArrayCams());
 		combCamChoix 		= new JComboBox<String>(combModelCamChoix);
@@ -51,6 +55,8 @@ public class DevicePanel extends JPanel implements Observer{
 		add( btnSaveCams );
 		if( Debug.isEnable() )
 			add( btnReadCams );
+		add( btnTakePicture );
+		add( btnTakeVideo );
 	}
 
 
@@ -88,6 +94,12 @@ public class DevicePanel extends JPanel implements Observer{
 		
 		btnReadCams.addActionListener( ac );
 		btnReadCams.setActionCommand("BTNREADCAMS");
+		
+		btnTakePicture.addActionListener( ac );
+		btnTakePicture.setActionCommand("BTNTAKEPICTURE");
+		
+		btnTakeVideo.addActionListener( ac );
+		btnTakeVideo.setActionCommand("BTNTAKEVIDEO");
 	}
 	
 	public int getSelectedCam(){

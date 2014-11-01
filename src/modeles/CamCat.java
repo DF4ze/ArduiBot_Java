@@ -1,6 +1,8 @@
 package modeles;
 
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -8,6 +10,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Observable;
+
+import javax.imageio.ImageIO;
 
 import modeles.dao.FileIPCamStream;
 import modeles.tools.CamDimension;
@@ -39,6 +43,7 @@ public class CamCat extends Observable{
 			new CamMode(IpCamMode.PULL, "PULL" )};
 	
 	public static final String FILECAM = "ipcams/listIPCams.json";
+	public static final String FILECAPPHOTO = "captures/photo.png";
 	
     static {
         Webcam.setDriver(new WebcamCompositeDriver(new WebcamDefaultDriver(), new IpCamDriver()));
@@ -47,39 +52,7 @@ public class CamCat extends Observable{
     
     
 	public CamCat(){
-/*		// savoir s'il y a la cam locale de connecté
-		if( Webcam.getDefault() != null ) {
-			cams.add("local");
-		} 
-		
-		// Récupérer les IP des cam distantes
-		try {
-			this.cams.addAll( FileIPCamReader.readCams() );
-		
-			// les transformer en DEVICE
-			for( String url : cams ){
-				if( url.equals("local") )
-					devices.add(null);
-				else{
-					// on tente la création d'un IPDEVICE
-					try {
-						IpCamDevice myIpCam = new IpCamDevice( url, url, IpCamMode.PUSH);
-						devices.add( myIpCam );
-						// les ajouter au registre
-						IpCamDeviceRegistry.register( myIpCam );
-					} catch (MalformedURLException e) {
-						if( Debug.isEnable() )
-							e.printStackTrace();
-					}
-	
-				}
-			}
-		} catch (FileNotFoundException e1) {
-			if( Debug.isEnable() )
-				e1.printStackTrace();
-		}
 
-*/		
 		try {
 			readCams();
 		} catch (IOException | ParseException | CamException e) {
@@ -259,7 +232,6 @@ public class CamCat extends Observable{
 	}
 
 
-
 	public CamMode[] getCamModes() {
 		return camModes;
 	}
@@ -267,6 +239,26 @@ public class CamCat extends Observable{
 		this.camModes = camModes;
 	}
 
+	public void takePicture() throws IOException{
+		// get image
+		BufferedImage image = Webcam.getDefault().getImage();
+
+		// save image to PNG file
+//		File newPhotoTemplate = new File( FILECAPPHOTO );
+		File newPhoto = new File( FILECAPPHOTO );
+//		int i=1;
+//		while( newPhoto.exists() ){
+//			newPhoto =  new File( newPhotoTemplate.get+ i +".png");
+//			i++;
+//		}
+			
+			
+		ImageIO.write(image, "PNG", newPhoto);
+	}
+	
+	public void takeVideo(){
+		
+	}
 }
 
 

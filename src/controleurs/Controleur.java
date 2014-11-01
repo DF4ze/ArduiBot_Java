@@ -131,7 +131,24 @@ public class Controleur implements ActionListener{
 			
 		}else if( action.equals("ANNULERADDCAM") ){
 			cfAddFrame.dispose();
-		}
+			
+		}else if( action.equals("BTNTAKEPICTURE") ){
+			try {
+				oModCam.takePicture();
+			} catch (IOException e1) {
+				if( Debug.isEnable() )
+					e1.printStackTrace();
+				
+				JOptionPane.showMessageDialog(null,
+					    "Erreur lors de l'écriture de l'image",
+					    "Prendre une photo",
+					    JOptionPane.ERROR_MESSAGE);
+			}
+			
+		}else if( action.equals("BTNTAKEVIDEO") ){
+			;
+			
+		} 
 		
 	}
 
