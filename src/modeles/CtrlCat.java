@@ -10,10 +10,8 @@ public class CtrlCat extends Observable {
 	private boolean tourelleEnable = false;
 	private boolean cameraEnable = false;
 	private boolean extraEnable = false;
-	
-	private String[] Devices = {"local", "http://192.168.1.33:8080/?action=stream"};
-	private String selectedDevice = "local";
-	
+	private boolean takePictureEnable = false;
+	private boolean takeVideoEnable = false;
 	
 
 	public CtrlCat() {
@@ -63,6 +61,13 @@ public class CtrlCat extends Observable {
 			System.out.println("Model : setCameraEnable: "+cameraEnable);
 		
 		this.cameraEnable = cameraEnable;
+
+		setDirectionEnable(cameraEnable);
+		setTourelleEnable(cameraEnable);
+		setExtraEnable(cameraEnable);
+		setTakePictureEnable(cameraEnable);
+		setTakeVideoEnable(cameraEnable);
+
 		setChanged();
 		notifyObservers("CAMERAENABLE");
 	}
@@ -83,30 +88,28 @@ public class CtrlCat extends Observable {
 
 
 
-	public String[] getDevices() {
-		return Devices;
+	public boolean isTakePictureEnable() {
+		return takePictureEnable;
 	}
-	public void setDevices(String[] devices) {
-		if( Debug.isEnable() )
-			System.out.println("Model : setDevices: "+devices);
+	public void setTakePictureEnable(boolean takePhotoEnable) {
+		this.takePictureEnable = takePhotoEnable;
 		
-		Devices = devices;
 		setChanged();
-		notifyObservers("SETDEVICE");
+		notifyObservers("TAKEPICTUREENABLE");
+
 	}
 
 
 
-	public String getSelectedDevice() {
-		return selectedDevice;
+	public boolean isTakeVideoEnable() {
+		return takeVideoEnable;
 	}
-	public void setSelectedDevice(String selectedDevice) {
-		if( Debug.isEnable() )
-			System.out.println("Model : setSelectedDevice: "+selectedDevice);
-
-		this.selectedDevice = selectedDevice;
+	public void setTakeVideoEnable(boolean takeVideoEnable) {
+		this.takeVideoEnable = takeVideoEnable;
+		
 		setChanged();
-		notifyObservers("SELECTEDDEVICE");
+		notifyObservers("TAKEVIDEOENABLE");
+
 	}
 
 }

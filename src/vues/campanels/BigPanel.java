@@ -35,7 +35,7 @@ public class BigPanel extends JPanel {
 		ctrlP = new ControlPanel( oModel);
 		add( ctrlP, BorderLayout.EAST );
 		
-		devP = new DevicePanel(oModCam);
+		devP = new DevicePanel(oModel, oModCam);
 		add( devP, BorderLayout.NORTH );
 		
 		lblAccueil = new JLabel("Veuillez Sélectionner une caméra");

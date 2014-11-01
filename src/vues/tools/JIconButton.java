@@ -34,7 +34,8 @@ public class JIconButton extends JButton {
             }           
             @Override
             public void mousePressed(MouseEvent arg0) {
-            	setIcon(pressed);
+            	if( isEnabled() )
+            		setIcon(pressed);
             }            
             @Override
             public void mouseExited(MouseEvent arg0) { 
@@ -42,7 +43,8 @@ public class JIconButton extends JButton {
             }           
             @Override
             public void mouseEntered(MouseEvent arg0) {
-                setIcon(over);
+            	if( isEnabled() )
+            		setIcon(over);
             }           
             @Override
             public void mouseClicked(MouseEvent arg0) {}

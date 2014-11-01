@@ -42,33 +42,22 @@ public class Controleur implements ActionListener{
 			System.out.println("Action recu : "+action);
 		
 		if (action.equals("BTNCONNECTCAM")) {
-
-				 
 			try {
 				cfFrame.showCam();
-				oModel.setDirectionEnable(true);
-				oModel.setTourelleEnable(true);
-				oModel.setExtraEnable(true);
 				oModel.setCameraEnable(true);
 				 
-				
-				
 			} catch (CamException e1) {
-				
 				cfFrame.setCamError(e1.getMessage());
-
-				oModel.setDirectionEnable(false);
-				oModel.setTourelleEnable(false);
-				oModel.setExtraEnable(false);
 				oModel.setCameraEnable(false);
 
 				if( Debug.isEnable() )
 					e1.printStackTrace();
 			}
-			 
-			 
+			  
 		 }else if (action.equals("BTNSTOPCAM")) {
 				cfFrame.stopCam();	
+				
+				oModel.setCameraEnable(false);
 				
 		}else if (action.equals("SELECTEDDEVICE")) {
 				if( Debug.isEnable() )
