@@ -57,6 +57,10 @@ public class DevicePanel extends JPanel implements Observer{
 			add( btnReadCams );
 		add( btnTakePicture );
 		add( btnTakeVideo );
+//		add( new JButton("Lina-Joy") );
+//		add( new JButton("Flora") );
+//		add( new JButton("papa") );
+//		add( new JButton("maman") );
 	}
 
 

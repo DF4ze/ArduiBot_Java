@@ -1,8 +1,6 @@
 package modeles;
 
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -10,8 +8,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Observable;
-
-import javax.imageio.ImageIO;
 
 import modeles.dao.FileIPCamStream;
 import modeles.tools.CamDimension;
@@ -115,12 +111,12 @@ public class CamCat extends Observable{
 	
 	public void saveCams() throws IOException{
 
-		FileIPCamStream.ipCamToJSON(IpCamDeviceRegistry.getIpCameras(), CamCat.FILECAM);
+		FileIPCamStream.ipCamsToJSON(IpCamDeviceRegistry.getIpCameras(), CamCat.FILECAM);
 	}
 	
 	public void readCams() throws IOException, ParseException, CamException{
 		
-		ArrayList<HashMap<String, String>> cams = FileIPCamStream.JSONToIpCam(CamCat.FILECAM);
+		ArrayList<HashMap<String, String>> cams = FileIPCamStream.jsonToIpCams(CamCat.FILECAM);
 		
 		for( HashMap<String, String> cam : cams ){
 			addCam(cam);
@@ -240,20 +236,7 @@ public class CamCat extends Observable{
 	}
 
 	public void takePicture() throws IOException{
-		// get image
-		BufferedImage image = Webcam.getDefault().getImage();
-
-		// save image to PNG file
-//		File newPhotoTemplate = new File( FILECAPPHOTO );
-		File newPhoto = new File( FILECAPPHOTO );
-//		int i=1;
-//		while( newPhoto.exists() ){
-//			newPhoto =  new File( newPhotoTemplate.get+ i +".png");
-//			i++;
-//		}
-			
-			
-		ImageIO.write(image, "PNG", newPhoto);
+		FileIPCamStream.recPicture( Webcam.getDefault().getImage(), FILECAPPHOTO );
 	}
 	
 	public void takeVideo(){

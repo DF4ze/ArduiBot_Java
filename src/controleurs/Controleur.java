@@ -146,7 +146,7 @@ public class Controleur implements ActionListener{
 			}
 			
 		}else if( action.equals("BTNTAKEVIDEO") ){
-			;
+			oModCam.takeVideo();
 			
 		} 
 		
