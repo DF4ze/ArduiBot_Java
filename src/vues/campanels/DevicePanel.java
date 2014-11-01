@@ -5,23 +5,24 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import modeles.CamCat;
+import vues.tools.JIconButton;
 import controleurs.Debug;
 
 public class DevicePanel extends JPanel implements Observer{
 
 	private static final long serialVersionUID = 1L;
 
-	private JButton btnConnect;
-	private JButton btnStop;
-	private JButton btnAddCam;
-	private JButton btnDelCam;
-	private JButton btnSaveCams;
-	private JButton btnReadCams;
+	private JIconButton btnConnect;
+	private JIconButton btnStop;
+	private JIconButton btnAddCam;
+	private JIconButton btnDelCam;
+	private JIconButton btnSaveCams;
+	private JIconButton btnReadCams;
 	private JComboBox<String> combCamChoix;
 	private DefaultComboBoxModel<String> combModelCamChoix;
 	
@@ -32,12 +33,13 @@ public class DevicePanel extends JPanel implements Observer{
 		this.oModCam = oModCam;
 		oModCam.addObserver(this);
 		
-		btnConnect 			= new JButton("Connect");	
-		btnStop 			= new JButton("Stop");	
-		btnAddCam 			= new JButton("Add");	
-		btnDelCam 			= new JButton("Del");	
-		btnSaveCams 		= new JButton("Save");
-		btnReadCams 		= new JButton("Read");
+		btnConnect 	= new JIconButton( new ImageIcon("images/play.png"), new ImageIcon("images/play_over.png"), new ImageIcon("images/play_down.png") );
+		btnStop 	= new JIconButton( new ImageIcon("images/stop.png"), new ImageIcon("images/stop_over.png"), new ImageIcon("images/stop_down.png") );	
+		btnAddCam 	= new JIconButton( new ImageIcon("images/add.png"), new ImageIcon("images/add_over.png"), new ImageIcon("images/add_down.png") );	
+		btnDelCam 	= new JIconButton( new ImageIcon("images/del.png"), new ImageIcon("images/del_over.png"), new ImageIcon("images/del_down.png") );	
+		btnSaveCams = new JIconButton( new ImageIcon("images/save.png"), new ImageIcon("images/save_over.png"), new ImageIcon("images/save_down.png") );
+		btnReadCams = new JIconButton( new ImageIcon("images/open.png"),new ImageIcon("images/open_over.png"), new ImageIcon("images/open_down.png") );
+		
 		combModelCamChoix 	= new DefaultComboBoxModel<String>(this.oModCam.getArrayCams());
 		combCamChoix 		= new JComboBox<String>(combModelCamChoix);
 		
