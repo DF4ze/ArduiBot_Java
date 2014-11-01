@@ -41,7 +41,7 @@ public class Controleur implements ActionListener{
 		if( Debug.isEnable() )
 			System.out.println("Action recu : "+action);
 		
-		if (action.equals("BTNCONNECT")) {
+		if (action.equals("BTNCONNECTCAM")) {
 
 				 
 			try {
@@ -67,12 +67,15 @@ public class Controleur implements ActionListener{
 			}
 			 
 			 
-		 }else if (action.equals("SELECTEDDEVICE")) {
-			if( Debug.isEnable() )
-				System.out.println("SelectedCam : "+cfFrame.getSelectedCam());
-			
-			oModCam.setSelectedCam(cfFrame.getSelectedCam());	
-			
+		 }else if (action.equals("BTNSTOPCAM")) {
+				cfFrame.stopCam();	
+				
+		}else if (action.equals("SELECTEDDEVICE")) {
+				if( Debug.isEnable() )
+					System.out.println("SelectedCam : "+cfFrame.getSelectedCam());
+				
+				oModCam.setSelectedCam(cfFrame.getSelectedCam());	
+				
 		}else if (action.equals("BTNSAVECAMS")) {			
 			try {
 				oModCam.saveCams();
@@ -103,6 +106,9 @@ public class Controleur implements ActionListener{
 		}else if( action.equals("BTNADDCAM") ){
 			cfAddFrame = new AddCamFrame("Ajouter une caméra", oModCam);
 			cfAddFrame.setListener(this);
+			
+		}else if( action.equals("BTNDELCAM") ){
+			oModCam.delCam( cfFrame.getSelectedCam() );
 			
 		}else if( action.equals("OKADDCAM") ){
 			try {

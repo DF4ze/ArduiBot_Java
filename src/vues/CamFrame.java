@@ -51,5 +51,7 @@ public class CamFrame extends JFrame {
 		pack();
 	}
 	
-
+	public void stopCam(){
+		bp.stopCam();
+	}
 }

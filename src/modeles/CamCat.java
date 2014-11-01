@@ -28,8 +28,6 @@ import exceptions.CamException;
 
 public class CamCat extends Observable{
 	
-//	private ArrayList<String> cams = new  ArrayList<String>();
-//	private ArrayList<IpCamDevice> devices = new ArrayList<IpCamDevice>();
 	private int indexSelectedDevice = 0;
 	private CamDimension[] camDimensions = new CamDimension[]{
 			new CamDimension(320, 240, "QVGA"),
@@ -94,9 +92,7 @@ public class CamCat extends Observable{
 
 
 
-//	public ArrayList<String> getCams() {
-//		return cams;
-//	}
+
 	public String[] getArrayCams() {
 		//On récupère le(s) cam(s) locale(s)
 		Collection<Webcam> webCams = Webcam.getWebcams();
@@ -135,16 +131,6 @@ public class CamCat extends Observable{
 	}
 
 	
-//	public ArrayList<IpCamDevice> getDevices() {
-//		return devices;
-//	}
-	
-
-
-
-//	public String getSelectedCam() {
-//		return selectedCam;
-//	}
 	public void setSelectedCam(int selectedCam) {
 		indexSelectedDevice = selectedCam;
 	}
@@ -228,12 +214,11 @@ public class CamCat extends Observable{
 		if( size != null )
 			myIpCam.setResolution(size);
 		
-		// les ajouter au registre
-		IpCamDeviceRegistry.register( myIpCam );
+		// les ajouter au registre ... peut planter si la cam existe deja
+		try{
+			IpCamDeviceRegistry.register( myIpCam );
+		}catch(Exception e){}
 		
-		// ajout a la liste
-		//devices.add( myIpCam );
-			
 		// On prévient les observateurs
 		setChanged();
 		notifyObservers("CAMADDED");
@@ -241,8 +226,30 @@ public class CamCat extends Observable{
 	}
 
 
+	public void delCam( int indexCam ){
+		IpCamDeviceRegistry.unregister( camIndexToIpCam(indexCam) );
+		
+		// On prévient les observateurs
+		setChanged();
+		notifyObservers("CAMDELETED");
+	}
 
-
+	protected IpCamDevice camIndexToIpCam( int indexCam ){
+		return IpCamDeviceRegistry.getIpCameras().get( camIndexToIpCamIndex(indexCam));
+	}
+	protected int camIndexToIpCamIndex( int camIndex ){
+		Webcam cam = Webcam.getWebcams().get(getIndexSelectedDevice());
+		
+		int index = -1;
+		for( int i = 0; i< IpCamDeviceRegistry.getIpCameras().size(); i++){
+			if( IpCamDeviceRegistry.getIpCameras().get(i).getName().equals(cam.getName()) ){
+				index = i;
+				break;
+			}
+		}
+		
+		return index;
+	}
 
 	public CamDimension[] getCamDimensions() {
 		return camDimensions;

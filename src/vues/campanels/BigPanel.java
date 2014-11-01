@@ -71,6 +71,10 @@ public class BigPanel extends JPanel {
 		add( camP, BorderLayout.CENTER );
 	}
 	
+	public void stopCam(){
+		camP.stop();
+	}
+	
 /*	public void showCamBis() throws CamException{
 		
 		try{
