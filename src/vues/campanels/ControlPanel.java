@@ -9,6 +9,8 @@ import modeles.CtrlCat;
 import vues.campanels.controls.DirectionPanel;
 import vues.campanels.controls.ExtraPanel;
 import vues.campanels.controls.TourellePanel;
+import vues.tools.BgPanel;
+
 
 public class ControlPanel extends JPanel {
 
@@ -21,8 +23,11 @@ public class ControlPanel extends JPanel {
 	public ControlPanel( CtrlCat oModel ) {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		directionPanel = new DirectionPanel(oModel);
-		add(directionPanel);
+		BgPanel directionBgPanel = new BgPanel( "images/EMaps-Center-Direction-icon.png" );
+		
+		directionPanel = new DirectionPanel(oModel, directionBgPanel);
+		directionBgPanel.add(directionPanel);
+		add( directionBgPanel );
 		
 		tourPanel = new TourellePanel(oModel);
 		add(tourPanel);
