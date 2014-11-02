@@ -10,8 +10,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import controleurs.Debug;
 import modeles.CtrlCat;
+import controleurs.Debug;
 
 public class DirectionPanel extends JPanel implements Observer{
 
@@ -67,6 +67,7 @@ public class DirectionPanel extends JPanel implements Observer{
 			btDirUP.setEnabled(false);
 		}
 
+		//init();
 	}
 
 	@Override
@@ -107,5 +108,10 @@ public class DirectionPanel extends JPanel implements Observer{
 		
 		if( Debug.isEnable() )
 			System.out.println("Listener Set");
+	}
+	
+	@Override
+	public boolean isOptimizedDrawingEnabled() {
+	    return false;
 	}
 }
