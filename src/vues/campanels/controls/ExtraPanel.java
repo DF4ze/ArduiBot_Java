@@ -27,7 +27,7 @@ public class ExtraPanel extends JPanel implements Observer{
 		this.oModel = oModel;
 		oModel.addObserver(this);
 		
-		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBorder(BorderFactory.createTitledBorder("Options"));
 		
 		cbLight = new JCheckBox("Light");
