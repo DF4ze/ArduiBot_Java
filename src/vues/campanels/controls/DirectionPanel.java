@@ -2,7 +2,8 @@ package vues.campanels.controls;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -22,15 +23,12 @@ public class DirectionPanel extends JPanel implements Observer{
 	private JMapButton btDirLEFT;
 	private JMapButton btDirRIGHT;
 	private JMapButton btDirUP;
+	private BgPanel bgp;
 
-//	private JButton btDirDOWN;
-//	private JButton btDirLEFT;
-//	private JButton btDirRIGHT;
-//	private JButton btDirUP;
-//	
 	private CtrlCat oModel;
 
 	public DirectionPanel( CtrlCat oModel, BgPanel bgp ) {
+		this.bgp = bgp;
 		this.oModel = oModel;
 		oModel.addObserver(this);
 		
@@ -67,14 +65,15 @@ public class DirectionPanel extends JPanel implements Observer{
 			btDirLEFT.setEnabled(true);
 			btDirRIGHT.setEnabled(true);
 			btDirUP.setEnabled(true);
+			bgp.setBG("images/EMaps-Center-Direction-icon.png");
 		}else{
 			btDirDOWN.setEnabled(false);
 			btDirLEFT.setEnabled(false);
 			btDirRIGHT.setEnabled(false);
 			btDirUP.setEnabled(false);
+			bgp.setBG("images/EMaps-Center-Direction-icon_disabled.png");
 		}
 
-		//init();
 	}
 
 	@Override
@@ -90,32 +89,32 @@ public class DirectionPanel extends JPanel implements Observer{
 				btDirLEFT.setEnabled(true);
 				btDirRIGHT.setEnabled(true);
 				btDirUP.setEnabled(true);
+				bgp.setBG("images/EMaps-Center-Direction-icon.png");
 			}else{
 				btDirDOWN.setEnabled(false);
 				btDirLEFT.setEnabled(false);
 				btDirRIGHT.setEnabled(false);
 				btDirUP.setEnabled(false);
+				bgp.setBG("images/EMaps-Center-Direction-icon_disabled.png");
 			}
 	
 		}
 	}
 	
-	public void setListener( ActionListener ac){
-		btDirDOWN.addActionListener( ac );
-		btDirDOWN.setActionCommand("BTDIRDOWN");
-		
-		btDirLEFT.addActionListener( ac );
-		btDirLEFT.setActionCommand("BTDIRLEFT");
-		
-		btDirRIGHT.addActionListener( ac );
-		btDirRIGHT.setActionCommand("BTDIRRIGHT");
-		
-		btDirUP.addActionListener( ac );
-		btDirUP.setActionCommand("BTDIRUP");
-		
-		if( Debug.isEnable() )
-			System.out.println("Listener Set");
+	public void setPilotListener( MouseListener cpCtrlPil ){
+
+		btDirDOWN.addMouseListener(cpCtrlPil);
+		btDirUP.addMouseListener(cpCtrlPil);
+		btDirLEFT.addMouseListener(cpCtrlPil);
+		btDirRIGHT.addMouseListener(cpCtrlPil);
+	}	
+	public HashMap<String, JButton> getDirectionBtn(){
+		HashMap<String, JButton> directionBtn = new HashMap<String, JButton>();
+		directionBtn.put("up", btDirUP);
+		directionBtn.put("down", btDirDOWN);
+		directionBtn.put("right", btDirRIGHT);
+		directionBtn.put("left", btDirLEFT);
+		return directionBtn;
 	}
-	
 
 }

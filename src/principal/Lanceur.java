@@ -1,11 +1,11 @@
 package principal;
 
-import controleurs.Controleur;
+import controleurs.ControleurGeneral;
 
 public class Lanceur {
 
 	public static void main(String[] args) {
-		new Controleur();
+		new ControleurGeneral();
 
 	}
 

@@ -2,7 +2,10 @@ package vues.campanels;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import java.util.HashMap;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -45,9 +48,20 @@ public class BigPanel extends JPanel {
 
 	public void setListener( ActionListener ac){
 		ctrlP.setListener( ac );
-		//camP.setListener( ac );
 		devP.setListener( ac );
 	}
+	public void setPilotListener( MouseListener cpCtrlPil ){
+		ctrlP.setPilotListener( cpCtrlPil );
+	}
+
+	public HashMap<String, JButton> getDirectionBtn(){
+		return ctrlP.getDirectionBtn();
+	}
+	public HashMap<String, JButton> getTourelleBtn(){
+		return ctrlP.getTourelleBtn();
+		
+	}
+
 	
 	public int getSelectedCam(){
 		return devP.getSelectedCam();

@@ -2,13 +2,16 @@ package vues;
 
 import java.awt.HeadlessException;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import java.util.HashMap;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import exceptions.CamException;
 import modeles.CamCat;
 import modeles.CtrlCat;
 import vues.campanels.BigPanel;
+import exceptions.CamException;
 
 public class CamFrame extends JFrame {
 
@@ -33,6 +36,17 @@ public class CamFrame extends JFrame {
 	
 	public void setListener( ActionListener ac){
 		bp.setListener( ac );
+	}
+	public void setPilotListener(MouseListener cpCtrlPil){
+		bp.setPilotListener( cpCtrlPil );
+	}
+	
+	public HashMap<String, JButton> getDirectionBtn(){
+		return bp.getDirectionBtn();
+	}
+	public HashMap<String, JButton> getTourelleBtn(){
+		return bp.getTourelleBtn();
+		
 	}
 	
 	public int getSelectedCam(){

@@ -7,30 +7,44 @@ import java.net.MalformedURLException;
 
 import javax.swing.JOptionPane;
 
-import org.json.simple.parser.ParseException;
-
 import modeles.CamCat;
 import modeles.CtrlCat;
+import modeles.GraphCat;
+
+import org.json.simple.parser.ParseException;
+
 import vues.AddCamFrame;
 import vues.CamFrame;
 import exceptions.CamException;
 
 
 
-public class Controleur implements ActionListener{
+public class ControleurGeneral implements ActionListener{
 
-	private CtrlCat oModel;
+	private CtrlCat oModCtrl;
 	private CamCat oModCam;
+	private GraphCat oModGraph;
 	private CamFrame cfFrame;
 	private AddCamFrame cfAddFrame;
+	private ControleurPilotage cpCtrlPil;
 	
 	
-	public Controleur() {
-		oModel = new CtrlCat();
+	public ControleurGeneral() {
+		// les modeles
+		oModCtrl = new CtrlCat();
 		oModCam = new CamCat();
+		oModGraph = new GraphCat();
 		
-		cfFrame = new CamFrame("DroneCtrl", oModel, oModCam);
+		// la vue
+		cfFrame = new CamFrame("DroneCtrl", oModCtrl, oModCam);
+		
+		// Autres controleurs
+		cpCtrlPil = new ControleurPilotage( cfFrame, oModGraph );
+		
+		// Attribution des listeners
 		cfFrame.setListener(this);
+		cfFrame.setPilotListener(cpCtrlPil);
+
 	}
 
 	@Override
@@ -44,11 +58,11 @@ public class Controleur implements ActionListener{
 		if (action.equals("BTNCONNECTCAM")) {
 			try {
 				cfFrame.showCam();
-				oModel.setCameraEnable(true);
+				oModCtrl.setCameraEnable(true);
 				 
 			} catch (CamException e1) {
 				cfFrame.setCamError(e1.getMessage());
-				oModel.setCameraEnable(false);
+				oModCtrl.setCameraEnable(false);
 
 				if( Debug.isEnable() )
 					e1.printStackTrace();
@@ -57,7 +71,7 @@ public class Controleur implements ActionListener{
 		 }else if (action.equals("BTNSTOPCAM")) {
 				cfFrame.stopCam();	
 				
-				oModel.setCameraEnable(false);
+				oModCtrl.setCameraEnable(false);
 				
 		}else if (action.equals("SELECTEDDEVICE")) {
 				if( Debug.isEnable() )
@@ -138,7 +152,5 @@ public class Controleur implements ActionListener{
 			oModCam.takeVideo();
 			
 		} 
-		
 	}
-
 }

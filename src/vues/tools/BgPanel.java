@@ -1,6 +1,5 @@
 package vues.tools;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -11,8 +10,8 @@ public class BgPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Image bg = new ImageIcon("images/Maps-Center-Direction-icon.png").getImage();
-	private Image defaultBg = new ImageIcon("images/Maps-Center-Direction-icon.png").getImage();
+	private Image defaultBg ;//= new ImageIcon("images/Maps-Center-Direction-icon.png").getImage();
+	private Image bg ;//= defaultBg;
 	
 	public BgPanel( String imageName ){
 		defaultBg = new ImageIcon( imageName ).getImage();
