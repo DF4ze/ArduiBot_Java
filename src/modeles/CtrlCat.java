@@ -13,9 +13,10 @@ public class CtrlCat extends Observable {
 	private boolean takePictureEnable = false;
 	private boolean takeVideoEnable = false;
 	
+	private GraphPilotCat oModGraph;
 
-	public CtrlCat() {
-		// TODO Auto-generated constructor stub
+	public CtrlCat( GraphPilotCat oModGraph ) {
+		this.oModGraph = oModGraph;
 	}
 
 
@@ -23,14 +24,12 @@ public class CtrlCat extends Observable {
 	public boolean isDirectionEnable() {
 		return directionEnable;
 	}
-
-
-
 	public void setDirectionEnable(boolean directionEnable) {
 		if( Debug.isEnable() )
 			System.out.println("Model : SetDirectionEnable: "+directionEnable);
 
 		this.directionEnable = directionEnable;
+		oModGraph.setDirectionEnable(directionEnable);
 		
 		setChanged();
 		notifyObservers("DIRECTIONENABLE");
@@ -46,6 +45,7 @@ public class CtrlCat extends Observable {
 			System.out.println("Model : SetTourelleEnable: "+tourelleEnable);
 		
 		this.tourelleEnable = tourelleEnable;
+		oModGraph.setTourelleEnable(tourelleEnable);
 		
 		setChanged();
 		notifyObservers("TOURELLEENABLE");
@@ -72,8 +72,6 @@ public class CtrlCat extends Observable {
 		notifyObservers("CAMERAENABLE");
 	}
 
-
-
 	public boolean isExtraEnable() {
 		return extraEnable;
 	}
@@ -86,8 +84,6 @@ public class CtrlCat extends Observable {
 		notifyObservers("EXTRAENABLE");
 	}
 
-
-
 	public boolean isTakePictureEnable() {
 		return takePictureEnable;
 	}
@@ -98,8 +94,6 @@ public class CtrlCat extends Observable {
 		notifyObservers("TAKEPICTUREENABLE");
 
 	}
-
-
 
 	public boolean isTakeVideoEnable() {
 		return takeVideoEnable;

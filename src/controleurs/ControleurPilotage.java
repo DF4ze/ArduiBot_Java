@@ -9,56 +9,92 @@ import java.util.Map.Entry;
 
 import javax.swing.JButton;
 
-import demos.robot.FixedMotionMouse;
-
 import modeles.CtrlCat;
+import modeles.GraphPilotCat;
 import vues.CamFrame;
 
 public class ControleurPilotage implements MouseListener, MouseMotionListener {
 
 	private CamFrame cfFrame;
 	private CtrlCat oModCtrl;
+	private GraphPilotCat oModGraph;
+	
 	private HashMap<String, JButton>  directionBtn;
 	private HashMap<String, JButton>  tourelleBtn;
 	
 	private FixedMotionMouse fmmTourelle;
 	private FixedMotionMouse fmmDirection;
 	
-	public ControleurPilotage( CamFrame cfFrame, CtrlCat oModCtrl ) {
+	public ControleurPilotage( CamFrame cfFrame, CtrlCat oModCtrl, GraphPilotCat oModGraph ) {
 		this.cfFrame = cfFrame;
 		this.oModCtrl = oModCtrl;
+		this.oModGraph = oModGraph;
 		
 		directionBtn = this.cfFrame.getDirectionBtn();
 		tourelleBtn = this.cfFrame.getTourelleBtn();
 		
 		try {
-			fmmTourelle = new FixedMotionMouse(false, true);
-			fmmDirection = new FixedMotionMouse(false, false);
+			fmmTourelle = new FixedMotionMouse(false, false);
+			fmmDirection = new FixedMotionMouse(false, true);
 		} catch (AWTException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			if( Debug.isEnable() )
+				e.printStackTrace();
 		}
+		
+		this.oModGraph.setDirectionEnable(oModCtrl.isDirectionEnable());
+		this.oModGraph.setTourelleEnable(oModCtrl.isTourelleEnable());
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if( directionBtn.get("center").equals(e.getSource()) && oModCtrl.isDirectionEnable() ){
-			if( fmmDirection.isFixedMouse() )
+			if( fmmDirection.isFixedMouse() ){
 				fmmDirection.releaseMouse();
-			else
+				oModGraph.setDirDefautBg();
+			}else{
 				fmmDirection.fixMouse(e.getXOnScreen(), e.getYOnScreen());
+				oModGraph.setDirectionOrientation("center");
+			}
 			
 		}else if( tourelleBtn.get("center").equals(e.getSource()) && oModCtrl.isTourelleEnable()){
-			if( fmmTourelle.isFixedMouse() )
+			if( fmmTourelle.isFixedMouse() ){
 				fmmTourelle.releaseMouse();
-			else
+				oModGraph.setTourDefautBg();
+			}else{
 				fmmTourelle.fixMouse(e.getXOnScreen(), e.getYOnScreen());
+				oModGraph.setTourelleOrientation("center");
+			}
 		}
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-
+		boolean bDir = false;
+		if( oModCtrl.isDirectionEnable() ){
+			for(Entry<String, JButton> entry : directionBtn.entrySet() ) {
+			    String sDir = entry.getKey();
+			    JButton button = entry.getValue();
+	
+			    if( button.equals(e.getSource()) ){
+			    	bDir = true;
+			    	oModGraph.setDirectionOver(sDir);
+			    	break;
+			    }
+			}
+		}
+		if( !bDir ){
+			if( oModCtrl.isTourelleEnable() ){
+				for(Entry<String, JButton> entry : tourelleBtn.entrySet() ) {
+					String sDir = entry.getKey();
+					JButton button = entry.getValue();
+					
+					if( button.equals(e.getSource()) ){
+						oModGraph.setTourelleOver(sDir);
+						break;
+					}
+				}
+			}
+		}
 	}
 
 	@Override
@@ -67,7 +103,41 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener {
 			fmmDirection.releaseMouse();
 		}else if( tourelleBtn.get("center").equals(e.getSource()) && oModCtrl.isDirectionEnable()  ){
 			fmmTourelle.releaseMouse();
-		}		
+		}else{
+			
+			boolean bDir = false;
+			boolean bTour = false;
+			
+			if( oModCtrl.isDirectionEnable() ){
+				for(Entry<String, JButton> entry : directionBtn.entrySet() ) {
+				    JButton button = entry.getValue();
+		
+				    if( button.equals(e.getSource()) ){
+				    	bDir = true;
+				    	break;
+				    }
+				}
+			}
+			if( !bDir ){
+				if( oModCtrl.isTourelleEnable() ){
+					for(Entry<String, JButton> entry : tourelleBtn.entrySet() ) {
+						JButton button = entry.getValue();
+						
+						if( button.equals(e.getSource()) ){
+							bTour = true;
+							break;
+						}
+					}
+				}			
+			}
+			
+			if( bDir ){
+				oModGraph.setDirDefautBg();
+			}else if ( bTour ){
+				oModGraph.setTourDefautBg();
+			}
+			
+		}
 
 	}
 
@@ -84,6 +154,7 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener {
 	
 			    if( button.equals(e.getSource()) ){
 			    	bDir = true;
+			    	oModGraph.setDirectionOrientation(sDir);
 			    	sDirection = sDir;
 			    	break;
 			    }
@@ -97,6 +168,7 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener {
 					
 					if( button.equals(e.getSource()) ){
 						bTour = true;
+						oModGraph.setTourelleOrientation(sDir);
 				    	sDirection = sDir;
 						break;
 					}
@@ -115,30 +187,30 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener {
 		
 		if( oModCtrl.isDirectionEnable() ){
 			for(Entry<String, JButton> entry : directionBtn.entrySet() ) {
-			    String sDir = entry.getKey();
+				String sDir = entry.getKey();
 			    JButton button = entry.getValue();
 	
 			    if( button.equals(e.getSource()) ){
+			    	oModGraph.setDirectionOver(sDir);
 			    	bDir = true;
-			    	sDirection = sDir;
 			    	break;
 			    }
 			}
 		}
-		
-		if( !bDir )
+		if( !bDir ){
 			if( oModCtrl.isTourelleEnable() ){
 				for(Entry<String, JButton> entry : tourelleBtn.entrySet() ) {
 					String sDir = entry.getKey();
 					JButton button = entry.getValue();
 					
 					if( button.equals(e.getSource()) ){
+				    	oModGraph.setTourelleOver(sDir);
 						bTour = true;
-				    	sDirection = sDir;
 						break;
 					}
 				}
-			}
+			}			
+		}
 		
 		if( Debug.isEnable() && (oModCtrl.isTourelleEnable() || oModCtrl.isDirectionEnable()) )
 			System.out.println("bouton laché "+((bDir)?"Direction":((bTour)?"Tour":"??"))+" vers "+sDirection);
@@ -146,23 +218,7 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if( oModCtrl.isDirectionEnable() ){
-			if( directionBtn.get("center").equals(e.getSource()) ){
-				if( Debug.isEnable() )
-					System.out.println("Direction Drag x: "+e.getX()+" y:"+e.getY());	
-				
-							
-			}
 
-		}else if( oModCtrl.isTourelleEnable() ){
-			if( tourelleBtn.get("center").equals(e.getSource()) ){
-				if( Debug.isEnable() )
-					System.out.println("Tourelle Drag x: "+e.getX()+" y:"+e.getY());
-
-				
-			}
-
-		}
 	}
 
 	@Override

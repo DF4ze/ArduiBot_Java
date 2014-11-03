@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import modeles.CtrlCat;
+import modeles.GraphPilotCat;
 import vues.campanels.controls.DirectionPanel;
 import vues.campanels.controls.ExtraPanel;
 import vues.campanels.controls.TourellePanel;
@@ -24,16 +25,19 @@ public class ControlPanel extends JPanel {
 	private TourellePanel tourPanel;
 	private ExtraPanel extraPanel;
 	
-	public ControlPanel( CtrlCat oModel ) {
+	private BgPanel directionBgPanel;
+	private BgPanel tourelleBgPanel;
+	
+	public ControlPanel( CtrlCat oModel, GraphPilotCat oModGraph ) {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		// Panel Direction
 		JPanel emptyDirP = new JPanel();
 		emptyDirP.setBorder(BorderFactory.createTitledBorder("Direction"));
-		BgPanel directionBgPanel = new BgPanel( "images/EMaps-Center-Direction-icon.png" );
+		directionBgPanel = new BgPanel( "images/EMaps-Center-Direction-icon.png" );
 		emptyDirP.add(directionBgPanel);
 		
-		directionPanel = new DirectionPanel(oModel, directionBgPanel);
+		directionPanel = new DirectionPanel(oModel, oModGraph, directionBgPanel);
 		directionBgPanel.add(directionPanel);
 		
 		add( emptyDirP );
@@ -41,10 +45,10 @@ public class ControlPanel extends JPanel {
 		// Panel Tourelle
 		JPanel emptyTourP = new JPanel();
 		emptyTourP.setBorder(BorderFactory.createTitledBorder("Tourelle"));
-		BgPanel tourelleBgPanel = new BgPanel( "images/EMaps-Center-Direction-icon.png" );
+		tourelleBgPanel = new BgPanel( "images/EMaps-Center-Direction-icon.png" );
 		emptyTourP.add(tourelleBgPanel);
 
-		tourPanel = new TourellePanel(oModel, tourelleBgPanel);
+		tourPanel = new TourellePanel(oModel, oModGraph, tourelleBgPanel);
 		tourelleBgPanel.add(tourPanel);
 		add(emptyTourP);
 		
@@ -67,6 +71,12 @@ public class ControlPanel extends JPanel {
 	}
 	public HashMap<String, JButton> getTourelleBtn(){
 		return tourPanel.getTourelleBtn();
-		
+	}
+	
+	public void setDirBackGround( String bgName ){
+		directionBgPanel.setBG( bgName );
+	}
+	public void setTourBackGround( String bgName ){
+		tourelleBgPanel.setBG( bgName );
 	}
 }

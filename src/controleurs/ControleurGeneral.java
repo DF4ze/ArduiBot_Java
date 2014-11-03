@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 import modeles.CamCat;
 import modeles.CtrlCat;
-import modeles.GraphCat;
+import modeles.GraphPilotCat;
 
 import org.json.simple.parser.ParseException;
 
@@ -23,8 +23,7 @@ public class ControleurGeneral implements ActionListener{
 
 	private CtrlCat oModCtrl;
 	private CamCat oModCam;
-	@SuppressWarnings("unused")
-	private GraphCat oModGraph;
+	private GraphPilotCat oModGraph;
 	private CamFrame cfFrame;
 	private AddCamFrame cfAddFrame;
 	private ControleurPilotage cpCtrlPil;
@@ -32,15 +31,15 @@ public class ControleurGeneral implements ActionListener{
 	
 	public ControleurGeneral() {
 		// les modeles
-		oModCtrl = new CtrlCat();
+		oModGraph = new GraphPilotCat();
+		oModCtrl = new CtrlCat( oModGraph );
 		oModCam = new CamCat();
-		oModGraph = new GraphCat();
 		
 		// la vue
-		cfFrame = new CamFrame("DroneCtrl", oModCtrl, oModCam);
+		cfFrame = new CamFrame("DroneCtrl", oModCtrl, oModCam, oModGraph);
 		
 		// Autres controleurs
-		cpCtrlPil = new ControleurPilotage( cfFrame, oModCtrl );
+		cpCtrlPil = new ControleurPilotage( cfFrame, oModCtrl, oModGraph );
 		
 		// Attribution des listeners
 		cfFrame.setListener(this);

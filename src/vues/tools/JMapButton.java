@@ -11,7 +11,7 @@ public class JMapButton extends JButton {
 
 	private static final long serialVersionUID = 1L;
 
-	public JMapButton(final BgPanel bgp, final String imgNameDown, final String imgNameOver ) {
+	public JMapButton( /*final BgPanel bgp, final String imgNameDown, final String imgNameOver */) {
 		setFocusPainted( false );
 		setOpaque( false );
 		setContentAreaFilled(false);
@@ -19,7 +19,7 @@ public class JMapButton extends JButton {
 		setBorderPainted(false);
 		setMargin(new Insets(15,20,15,20));
 
-		addMouseListener(new MouseListener() {            
+		/*addMouseListener(new MouseListener() {            
             @Override
             public void mouseReleased(MouseEvent arg0) {
             	if( isEnabled() )bgp.setBG(imgNameOver);
@@ -38,7 +38,7 @@ public class JMapButton extends JButton {
             }           
             @Override
             public void mouseClicked(MouseEvent arg0) {}
-        });
+        });*/
 	}
 
 }

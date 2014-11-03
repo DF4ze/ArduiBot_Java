@@ -16,6 +16,7 @@ import controleurs.Debug;
 import exceptions.CamException;
 import modeles.CamCat;
 import modeles.CtrlCat;
+import modeles.GraphPilotCat;
 
 public class BigPanel extends JPanel {
 
@@ -29,13 +30,13 @@ public class BigPanel extends JPanel {
 //	private CtrlCat oModel;
 	private CamCat oModCam;
 	
-	public BigPanel(CtrlCat oModel, CamCat oModCam) {
+	public BigPanel(CtrlCat oModel, CamCat oModCam, GraphPilotCat oModGraph) {
 //		this.oModel = oModel;
 		this.oModCam = oModCam;
 		
 		setLayout(new BorderLayout());
 		
-		ctrlP = new ControlPanel( oModel);
+		ctrlP = new ControlPanel( oModel, oModGraph);
 		add( ctrlP, BorderLayout.EAST );
 		
 		devP = new DevicePanel(oModel, oModCam);
@@ -89,27 +90,6 @@ public class BigPanel extends JPanel {
 		camP.stop();
 	}
 	
-/*	public void showCamBis() throws CamException{
-		
-		try{
-			oModel.deleteObserver(camP);
-			remove(camP);
-			if( Debug.isEnable() )
-				System.out.println("***Cam Removed");
-			
-			camP.resetCam();
-			if( Debug.isEnable() )
-				System.out.println("***Cam reset");
-		}catch( NullPointerException e ){}
-		
-		camP = new CamPanel(oModel);
-		if( Debug.isEnable() )
-			System.out.println("***Cam New");
-		
-		add( camP, BorderLayout.CENTER );
-		
-	}*/
-	
 	public void setCamError( String sError ){
 		try{ remove(camP); }catch( NullPointerException e ){}
 		try{ remove(lblAccueil); }catch( NullPointerException e ){}		
@@ -117,6 +97,13 @@ public class BigPanel extends JPanel {
 		JLabel lblError = new JLabel( sError );
 		add( lblError);
 		
+	}
+	
+	public void setDirBackGround( String bgName ){
+		ctrlP.setDirBackGround( bgName );
+	}
+	public void setTourBackGround( String bgName ){
+		ctrlP.setTourBackGround( bgName );
 	}
 
 }

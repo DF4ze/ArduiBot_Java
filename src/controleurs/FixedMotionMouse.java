@@ -75,4 +75,10 @@ public class FixedMotionMouse {
 		return fixedMouse;
 	}
 
+	public boolean isAbsoluteX(){
+		return absoluteX;
+	}
+	public boolean isAbsoluteY(){
+		return absoluteX;
+	}
 }

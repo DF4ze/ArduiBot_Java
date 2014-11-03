@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import modeles.CtrlCat;
+import modeles.GraphPilotCat;
 import vues.tools.BgPanel;
 import vues.tools.JMapButton;
 import controleurs.Debug;
@@ -28,11 +29,14 @@ public class TourellePanel extends JPanel implements Observer {
 	private BgPanel bgp;
 	
 	private CtrlCat oModel;
+	private GraphPilotCat oModGraph;
 	
-	public TourellePanel( CtrlCat oModel, BgPanel bgp ) {
+	public TourellePanel( CtrlCat oModel, GraphPilotCat oModGraph, BgPanel bgp ) {
 		this.bgp = bgp;
 		this.oModel = oModel;
+		this.oModGraph = oModGraph;
 		oModel.addObserver(this);
+		oModGraph.addObserver(this);
 		
 		setLayout(new GridBagLayout());
 		//setBorder(BorderFactory.createTitledBorder("Tourelle"));
@@ -41,28 +45,28 @@ public class TourellePanel extends JPanel implements Observer {
 		GridBagConstraints c = new GridBagConstraints();
 		
 		int iLigne = 0;
-		btTourUP = new JMapButton(bgp, "images/Maps-North-Direction-icon.png", "images/EDirection-North-icon.png");
+		btTourUP = new JMapButton(/*bgp, "images/Maps-North-Direction-icon.png", "images/EDirection-North-icon.png"*/);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = iLigne++;
 		add(btTourUP, c);
 		
-		btTourLEFT = new JMapButton(bgp, "images/Maps-West-Direction-icon.png", "images/EDirection-West-icon.png");
+		btTourLEFT = new JMapButton(/*bgp, "images/Maps-West-Direction-icon.png", "images/EDirection-West-icon.png"*/);
 		c.gridx = 0;
 		c.gridy = iLigne;
 		add(btTourLEFT, c);
 		
-		btTourCENTER = new JMapButton(bgp, "images/EMaps-Center-Direction-icon-clicked.png", "images/EMaps-Center-Direction-icon-over.png");
+		btTourCENTER = new JMapButton(/*bgp, "images/EMaps-Center-Direction-icon-clicked.png", "images/EMaps-Center-Direction-icon-over.png"*/);
 		c.gridx = 1;
 		c.gridy = iLigne;
 		add(btTourCENTER, c);
 
-		btTourRIGHT = new JMapButton(bgp, "images/Maps-East-Direction-icon.png", "images/EDirection-East-icon.png");
+		btTourRIGHT = new JMapButton(/*bgp, "images/Maps-East-Direction-icon.png", "images/EDirection-East-icon.png"*/);
 		c.gridx = 2;
 		c.gridy = iLigne++;
 		add(btTourRIGHT, c);
 		
-		btTourDOWN = new JMapButton(bgp, "images/Maps-South-Direction-icon.png", "images/EDirection-South-icon.png");
+		btTourDOWN = new JMapButton(/*bgp, "images/Maps-South-Direction-icon.png", "images/EDirection-South-icon.png"*/);
 		c.gridx = 1;
 		c.gridy = iLigne++;
 		add(btTourDOWN, c);	
@@ -73,14 +77,14 @@ public class TourellePanel extends JPanel implements Observer {
 			btTourRIGHT.setEnabled(true);
 			btTourUP.setEnabled(true);
 			btTourCENTER.setEnabled(true);
-			bgp.setBG("images/EMaps-Center-Direction-icon.png");
+			/*bgp.setBG("images/EMaps-Center-Direction-icon.png");*/
 		}else{
 			btTourDOWN.setEnabled(false);
 			btTourLEFT.setEnabled(false);
 			btTourRIGHT.setEnabled(false);
 			btTourUP.setEnabled(false);
 			btTourCENTER.setEnabled(false);
-			bgp.setBG("images/EMaps-Center-Direction-icon_disabled.png");			
+			/*bgp.setBG("images/EMaps-Center-Direction-icon_disabled.png");	*/		
 		}
 			
 		
@@ -99,15 +103,18 @@ public class TourellePanel extends JPanel implements Observer {
 				btTourRIGHT.setEnabled(true);
 				btTourUP.setEnabled(true);
 				btTourCENTER.setEnabled(true);
-				bgp.setBG("images/EMaps-Center-Direction-icon.png");
+				/*bgp.setBG("images/EMaps-Center-Direction-icon.png");*/
 			}else{
 				btTourDOWN.setEnabled(false);
 				btTourLEFT.setEnabled(false);
 				btTourRIGHT.setEnabled(false);
 				btTourUP.setEnabled(false);
 				btTourCENTER.setEnabled(false);
-				bgp.setBG("images/EMaps-Center-Direction-icon_disabled.png");
+				/*bgp.setBG("images/EMaps-Center-Direction-icon_disabled.png");*/
 			}
+			
+		}else if( o == oModGraph && message.equals("BGTOURELLE")){
+			bgp.setBG(oModGraph.getBgTour());
 		}
 	}
 	

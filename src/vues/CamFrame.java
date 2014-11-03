@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 
 import modeles.CamCat;
 import modeles.CtrlCat;
+import modeles.GraphPilotCat;
 import vues.campanels.BigPanel;
 import exceptions.CamException;
 
@@ -21,11 +22,11 @@ public class CamFrame extends JFrame {
 	
 	private BigPanel bp;
 
-	public CamFrame(String arg0, CtrlCat oModel, CamCat oModCam) throws HeadlessException {
+	public CamFrame(String arg0, CtrlCat oModel, CamCat oModCam, GraphPilotCat oModGraph) throws HeadlessException {
 		super(arg0);
 		
 		
-		bp = new BigPanel( oModel, oModCam );
+		bp = new BigPanel( oModel, oModCam, oModGraph );
 		add( bp);		
 		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -67,5 +68,12 @@ public class CamFrame extends JFrame {
 	
 	public void stopCam(){
 		bp.stopCam();
+	}
+	
+	public void setDirBackGround( String bgName ){
+		bp.setDirBackGround( bgName );
+	}
+	public void setTourBackGround( String bgName ){
+		bp.setTourBackGround( bgName );
 	}
 }
