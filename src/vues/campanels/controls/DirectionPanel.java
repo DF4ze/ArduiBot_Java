@@ -7,6 +7,7 @@ import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Map.Entry;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -26,6 +27,11 @@ public class DirectionPanel extends JPanel implements Observer{
 	private JMapButton btDirRIGHT;
 	private JMapButton btDirUP;
 	private JMapButton btDirCENTER;
+	
+	private JMapButton btDirDOWNLEFT;
+	private JMapButton btDirDOWNRIGHT;
+	private JMapButton btDirUPRIGHT;
+	private JMapButton btDirUPLEFT;
 	private BgPanel bgp;
 
 	private CtrlCat oModel;
@@ -45,46 +51,67 @@ public class DirectionPanel extends JPanel implements Observer{
 		GridBagConstraints c = new GridBagConstraints();
 		
 		int iLigne = 0;
-		btDirUP = new JMapButton(/*bgp, "images/Maps-North-Direction-icon.png", "images/EDirection-North-icon.png"*/);
+		btDirUPLEFT = new JMapButton();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = iLigne;
+		add(btDirUPLEFT, c);
+		
+		btDirUP = new JMapButton();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
-		c.gridy = iLigne++;
+		c.gridy = iLigne;
 		add(btDirUP, c);
 		
-		btDirLEFT = new JMapButton(/*bgp, "images/Maps-West-Direction-icon.png", "images/EDirection-West-icon.png"*/);
+		btDirUPRIGHT = new JMapButton();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 2;
+		c.gridy = iLigne++;
+		add(btDirUPRIGHT, c);
+		
+		
+		
+		btDirLEFT = new JMapButton();
 		c.gridx = 0;
 		c.gridy = iLigne;
 		add(btDirLEFT, c);
 		
-		btDirCENTER = new JMapButton(/*bgp, "images/EMaps-Center-Direction-icon-clicked.png", "images/EMaps-Center-Direction-icon-over.png"*/);
+		btDirCENTER = new JMapButton();
 		c.gridx = 1;
 		c.gridy = iLigne;
 		add(btDirCENTER, c);
 		
-		btDirRIGHT = new JMapButton(/*bgp, "images/Maps-East-Direction-icon.png", "images/EDirection-East-icon.png"*/);
+		btDirRIGHT = new JMapButton();
 		c.gridx = 2;
 		c.gridy = iLigne++;
 		add(btDirRIGHT, c);
 		
-		btDirDOWN = new JMapButton(/*bgp, "images/Maps-South-Direction-icon.png", "images/EDirection-South-icon.png"*/);
+		
+		
+		btDirDOWNLEFT = new JMapButton();
+		c.gridx = 0;
+		c.gridy = iLigne;
+		add(btDirDOWNLEFT, c);	
+		
+		btDirDOWN = new JMapButton();
 		c.gridx = 1;
-		c.gridy = iLigne++;
+		c.gridy = iLigne;
 		add(btDirDOWN, c);	
 		
+		btDirDOWNRIGHT = new JMapButton();
+		c.gridx = 2;
+		c.gridy = iLigne++;
+		add(btDirDOWNRIGHT, c);	
+		
 		if( oModel.isDirectionEnable() ){
-			btDirDOWN.setEnabled(true);
-			btDirLEFT.setEnabled(true);
-			btDirRIGHT.setEnabled(true);
-			btDirUP.setEnabled(true);
-			btDirCENTER.setEnabled(true);
-			/*bgp.setBG("images/EMaps-Center-Direction-icon.png");*/
+			for(Entry<String, JButton> entry : getDirectionBtn().entrySet()  ){
+				entry.getValue().setEnabled(true);
+			}
+			
 		}else{
-			btDirDOWN.setEnabled(false);
-			btDirLEFT.setEnabled(false);
-			btDirRIGHT.setEnabled(false);
-			btDirUP.setEnabled(false);
-			btDirCENTER.setEnabled(false);
-			/*bgp.setBG("images/EMaps-Center-Direction-icon_disabled.png");*/
+			for(Entry<String, JButton> entry : getDirectionBtn().entrySet()  ){
+				entry.getValue().setEnabled(false);
+			}
 		}
 
 	}
@@ -98,19 +125,14 @@ public class DirectionPanel extends JPanel implements Observer{
 				System.out.println("Direction Panel : Update Receved");
 			
 			if( oModel.isDirectionEnable() ){
-				btDirDOWN.setEnabled(true);
-				btDirLEFT.setEnabled(true);
-				btDirRIGHT.setEnabled(true);
-				btDirUP.setEnabled(true);
-				btDirCENTER.setEnabled(true);
-				/*bgp.setBG("images/EMaps-Center-Direction-icon.png");*/
+				for(Entry<String, JButton> entry : getDirectionBtn().entrySet()  ){
+					entry.getValue().setEnabled(true);
+				}
+				
 			}else{
-				btDirDOWN.setEnabled(false);
-				btDirLEFT.setEnabled(false);
-				btDirRIGHT.setEnabled(false);
-				btDirUP.setEnabled(false);
-				btDirCENTER.setEnabled(false);
-				/*bgp.setBG("images/EMaps-Center-Direction-icon_disabled.png");*/
+				for(Entry<String, JButton> entry : getDirectionBtn().entrySet()  ){
+					entry.getValue().setEnabled(false);
+				}
 			}
 			
 		}else if( o == oModGraph && message.equals("BGDIRECTION")){
@@ -120,19 +142,25 @@ public class DirectionPanel extends JPanel implements Observer{
 	
 	public void setPilotListener( MouseListener cpCtrlPil ){
 
-		btDirDOWN.addMouseListener(cpCtrlPil);
-		btDirUP.addMouseListener(cpCtrlPil);
-		btDirLEFT.addMouseListener(cpCtrlPil);
-		btDirRIGHT.addMouseListener(cpCtrlPil);
-		btDirCENTER.addMouseListener(cpCtrlPil);
+		for(Entry<String, JButton> entry : getDirectionBtn().entrySet()  ){
+			entry.getValue().addMouseListener(cpCtrlPil);
+		}
+
 		btDirCENTER.addMouseMotionListener((MouseMotionListener)cpCtrlPil);
 	}	
+	
 	public HashMap<String, JButton> getDirectionBtn(){
 		HashMap<String, JButton> directionBtn = new HashMap<String, JButton>();
 		directionBtn.put("up", btDirUP);
 		directionBtn.put("down", btDirDOWN);
 		directionBtn.put("right", btDirRIGHT);
 		directionBtn.put("left", btDirLEFT);
+		
+		directionBtn.put("upleft", btDirUPLEFT);
+		directionBtn.put("upright", btDirUPRIGHT);
+		directionBtn.put("downright", btDirDOWNRIGHT);
+		directionBtn.put("downleft", btDirDOWNLEFT);
+		
 		directionBtn.put("center", btDirCENTER);
 		return directionBtn;
 	}
