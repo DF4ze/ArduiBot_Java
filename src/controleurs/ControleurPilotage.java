@@ -24,9 +24,9 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener {
 	private FixedMotionMouse fmmTourelle;
 	private FixedMotionMouse fmmDirection;
 	
-	public ControleurPilotage( CamFrame cfFrame, CtrlCat oModCat ) {
+	public ControleurPilotage( CamFrame cfFrame, CtrlCat oModCtrl ) {
 		this.cfFrame = cfFrame;
-		this.oModCtrl = oModCat;
+		this.oModCtrl = oModCtrl;
 		
 		directionBtn = this.cfFrame.getDirectionBtn();
 		tourelleBtn = this.cfFrame.getTourelleBtn();

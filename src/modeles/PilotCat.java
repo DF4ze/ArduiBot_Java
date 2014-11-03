@@ -2,6 +2,8 @@ package modeles;
 
 import java.util.Observable;
 
+import vues.CamFrame;
+
 public class PilotCat extends Observable {
 
 	private boolean dirUpBtnState;
@@ -16,11 +18,32 @@ public class PilotCat extends Observable {
 	private boolean tourRightBtnState;
 	private boolean tourdownBtnState;
 	
+	
+	private String upBtnOVER = "images/EDirection-North-icon.png";
+	private String upBtnDOWN = "images/Maps-North-Direction-icon.png";
+	private String leftBtnOVER = "images/EDirection-West-icon.png";
+	private String leftBtnDOWN = "images/Maps-West-Direction-icon.png";
+	private String centerBtnOVER = "images/EMaps-Center-Direction-icon-over.png";
+	private String centerBtnDOWN = "images/EMaps-Center-Direction-icon-clicked.png";
+	private String rightBtnOVER = "images/EDirection-East-icon.png";
+	private String rightBtnDOWN = "images/Maps-East-Direction-icon.png";
+	private String downBtnOVER = "images/EDirection-South-icon.png";
+	private String downBtnDOWN = "images/Maps-South-Direction-icon.png";
+	private String defaultBG = "images/EMaps-Center-Direction-icon.png";
+	private String disabledBG = "images/EMaps-Center-Direction-icon_disabled.png";
+	
+	private CamFrame cfFrame;
+	
+	public PilotCat( CamFrame cfFrame ){
+		this.cfFrame = cfFrame;
+	}
+	
 	public boolean isDirUpBtnState() {
 		return dirUpBtnState;
 	}
 	public void setDirUpBtnState(boolean dirUpBtnState) {
 		this.dirUpBtnState = dirUpBtnState;
+		// demander a la vue de mettre le bon background
 		
 		setChanged();
 		notifyObservers("DIRECTIONBTNSTATE");
