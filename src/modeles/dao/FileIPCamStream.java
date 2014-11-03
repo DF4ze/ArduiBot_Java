@@ -46,7 +46,7 @@ public class FileIPCamStream {
 			i++;
 		}
 			
-		if( image != null )	
+	//	if( image != null )	
 			ImageIO.write(image, "PNG", newPhoto);
 	}
 	

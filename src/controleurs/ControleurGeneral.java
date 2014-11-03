@@ -23,6 +23,7 @@ public class ControleurGeneral implements ActionListener{
 
 	private CtrlCat oModCtrl;
 	private CamCat oModCam;
+	@SuppressWarnings("unused")
 	private GraphCat oModGraph;
 	private CamFrame cfFrame;
 	private AddCamFrame cfAddFrame;
@@ -39,7 +40,7 @@ public class ControleurGeneral implements ActionListener{
 		cfFrame = new CamFrame("DroneCtrl", oModCtrl, oModCam);
 		
 		// Autres controleurs
-		cpCtrlPil = new ControleurPilotage( cfFrame, oModGraph );
+		cpCtrlPil = new ControleurPilotage( cfFrame, oModCtrl );
 		
 		// Attribution des listeners
 		cfFrame.setListener(this);

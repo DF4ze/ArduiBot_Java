@@ -236,7 +236,7 @@ public class CamCat extends Observable{
 	}
 
 	public void takePicture() throws IOException{
-		FileIPCamStream.recPicture( Webcam.getDefault().getImage(), FILECAPPHOTO );
+		FileIPCamStream.recPicture( Webcam.getWebcams().get(indexSelectedDevice).getImage(), FILECAPPHOTO );
 	}
 	
 	public void takeVideo(){

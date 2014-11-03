@@ -19,7 +19,7 @@ public class JIconSwitchButton extends JButton {
 	private String actionCommandUP;
 	private String actionCommandDOWN;
 
-	public JIconSwitchButton(Icon normalUP, Icon overUP, Icon pressedUP, Icon normalDOWN, Icon overDOWN, Icon pressedDOWN ) {
+	public JIconSwitchButton(final Icon normalUP, final Icon overUP, final Icon pressedUP, final Icon normalDOWN, final Icon overDOWN, final Icon pressedDOWN ) {
 		super(normalUP);
 		
 		setBorderPainted(false);

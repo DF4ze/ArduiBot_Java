@@ -16,7 +16,7 @@ public class JIconButton extends JButton {
 	private static final long serialVersionUID = 1L;
 
 
-	public JIconButton(Icon normal, Icon over, Icon pressed) {
+	public JIconButton(final Icon normal, final Icon over, final Icon pressed) {
 		super(normal);
 		
 		setBorderPainted(false);

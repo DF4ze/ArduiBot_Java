@@ -11,7 +11,7 @@ public class JMapButton extends JButton {
 
 	private static final long serialVersionUID = 1L;
 
-	public JMapButton(BgPanel bgp, String imgNameDown, String imgNameOver ) {
+	public JMapButton(final BgPanel bgp, final String imgNameDown, final String imgNameOver ) {
 		setFocusPainted( false );
 		setOpaque( false );
 		setContentAreaFilled(false);

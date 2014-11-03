@@ -3,6 +3,7 @@ package vues.campanels.controls;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
@@ -21,6 +22,7 @@ public class TourellePanel extends JPanel implements Observer {
 
 	private JMapButton btTourDOWN;
 	private JMapButton btTourLEFT;
+	private JMapButton btTourCENTER;
 	private JMapButton btTourRIGHT;
 	private JMapButton btTourUP;
 	private BgPanel bgp;
@@ -50,6 +52,11 @@ public class TourellePanel extends JPanel implements Observer {
 		c.gridy = iLigne;
 		add(btTourLEFT, c);
 		
+		btTourCENTER = new JMapButton(bgp, "images/EMaps-Center-Direction-icon-clicked.png", "images/EMaps-Center-Direction-icon-over.png");
+		c.gridx = 1;
+		c.gridy = iLigne;
+		add(btTourCENTER, c);
+
 		btTourRIGHT = new JMapButton(bgp, "images/Maps-East-Direction-icon.png", "images/EDirection-East-icon.png");
 		c.gridx = 2;
 		c.gridy = iLigne++;
@@ -65,12 +72,14 @@ public class TourellePanel extends JPanel implements Observer {
 			btTourLEFT.setEnabled(true);
 			btTourRIGHT.setEnabled(true);
 			btTourUP.setEnabled(true);
+			btTourCENTER.setEnabled(true);
 			bgp.setBG("images/EMaps-Center-Direction-icon.png");
 		}else{
 			btTourDOWN.setEnabled(false);
 			btTourLEFT.setEnabled(false);
 			btTourRIGHT.setEnabled(false);
 			btTourUP.setEnabled(false);
+			btTourCENTER.setEnabled(false);
 			bgp.setBG("images/EMaps-Center-Direction-icon_disabled.png");			
 		}
 			
@@ -89,12 +98,14 @@ public class TourellePanel extends JPanel implements Observer {
 				btTourLEFT.setEnabled(true);
 				btTourRIGHT.setEnabled(true);
 				btTourUP.setEnabled(true);
+				btTourCENTER.setEnabled(true);
 				bgp.setBG("images/EMaps-Center-Direction-icon.png");
 			}else{
 				btTourDOWN.setEnabled(false);
 				btTourLEFT.setEnabled(false);
 				btTourRIGHT.setEnabled(false);
 				btTourUP.setEnabled(false);
+				btTourCENTER.setEnabled(false);
 				bgp.setBG("images/EMaps-Center-Direction-icon_disabled.png");
 			}
 		}
@@ -106,6 +117,8 @@ public class TourellePanel extends JPanel implements Observer {
 		btTourUP.addMouseListener(cpCtrlPil);
 		btTourLEFT.addMouseListener(cpCtrlPil);
 		btTourRIGHT.addMouseListener(cpCtrlPil);
+		btTourCENTER.addMouseListener(cpCtrlPil);
+		btTourCENTER.addMouseMotionListener((MouseMotionListener)cpCtrlPil);
 	}
 	public HashMap<String, JButton> getTourelleBtn(){
 		HashMap<String, JButton> tourBtn = new HashMap<String, JButton>();
@@ -113,6 +126,7 @@ public class TourellePanel extends JPanel implements Observer {
 		tourBtn.put("down", btTourDOWN);
 		tourBtn.put("right", btTourRIGHT);
 		tourBtn.put("left", btTourLEFT);
+		tourBtn.put("center", btTourCENTER);
 		return tourBtn;
 	}
 }
