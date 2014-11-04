@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
@@ -189,11 +190,18 @@ public class TourellePanel extends JPanel implements Observer {
 			entry.getValue().addMouseListener(cpCtrlPil);
 			entry.getValue().addMouseMotionListener((MouseMotionListener)cpCtrlPil);
 		}
-//		btTourCENTER.addMouseMotionListener((MouseMotionListener)cpCtrlPil);
 		verticalSpeed.addChangeListener((ChangeListener) cpCtrlPil);
 		horizontalSpeed.addChangeListener((ChangeListener) cpCtrlPil);
 	}
-	
+	public void setKeyListener( KeyListener cpCtrlPil ){
+		for(Entry<String, JButton> entry : getTourelleBtn().entrySet()  ){
+			entry.getValue().addKeyListener(cpCtrlPil);
+		}
+		horizontalSpeed.addKeyListener(cpCtrlPil);
+		verticalSpeed.addKeyListener(cpCtrlPil);
+		
+		this.addKeyListener(cpCtrlPil);
+	}	
 	public HashMap<String, JButton> getTourelleBtn(){
 		HashMap<String, JButton> tourBtn = new HashMap<String, JButton>();
 		tourBtn.put("up", btTourUP);

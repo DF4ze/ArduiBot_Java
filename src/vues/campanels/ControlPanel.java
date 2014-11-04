@@ -1,6 +1,7 @@
 package vues.campanels;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
 
@@ -54,15 +55,17 @@ public class ControlPanel extends JPanel {
 	}
 
 	public void setListener( ActionListener ac){
-//		directionPanel.setListener( ac );
-//		tourPanel.setListener( ac );
 		extraPanel.setListener( ac );
 	}
 	public void setPilotListener( MouseListener cpCtrlPil ){
 		directionPanel.setPilotListener( cpCtrlPil );
 		tourPanel.setPilotListener( cpCtrlPil );
 	}
-	
+	public void setKeyListener( KeyListener cpCtrlPil ){
+		directionPanel.setKeyListener( cpCtrlPil );
+		tourPanel.setKeyListener( cpCtrlPil );
+		this.addKeyListener(cpCtrlPil);
+	}	
 	public HashMap<String, JButton> getDirectionBtn(){
 		return directionPanel.getDirectionBtn();
 	}

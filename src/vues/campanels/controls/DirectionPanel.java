@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
@@ -202,6 +203,15 @@ public class DirectionPanel extends JPanel implements Observer{
 		verticalSpeed.addChangeListener((ChangeListener) cpCtrlPil);
 		horizontalSpeed.addChangeListener((ChangeListener) cpCtrlPil);
 	}	
+	public void setKeyListener( KeyListener cpCtrlPil ){
+		for(Entry<String, JButton> entry : getDirectionBtn().entrySet()  ){
+			entry.getValue().addKeyListener(cpCtrlPil);
+		}
+		horizontalSpeed.addKeyListener(cpCtrlPil);
+		verticalSpeed.addKeyListener(cpCtrlPil);
+		
+		this.addKeyListener(cpCtrlPil);
+	}
 	
 	public HashMap<String, JButton> getDirectionBtn(){
 		HashMap<String, JButton> directionBtn = new HashMap<String, JButton>();

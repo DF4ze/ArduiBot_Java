@@ -2,6 +2,7 @@ package vues;
 
 import java.awt.HeadlessException;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
 
@@ -41,6 +42,10 @@ public class CamFrame extends JFrame {
 	}
 	public void setPilotListener(MouseListener cpCtrlPil){
 		bp.setPilotListener( cpCtrlPil );
+	}
+	public void setKeyListener( KeyListener cpCtrlPil ){
+		bp.setKeyListener( cpCtrlPil );
+		this.addKeyListener(cpCtrlPil);
 	}
 	
 	public HashMap<String, JButton> getDirectionBtn(){

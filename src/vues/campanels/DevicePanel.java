@@ -1,6 +1,7 @@
 package vues.campanels;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -19,8 +20,6 @@ public class DevicePanel extends JPanel implements Observer{
 
 	private static final long serialVersionUID = 1L;
 
-//	private JIconButton btnConnect;
-//	private JIconButton btnStop;
 	private JIconSwitchButton btnConnect;
 	private JIconButton btnAddCam;
 	private JIconButton btnDelCam;
@@ -39,10 +38,7 @@ public class DevicePanel extends JPanel implements Observer{
 		oModCam.addObserver(this);
 		this.oModCtrl = oModCtrl;
 		oModCtrl.addObserver(this);
-		
-//		btnConnect 		= new JIconButton( new ImageIcon("images/play.png"), new ImageIcon("images/play_over.png"), new ImageIcon("images/play_down.png") );
-//		btnStop 		= new JIconButton( new ImageIcon("images/stop.png"), new ImageIcon("images/stop_over.png"), new ImageIcon("images/stop_down.png") );	
-		
+			
 		btnConnect 		= new JIconSwitchButton( new ImageIcon("images/play.png"), new ImageIcon("images/play_over.png"), new ImageIcon("images/play_down.png"), new ImageIcon("images/stop.png"), new ImageIcon("images/stop_over.png"), new ImageIcon("images/stop_down.png") );		
 		btnAddCam 		= new JIconButton( new ImageIcon("images/add.png"), new ImageIcon("images/add_over.png"), new ImageIcon("images/add_down.png") );	
 		btnDelCam 		= new JIconButton( new ImageIcon("images/del.png"), new ImageIcon("images/del_over.png"), new ImageIcon("images/del_down.png") );	
@@ -56,7 +52,6 @@ public class DevicePanel extends JPanel implements Observer{
 		
 		add( combCamChoix );
 		add( btnConnect );
-		//add( btnStop );
 		add( btnAddCam );
 		add( btnDelCam );
 		add( btnSaveCams );
@@ -115,10 +110,7 @@ public class DevicePanel extends JPanel implements Observer{
 		btnConnect.addActionListener( ac );
 		btnConnect.setActionCommandUP("BTNCONNECTCAM");
 		btnConnect.setActionCommandDOWN("BTNSTOPCAM");
-		
-//		btnStop.addActionListener( ac );
-//		btnStop.setActionCommand("BTNSTOPCAM");
-		
+			
 		btnAddCam.addActionListener( ac );
 		btnAddCam.setActionCommand("BTNADDCAM");
 		
@@ -136,6 +128,9 @@ public class DevicePanel extends JPanel implements Observer{
 		
 		btnTakeVideo.addActionListener( ac );
 		btnTakeVideo.setActionCommand("BTNTAKEVIDEO");
+	}
+	public void setKeyListener( KeyListener cpCtrlPil ){
+		this.addKeyListener(cpCtrlPil);
 	}
 	
 	public int getSelectedCam(){

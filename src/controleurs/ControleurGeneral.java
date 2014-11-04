@@ -1,5 +1,6 @@
 package controleurs;
 
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import javax.swing.JOptionPane;
 import modeles.CamCat;
 import modeles.CtrlCat;
 import modeles.GraphPilotCat;
+import modeles.KeyCat;
 
 import org.json.simple.parser.ParseException;
 
@@ -24,6 +26,8 @@ public class ControleurGeneral implements ActionListener{
 	private CtrlCat oModCtrl;
 	private CamCat oModCam;
 	private GraphPilotCat oModGraph;
+	private KeyCat oModKey;
+	
 	private CamFrame cfFrame;
 	private AddCamFrame cfAddFrame;
 	private ControleurPilotage cpCtrlPil;
@@ -34,16 +38,18 @@ public class ControleurGeneral implements ActionListener{
 		oModGraph = new GraphPilotCat();
 		oModCtrl = new CtrlCat( oModGraph );
 		oModCam = new CamCat();
+		oModKey = new KeyCat();
 		
 		// la vue
 		cfFrame = new CamFrame("DroneCtrl", oModCtrl, oModCam, oModGraph);
 		
 		// Autres controleurs
-		cpCtrlPil = new ControleurPilotage( cfFrame, oModCtrl, oModGraph );
+		cpCtrlPil = new ControleurPilotage( cfFrame, oModCtrl, oModGraph, oModKey );
 		
 		// Attribution des listeners
 		cfFrame.setListener(this);
 		cfFrame.setPilotListener(cpCtrlPil);
+		cfFrame.setKeyListener(cpCtrlPil);
 
 	}
 
@@ -57,10 +63,13 @@ public class ControleurGeneral implements ActionListener{
 		
 		if (action.equals("BTNCONNECTCAM")) {
 			try {
+				cfFrame.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 				cfFrame.showCam();
 				oModCtrl.setCameraEnable(true);
+				cfFrame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 				 
 			} catch (CamException e1) {
+				cfFrame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 				cfFrame.setCamError(e1.getMessage());
 				oModCtrl.setCameraEnable(false);
 

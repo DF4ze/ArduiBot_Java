@@ -2,6 +2,7 @@ package vues.campanels;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
 
@@ -55,6 +56,11 @@ public class BigPanel extends JPanel {
 	}
 	public void setPilotListener( MouseListener cpCtrlPil ){
 		ctrlP.setPilotListener( cpCtrlPil );
+	}
+	public void setKeyListener( KeyListener cpCtrlPil ){
+		ctrlP.setKeyListener( cpCtrlPil );
+		devP.setKeyListener( cpCtrlPil );
+		this.addKeyListener(cpCtrlPil);
 	}
 
 	public HashMap<String, JButton> getDirectionBtn(){

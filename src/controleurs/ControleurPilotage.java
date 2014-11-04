@@ -1,6 +1,8 @@
 package controleurs;
 
 import java.awt.AWTException;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -14,13 +16,15 @@ import javax.swing.event.ChangeListener;
 
 import modeles.CtrlCat;
 import modeles.GraphPilotCat;
+import modeles.KeyCat;
 import vues.CamFrame;
 
-public class ControleurPilotage implements MouseListener, MouseMotionListener, ChangeListener {
+public class ControleurPilotage implements MouseListener, MouseMotionListener, ChangeListener, KeyListener{
 
 	private CamFrame cfFrame;
 	private CtrlCat oModCtrl;
 	private GraphPilotCat oModGraph;
+	private KeyCat oModKey;
 	
 	private HashMap<String, JButton>  directionBtn;
 	private HashMap<String, JButton>  tourelleBtn;
@@ -31,10 +35,15 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 	private FixedMotionMouse fmmTourelle;
 	private FixedMotionMouse fmmDirection;
 	
-	public ControleurPilotage( CamFrame cfFrame, CtrlCat oModCtrl, GraphPilotCat oModGraph ) {
+	
+	
+	
+	
+	public ControleurPilotage( CamFrame cfFrame, CtrlCat oModCtrl, GraphPilotCat oModGraph, KeyCat oModKey ) {
 		this.cfFrame = cfFrame;
 		this.oModCtrl = oModCtrl;
 		this.oModGraph = oModGraph;
+		this.oModKey = oModKey;
 		
 		directionBtn = this.cfFrame.getDirectionBtn();
 		tourelleBtn = this.cfFrame.getTourelleBtn();
@@ -368,6 +377,43 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 			}
 		}
 		
+	}
+
+
+
+
+
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if( Debug.isEnable() )
+			System.out.println("KeyPressed");
+		
+		if( oModKey.setPressedKey( e.getKeyCode() )){
+			if( oModKey.getLastPanel().equals("dir") )
+				oModGraph.setDirectionOrientation(oModKey.getDirWay());
+			else if( oModKey.getLastPanel().equals("tour") )
+				oModGraph.setTourelleOrientation(oModKey.getTourWay());
+		}		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if( Debug.isEnable() )
+			System.out.println("KeyReleased");
+
+		if( oModKey.setReleasedKey( e.getKeyCode() )){
+			if( oModKey.getLastPanel().equals("dir") )
+				oModGraph.setDirectionOrientation(oModKey.getDirWay());
+			else if( oModKey.getLastPanel().equals("tour") )
+				oModGraph.setTourelleOrientation(oModKey.getTourWay());
+		}		
 	}
 
 }
