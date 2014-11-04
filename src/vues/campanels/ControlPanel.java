@@ -25,22 +25,11 @@ public class ControlPanel extends JPanel {
 	private TourellePanel tourPanel;
 	private ExtraPanel extraPanel;
 	
-//	private BgPanel directionBgPanel;
-//	private BgPanel tourelleBgPanel;
 	
 	public ControlPanel( CtrlCat oModel, GraphPilotCat oModGraph ) {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		// Panel Direction
-//		JPanel emptyDirP = new JPanel();
-//		emptyDirP.setBorder(BorderFactory.createTitledBorder("Direction"));
-//		directionBgPanel = new BgPanel( "images/EMaps-Center-Direction-icon.png" );
-//		emptyDirP.add(directionBgPanel);
-//		
-//		directionPanel = new DirectionPanel(oModel, oModGraph, directionBgPanel);
-//		directionBgPanel.add(directionPanel);
-//		
-//		add( emptyDirP );
 		directionPanel = new DirectionPanel(oModel, oModGraph);
 		add(directionPanel);
 		

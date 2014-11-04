@@ -13,7 +13,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeListener;
@@ -38,6 +40,8 @@ public class DirectionPanel extends JPanel implements Observer{
 	private JMapButton btDirDOWNRIGHT;
 	private JMapButton btDirUPRIGHT;
 	private JMapButton btDirUPLEFT;
+	
+	private JCheckBox cbReverseY;
 	
 	private JSlider verticalSpeed;
 	private JSlider horizontalSpeed;
@@ -69,9 +73,16 @@ public class DirectionPanel extends JPanel implements Observer{
 		verticalSpeed.setPreferredSize(new Dimension(20, 50));
 		globalDirP.add(verticalSpeed, BorderLayout.EAST);		
 
+		JPanel southP = new JPanel();
+		southP.setLayout(new BoxLayout(southP, BoxLayout.X_AXIS));
 		horizontalSpeed = new JSlider(JSlider.HORIZONTAL, oModGraph.getMinHoriSliderDirPos(), oModGraph.getMaxHoriSliderDirPos(), oModGraph.getHoriSliderDirPos());
 		horizontalSpeed.setPreferredSize(new Dimension(1, 20));
-		globalDirP.add(horizontalSpeed, BorderLayout.SOUTH);
+		southP.add(horizontalSpeed);
+		
+		cbReverseY = new JCheckBox();
+		southP.add(cbReverseY);
+		
+		globalDirP.add(southP, BorderLayout.SOUTH);
 		
 		
 		add( globalDirP);

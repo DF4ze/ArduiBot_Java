@@ -13,7 +13,9 @@ import java.util.Observer;
 import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeListener;
@@ -39,6 +41,8 @@ public class TourellePanel extends JPanel implements Observer {
 	private JMapButton btTourDOWNRIGHT;
 	private JMapButton btTourUPRIGHT;
 	private BgPanel bgp;
+	
+	private JCheckBox cbReverseY;
 
 	private JSlider verticalSpeed;
 	private JSlider horizontalSpeed;
@@ -67,10 +71,17 @@ public class TourellePanel extends JPanel implements Observer {
 		verticalSpeed.setPreferredSize(new Dimension(20, 50));
 		globalTourP.add(verticalSpeed, BorderLayout.EAST);		
 
+		JPanel southP = new JPanel();
+		southP.setLayout(new BoxLayout(southP, BoxLayout.X_AXIS));
+
 		horizontalSpeed = new JSlider(JSlider.HORIZONTAL, oModGraph.getMinHoriSliderTourPos(), oModGraph.getMaxHoriSliderTourPos(), oModGraph.getHoriSliderTourPos());
 		horizontalSpeed.setPreferredSize(new Dimension(1, 20));
-		globalTourP.add(horizontalSpeed, BorderLayout.SOUTH);
+		southP.add( horizontalSpeed );
+
+		cbReverseY = new JCheckBox();
+		southP.add( cbReverseY );
 		
+		globalTourP.add(southP, BorderLayout.SOUTH);
 		
 		add( globalTourP );
 
