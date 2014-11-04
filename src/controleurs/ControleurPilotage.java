@@ -8,12 +8,15 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import javax.swing.JButton;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import modeles.CtrlCat;
 import modeles.GraphPilotCat;
 import vues.CamFrame;
 
-public class ControleurPilotage implements MouseListener, MouseMotionListener {
+public class ControleurPilotage implements MouseListener, MouseMotionListener, ChangeListener {
 
 	private CamFrame cfFrame;
 	private CtrlCat oModCtrl;
@@ -21,6 +24,9 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener {
 	
 	private HashMap<String, JButton>  directionBtn;
 	private HashMap<String, JButton>  tourelleBtn;
+	
+	private HashMap<String, JSlider>  directionSliders;
+	private HashMap<String, JSlider>  tourelleSliders;
 	
 	private FixedMotionMouse fmmTourelle;
 	private FixedMotionMouse fmmDirection;
@@ -33,9 +39,12 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener {
 		directionBtn = this.cfFrame.getDirectionBtn();
 		tourelleBtn = this.cfFrame.getTourelleBtn();
 		
+		directionSliders = this.cfFrame.getDirectionSliders();
+		tourelleSliders = this.cfFrame.getTourelleSliders();
+		
 		try {
-			fmmTourelle = new FixedMotionMouse(false, false);
-			fmmDirection = new FixedMotionMouse(false, true);
+			fmmDirection = new FixedMotionMouse(true, true);
+			fmmTourelle = new FixedMotionMouse(true, true);
 		} catch (AWTException e) {
 			if( Debug.isEnable() )
 				e.printStackTrace();
@@ -99,11 +108,11 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		if( directionBtn.get("center").equals(e.getSource())  && oModCtrl.isDirectionEnable()  ){
+		/*if( directionBtn.get("center").equals(e.getSource())  && oModCtrl.isDirectionEnable()  ){
 			fmmDirection.releaseMouse();
 		}else if( tourelleBtn.get("center").equals(e.getSource()) && oModCtrl.isDirectionEnable()  ){
 			fmmTourelle.releaseMouse();
-		}else{
+		}else*/{
 			
 			boolean bDir = false;
 			boolean bTour = false;
@@ -228,11 +237,128 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener {
 			if( Debug.isEnable() )
 				System.out.println("Direction x: "+fmmDirection.getTotalMovedX()+" y:"+fmmDirection.getTotalMovedY());
 		
+			// Parametrage graphique : BackGround
+			if( fmmDirection.getTotalMovedY() < -1 && fmmDirection.getTotalMovedX() < -1){
+				oModGraph.setDirectionOrientation("upleft");
+				
+			}else if( fmmDirection.getTotalMovedY() < -1 && fmmDirection.getTotalMovedX() >= -1 && fmmDirection.getTotalMovedX() <= 1){
+				oModGraph.setDirectionOrientation("up");
+				
+			}else if( fmmDirection.getTotalMovedY() < -1 && fmmDirection.getTotalMovedX() > 1 ){
+				oModGraph.setDirectionOrientation("upright");
+				
+			}else if( fmmDirection.getTotalMovedY() <= 1 && fmmDirection.getTotalMovedY() >= -1 && fmmDirection.getTotalMovedX() > 1 ){
+				oModGraph.setDirectionOrientation("right");
+				
+			}else if( fmmDirection.getTotalMovedY() <= 1 && fmmDirection.getTotalMovedY() >= -1 && fmmDirection.getTotalMovedX() < -1 ){
+				oModGraph.setDirectionOrientation("left");
+				
+			}else if( fmmDirection.getTotalMovedY() > 1  && fmmDirection.getTotalMovedX() < -1 ){
+				oModGraph.setDirectionOrientation("downleft");
+				
+			}else  if( fmmDirection.getTotalMovedY() > 1  && fmmDirection.getTotalMovedX() > 1 ){
+				oModGraph.setDirectionOrientation("downright");
+				
+			}else if( fmmDirection.getTotalMovedY() > 1  && fmmDirection.getTotalMovedX() <= 1 && fmmDirection.getTotalMovedX() >= -1 ){
+				oModGraph.setDirectionOrientation("down");
+				
+			}else
+				oModGraph.setDirectionOrientation("center");
+			
+			// Sliders
+			if( fmmDirection.isAbsoluteX() )
+				oModGraph.setHoriSliderDirPos(Math.abs(fmmDirection.getTotalMovedX()));
+			
+			if( fmmDirection.isAbsoluteY() )
+				oModGraph.setVertSliderDirPos(Math.abs(fmmDirection.getTotalMovedY()));
+			
+			
+			
 		}else if( fmmTourelle.isFixedMouse() ){
 			fmmTourelle.recMotion(e.getXOnScreen(), e.getYOnScreen());
 			if( Debug.isEnable() )
 				System.out.println("Tourelle x: "+fmmTourelle.getTotalMovedX()+" y:"+fmmTourelle.getTotalMovedY());
+			
+
+			// Parametrage graphique
+			if( fmmTourelle.getTotalMovedY() < -1 && fmmTourelle.getTotalMovedX() < -1){
+				oModGraph.setTourelleOrientation("upleft");
+				
+			}else if( fmmTourelle.getTotalMovedY() < -1 && fmmTourelle.getTotalMovedX() >= -1 && fmmTourelle.getTotalMovedX() <= 1){
+				oModGraph.setTourelleOrientation("up");
+				
+			}else if( fmmTourelle.getTotalMovedY() < -1 && fmmTourelle.getTotalMovedX() > 1 ){
+				oModGraph.setTourelleOrientation("upright");
+				
+			}else if( fmmTourelle.getTotalMovedY() <= 1 && fmmTourelle.getTotalMovedY() >= -1 && fmmTourelle.getTotalMovedX() > 1 ){
+				oModGraph.setTourelleOrientation("right");
+				
+			}else if( fmmTourelle.getTotalMovedY() <= 1 && fmmTourelle.getTotalMovedY() >= -1 && fmmTourelle.getTotalMovedX() < -1 ){
+				oModGraph.setTourelleOrientation("left");
+				
+			}else if( fmmTourelle.getTotalMovedY() > 1  && fmmTourelle.getTotalMovedX() < -1 ){
+				oModGraph.setTourelleOrientation("downleft");
+				
+			}else  if( fmmTourelle.getTotalMovedY() > 1  && fmmTourelle.getTotalMovedX() > 1 ){
+				oModGraph.setTourelleOrientation("downright");
+				
+			}else if( fmmTourelle.getTotalMovedY() > 1  && fmmTourelle.getTotalMovedX() <= 1 && fmmTourelle.getTotalMovedX() >= -1 ){
+				oModGraph.setTourelleOrientation("down");
+				
+			}else
+				oModGraph.setTourelleOrientation("center");
+		
+			// Sliders
+			if( fmmTourelle.isAbsoluteX() )
+				oModGraph.setHoriSliderTourPos(Math.abs(fmmTourelle.getTotalMovedX()));
+			
+			if( fmmTourelle.isAbsoluteY() )
+				oModGraph.setVertSliderTourPos(Math.abs(fmmTourelle.getTotalMovedY()));
 		}
+		
+			
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		boolean isDir = false;
+		JSlider source= (JSlider)e.getSource();
+		
+		if (!source.getValueIsAdjusting()) {
+			for( Entry<String, JSlider> entry : directionSliders.entrySet() ){
+				if( source.equals( entry.getValue() ) ){
+					isDir = true;
+					switch( entry.getKey() ){
+					case "hori" :
+						oModGraph.setHoriSliderDirPos(source.getValue());
+						break;
+					case "verti" :
+						oModGraph.setVertSliderDirPos(source.getValue());
+						break;
+					default:
+						;
+					}
+				}
+			}
+			if( !isDir ){
+				for( Entry<String, JSlider> entry : tourelleSliders.entrySet() ){
+					if( source.equals( entry.getValue() ) ){
+						isDir = true;
+						switch( entry.getKey() ){
+						case "hori" :
+							oModGraph.setHoriSliderTourPos(source.getValue());
+							break;
+						case "verti" :
+							oModGraph.setVertSliderTourPos(source.getValue());
+							break;
+						default:
+							;
+						}
+					}
+				}			
+			}
+		}
+		
 	}
 
 }

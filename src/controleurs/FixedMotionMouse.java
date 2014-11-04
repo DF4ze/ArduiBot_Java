@@ -79,6 +79,6 @@ public class FixedMotionMouse {
 		return absoluteX;
 	}
 	public boolean isAbsoluteY(){
-		return absoluteX;
+		return absoluteY;
 	}
 }

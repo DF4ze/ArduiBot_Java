@@ -2,6 +2,8 @@ package modeles;
 
 import java.util.Observable;
 
+import controleurs.Debug;
+
 public class GraphPilotCat extends Observable {
 	
 	private final String upBtnOVER 		= "images/upOver.png";
@@ -30,9 +32,38 @@ public class GraphPilotCat extends Observable {
 	private String bgDir;
 	private String bgTour;
 	
+	private int vertSliderDirPos;
+	private int horiSliderDirPos;	
+	private int vertSliderTourPos;
+	private int horiSliderTourPos;
+	
+	private int minVertSliderDirPos;
+	private int minHoriSliderDirPos;	
+	private int minVertSliderTourPos;
+	private int minHoriSliderTourPos;
+	
+	private int maxVertSliderDirPos;
+	private int maxHoriSliderDirPos;	
+	private int maxVertSliderTourPos;
+	private int maxHoriSliderTourPos;
 	
 	public GraphPilotCat(  ){
 		
+		vertSliderDirPos = 125;
+		horiSliderDirPos = 125;	
+		vertSliderTourPos = 125;
+		horiSliderTourPos = 125;
+		
+		minVertSliderDirPos = 0;
+		minHoriSliderDirPos = 0;	
+		minVertSliderTourPos = 0;
+		minHoriSliderTourPos = 0;
+		
+		maxVertSliderDirPos = 255;
+		maxHoriSliderDirPos = 255;	
+		maxVertSliderTourPos = 255;
+		maxHoriSliderTourPos = 255;
+
 	}
 	
 	public String getBgDir(){
@@ -221,6 +252,94 @@ public class GraphPilotCat extends Observable {
 		setChanged();
 		notifyObservers("BGTOURELLE");
 	}
+
+	
+	
+	public int getVertSliderDirPos() {
+		return vertSliderDirPos;
+	}
+	public void setVertSliderDirPos(int vertSliderDirPos) {
+		this.vertSliderDirPos = vertSliderDirPos;
+
+		if( Debug.isEnable() )
+			System.out.println("verti dir" + vertSliderDirPos);
+
+		setChanged();
+		notifyObservers("VERTIDIRSLIDER");
+	}
+
+	public int getHoriSliderDirPos() {
+		return horiSliderDirPos;
+	}
+	public void setHoriSliderDirPos(int horiSliderDirPos) {
+		this.horiSliderDirPos = horiSliderDirPos;
+		
+		if( Debug.isEnable() )
+			System.out.println("hori dir"+horiSliderDirPos);
+
+		setChanged();
+		notifyObservers("HORIDIRSLIDER");
+
+	}
+
+	public int getVertSliderTourPos() {
+		return vertSliderTourPos;
+	}
+	public void setVertSliderTourPos(int vertSliderTourPos) {
+		this.vertSliderTourPos = vertSliderTourPos;
+		
+		if( Debug.isEnable() )
+			System.out.println("Verti tour" + vertSliderTourPos);
+
+		setChanged();
+		notifyObservers("VERTITOURSLIDER");
+	}
+
+	public int getHoriSliderTourPos() {
+		return horiSliderTourPos;
+	}
+	public void setHoriSliderTourPos(int horiSliderTourPos) {
+		this.horiSliderTourPos = horiSliderTourPos;
+		
+		if( Debug.isEnable() )
+			System.out.println("hori tour" + horiSliderTourPos);
+	 	
+		setChanged();
+		notifyObservers("HORITOURSLIDER");
+	}
+
+	public int getMinVertSliderDirPos() {
+		return minVertSliderDirPos;
+	}
+
+	public int getMinHoriSliderDirPos() {
+		return minHoriSliderDirPos;
+	}
+
+	public int getMinVertSliderTourPos() {
+		return minVertSliderTourPos;
+	}
+
+	public int getMinHoriSliderTourPos() {
+		return minHoriSliderTourPos;
+	}
+
+	public int getMaxVertSliderDirPos() {
+		return maxVertSliderDirPos;
+	}
+
+	public int getMaxHoriSliderDirPos() {
+		return maxHoriSliderDirPos;
+	}
+
+	public int getMaxVertSliderTourPos() {
+		return maxVertSliderTourPos;
+	}
+
+	public int getMaxHoriSliderTourPos() {
+		return maxHoriSliderTourPos;
+	}
+
 
 }
 

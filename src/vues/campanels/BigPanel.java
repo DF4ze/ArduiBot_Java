@@ -8,15 +8,17 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+
+import modeles.CamCat;
+import modeles.CtrlCat;
+import modeles.GraphPilotCat;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 
 import controleurs.Debug;
 import exceptions.CamException;
-import modeles.CamCat;
-import modeles.CtrlCat;
-import modeles.GraphPilotCat;
 
 public class BigPanel extends JPanel {
 
@@ -63,6 +65,14 @@ public class BigPanel extends JPanel {
 		
 	}
 
+	public HashMap<String, JSlider> getDirectionSliders(){
+		return ctrlP.getDirectionSliders();
+	}
+	public HashMap<String, JSlider> getTourelleSliders(){
+		return ctrlP.getTourelleSliders();
+		
+	}
+	
 	
 	public int getSelectedCam(){
 		return devP.getSelectedCam();
@@ -99,11 +109,11 @@ public class BigPanel extends JPanel {
 		
 	}
 	
-	public void setDirBackGround( String bgName ){
-		ctrlP.setDirBackGround( bgName );
-	}
-	public void setTourBackGround( String bgName ){
-		ctrlP.setTourBackGround( bgName );
-	}
+//	public void setDirBackGround( String bgName ){
+//		ctrlP.setDirBackGround( bgName );
+//	}
+//	public void setTourBackGround( String bgName ){
+//		ctrlP.setTourBackGround( bgName );
+//	}
 
 }

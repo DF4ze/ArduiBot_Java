@@ -11,7 +11,7 @@ class BgPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Image bg = new ImageIcon("images/Maps-Center-Direction-icon.png").getImage();
+	Image bg = new ImageIcon("images/centerUP.png").getImage();
     @Override
     public void paintComponent(Graphics g) {
     	g.clearRect(0, 0, getWidth(), getHeight());

@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JSlider;
 
 import modeles.CamCat;
 import modeles.CtrlCat;
@@ -50,6 +51,13 @@ public class CamFrame extends JFrame {
 		
 	}
 	
+	public HashMap<String, JSlider> getDirectionSliders(){
+		return bp.getDirectionSliders();
+	}
+	public HashMap<String, JSlider> getTourelleSliders(){
+		return bp.getTourelleSliders();
+	}
+	
 	public int getSelectedCam(){
 		return bp.getSelectedCam();
 	}
@@ -70,10 +78,10 @@ public class CamFrame extends JFrame {
 		bp.stopCam();
 	}
 	
-	public void setDirBackGround( String bgName ){
-		bp.setDirBackGround( bgName );
-	}
-	public void setTourBackGround( String bgName ){
-		bp.setTourBackGround( bgName );
-	}
+//	public void setDirBackGround( String bgName ){
+//		bp.setDirBackGround( bgName );
+//	}
+//	public void setTourBackGround( String bgName ){
+//		bp.setTourBackGround( bgName );
+//	}
 }

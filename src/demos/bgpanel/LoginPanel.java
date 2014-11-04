@@ -22,7 +22,7 @@ class LoginPanel extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				bg.setBG( "images/Maps-North-Direction-icon.png" );
+				bg.setBG( "images/centerDown.png" );
 				
 			}
 		});

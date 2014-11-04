@@ -4,17 +4,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
 
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 
 import modeles.CtrlCat;
 import modeles.GraphPilotCat;
 import vues.campanels.controls.DirectionPanel;
 import vues.campanels.controls.ExtraPanel;
 import vues.campanels.controls.TourellePanel;
-import vues.tools.BgPanel;
 
 
 public class ControlPanel extends JPanel {
@@ -25,33 +24,30 @@ public class ControlPanel extends JPanel {
 	private TourellePanel tourPanel;
 	private ExtraPanel extraPanel;
 	
-	private BgPanel directionBgPanel;
-	private BgPanel tourelleBgPanel;
+//	private BgPanel directionBgPanel;
+//	private BgPanel tourelleBgPanel;
 	
 	public ControlPanel( CtrlCat oModel, GraphPilotCat oModGraph ) {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		// Panel Direction
-		JPanel emptyDirP = new JPanel();
-		emptyDirP.setBorder(BorderFactory.createTitledBorder("Direction"));
-		directionBgPanel = new BgPanel( "images/EMaps-Center-Direction-icon.png" );
-		emptyDirP.add(directionBgPanel);
-		
-		directionPanel = new DirectionPanel(oModel, oModGraph, directionBgPanel);
-		directionBgPanel.add(directionPanel);
-		
-		add( emptyDirP );
+//		JPanel emptyDirP = new JPanel();
+//		emptyDirP.setBorder(BorderFactory.createTitledBorder("Direction"));
+//		directionBgPanel = new BgPanel( "images/EMaps-Center-Direction-icon.png" );
+//		emptyDirP.add(directionBgPanel);
+//		
+//		directionPanel = new DirectionPanel(oModel, oModGraph, directionBgPanel);
+//		directionBgPanel.add(directionPanel);
+//		
+//		add( emptyDirP );
+		directionPanel = new DirectionPanel(oModel, oModGraph);
+		add(directionPanel);
 		
 		// Panel Tourelle
-		JPanel emptyTourP = new JPanel();
-		emptyTourP.setBorder(BorderFactory.createTitledBorder("Tourelle"));
-		tourelleBgPanel = new BgPanel( "images/EMaps-Center-Direction-icon.png" );
-		emptyTourP.add(tourelleBgPanel);
-
-		tourPanel = new TourellePanel(oModel, oModGraph, tourelleBgPanel);
-		tourelleBgPanel.add(tourPanel);
-		add(emptyTourP);
+		tourPanel = new TourellePanel(oModel, oModGraph );
+		add(tourPanel);
 		
+		// Panel d'Extra
 		extraPanel = new ExtraPanel(oModel);
 		add(extraPanel);
 		
@@ -66,6 +62,7 @@ public class ControlPanel extends JPanel {
 		directionPanel.setPilotListener( cpCtrlPil );
 		tourPanel.setPilotListener( cpCtrlPil );
 	}
+	
 	public HashMap<String, JButton> getDirectionBtn(){
 		return directionPanel.getDirectionBtn();
 	}
@@ -73,10 +70,17 @@ public class ControlPanel extends JPanel {
 		return tourPanel.getTourelleBtn();
 	}
 	
-	public void setDirBackGround( String bgName ){
-		directionBgPanel.setBG( bgName );
+	public HashMap<String, JSlider> getDirectionSliders(){
+		return directionPanel.getDirectionSliders();
 	}
-	public void setTourBackGround( String bgName ){
-		tourelleBgPanel.setBG( bgName );
+	public HashMap<String, JSlider> getTourelleSliders(){
+		return tourPanel.getTourelleSliders();
 	}
+
+//	public void setDirBackGround( String bgName ){
+//		directionPanel.setBG( bgName );
+//	}
+//	public void setTourBackGround( String bgName ){
+//		tourelleBgPanel.setBG( bgName );
+//	}
 }
