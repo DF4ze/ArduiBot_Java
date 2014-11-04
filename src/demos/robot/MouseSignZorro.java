@@ -47,6 +47,6 @@ public class MouseSignZorro {
     }
 
     public static void main(String[] args) throws AWTException {
-        MouseSignZorro mouseCatchMe = new MouseSignZorro();
+        new MouseSignZorro();
     }
 }

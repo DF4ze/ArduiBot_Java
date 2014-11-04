@@ -1,5 +1,10 @@
 package modeles;
 
+import java.awt.Cursor;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.image.MemoryImageSource;
 import java.util.Observable;
 
 import controleurs.Debug;
@@ -47,6 +52,9 @@ public class GraphPilotCat extends Observable {
 	private int maxVertSliderTourPos;
 	private int maxHoriSliderTourPos;
 	
+	private Cursor transparentCursor;
+	private Cursor defaultCursor;
+	
 	public GraphPilotCat(  ){
 		
 		vertSliderDirPos = 125;
@@ -63,7 +71,13 @@ public class GraphPilotCat extends Observable {
 		maxHoriSliderDirPos = 255;	
 		maxVertSliderTourPos = 255;
 		maxHoriSliderTourPos = 255;
-
+		
+		
+		int[] pixels = new int[16 * 16];
+		Image image = Toolkit.getDefaultToolkit().createImage( new MemoryImageSource(16, 16, pixels, 0, 16));
+		
+		transparentCursor = Toolkit.getDefaultToolkit().createCustomCursor(image, new Point(0, 0), "invisibleCursor");
+		defaultCursor = new Cursor( Cursor.DEFAULT_CURSOR );
 	}
 	
 	public String getBgDir(){
@@ -311,7 +325,6 @@ public class GraphPilotCat extends Observable {
 	public int getMinVertSliderDirPos() {
 		return minVertSliderDirPos;
 	}
-
 	public int getMinHoriSliderDirPos() {
 		return minHoriSliderDirPos;
 	}
@@ -319,7 +332,6 @@ public class GraphPilotCat extends Observable {
 	public int getMinVertSliderTourPos() {
 		return minVertSliderTourPos;
 	}
-
 	public int getMinHoriSliderTourPos() {
 		return minHoriSliderTourPos;
 	}
@@ -327,7 +339,6 @@ public class GraphPilotCat extends Observable {
 	public int getMaxVertSliderDirPos() {
 		return maxVertSliderDirPos;
 	}
-
 	public int getMaxHoriSliderDirPos() {
 		return maxHoriSliderDirPos;
 	}
@@ -335,9 +346,16 @@ public class GraphPilotCat extends Observable {
 	public int getMaxVertSliderTourPos() {
 		return maxVertSliderTourPos;
 	}
-
 	public int getMaxHoriSliderTourPos() {
 		return maxHoriSliderTourPos;
+	}
+
+	
+	public Cursor getTransparentCursor() {
+		return transparentCursor;
+	}
+	public Cursor getDefaultCursor() {
+		return defaultCursor;
 	}
 
 

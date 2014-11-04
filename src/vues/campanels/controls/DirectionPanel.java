@@ -12,8 +12,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoundedRangeModel;
-import javax.swing.DefaultBoundedRangeModel;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -41,9 +39,7 @@ public class DirectionPanel extends JPanel implements Observer{
 	private JMapButton btDirUPLEFT;
 	
 	private JSlider verticalSpeed;
-	private BoundedRangeModel verticalSpeedModel;
 	private JSlider horizontalSpeed;
-	private BoundedRangeModel horizontalSpeedModel;
 	
 	private BgPanel bgp;
 
@@ -68,15 +64,11 @@ public class DirectionPanel extends JPanel implements Observer{
 		
 		globalDirP.add(bgp, BorderLayout.CENTER );
 		
-		verticalSpeedModel = new DefaultBoundedRangeModel(oModGraph.getVertSliderDirPos(), 1, oModGraph.getMinVertSliderDirPos(), oModGraph.getMaxVertSliderDirPos());
-		verticalSpeed = new JSlider(verticalSpeedModel);
-		verticalSpeed.setOrientation(JSlider.VERTICAL);
+		verticalSpeed = new JSlider(JSlider.VERTICAL, oModGraph.getMinVertSliderDirPos(), oModGraph.getMaxVertSliderDirPos(), oModGraph.getVertSliderDirPos());
 		verticalSpeed.setPreferredSize(new Dimension(20, 50));
 		globalDirP.add(verticalSpeed, BorderLayout.EAST);		
 
-		horizontalSpeedModel = new DefaultBoundedRangeModel(oModGraph.getHoriSliderDirPos(), 1, oModGraph.getMinHoriSliderDirPos(), oModGraph.getMaxHoriSliderDirPos());
-//		horizontalSpeedModel = new DefaultBoundedRangeModel(JSlider.HORIZONTAL, oModGraph.getMinHoriSliderDirPos(), oModGraph.getMaxHoriSliderDirPos(), oModGraph.getHoriSliderDirPos());
-		horizontalSpeed = new JSlider(horizontalSpeedModel);
+		horizontalSpeed = new JSlider(JSlider.HORIZONTAL, oModGraph.getMinHoriSliderDirPos(), oModGraph.getMaxHoriSliderDirPos(), oModGraph.getHoriSliderDirPos());
 		horizontalSpeed.setPreferredSize(new Dimension(1, 20));
 		globalDirP.add(horizontalSpeed, BorderLayout.SOUTH);
 		
@@ -185,23 +177,15 @@ public class DirectionPanel extends JPanel implements Observer{
 			}
 			
 		}else if( o == oModGraph ){
-			if( Debug.isEnable() )
-				System.out.println("Dir Panel UPDATE GRAPHIQUE : "+message);
 			
 			if( message.equals("BGDIRECTION"))
 					bgp.setBG(oModGraph.getBgDir());
 			
-			else if(message.equals("VERTIDIRSLIDER")){
-				if( Debug.isEnable() )
-					System.out.println("Dir Panel : Slide Vert : "+oModGraph.getVertSliderDirPos());
-				
+			else if(message.equals("VERTIDIRSLIDER")){				
 				verticalSpeed.setValue(oModGraph.getVertSliderDirPos());
 				verticalSpeed.repaint();
 				
 			}else if(message.equals("HORIDIRSLIDER")){
-				if( Debug.isEnable() )
-					System.out.println("Dir Panel : Slide Vert : "+oModGraph.getHoriSliderDirPos());
-
 				horizontalSpeed.setValue(oModGraph.getHoriSliderDirPos());
 				horizontalSpeed.repaint();
 			}
@@ -215,7 +199,6 @@ public class DirectionPanel extends JPanel implements Observer{
 			entry.getValue().addMouseMotionListener((MouseMotionListener)cpCtrlPil);
 		}
 
-//		btDirCENTER.addMouseMotionListener((MouseMotionListener)cpCtrlPil);
 		verticalSpeed.addChangeListener((ChangeListener) cpCtrlPil);
 		horizontalSpeed.addChangeListener((ChangeListener) cpCtrlPil);
 	}	
@@ -243,11 +226,6 @@ public class DirectionPanel extends JPanel implements Observer{
 		dirSld.put("hori", horizontalSpeed);
 		return dirSld;
 	}
-	public HashMap<String, BoundedRangeModel> getDirectionSliderModels(){
-		HashMap<String, BoundedRangeModel> dirSld = new HashMap<String, BoundedRangeModel>();
-		dirSld.put("verti", verticalSpeedModel);
-		dirSld.put("hori", horizontalSpeedModel);
-		return dirSld;
-	}
+
 
 }

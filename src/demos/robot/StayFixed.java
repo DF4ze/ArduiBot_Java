@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 public class StayFixed extends JFrame {
 
 
+	private static final long serialVersionUID = 1L;
 	private FixedMotionMouse fmm;
 	
 	public StayFixed() throws HeadlessException, AWTException {

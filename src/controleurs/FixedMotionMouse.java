@@ -28,6 +28,7 @@ public class FixedMotionMouse {
 		initY = YOnScreen;
 
 		fixedMouse = true;
+		
 	}
 	public void releaseMouse(){
 		setTotalMovedX(0);

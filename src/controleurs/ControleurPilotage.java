@@ -54,24 +54,33 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 		this.oModGraph.setTourelleEnable(oModCtrl.isTourelleEnable());
 	}
 
+	
+	
+	
+	
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if( directionBtn.get("center").equals(e.getSource()) && oModCtrl.isDirectionEnable() ){
 			if( fmmDirection.isFixedMouse() ){
 				fmmDirection.releaseMouse();
 				oModGraph.setDirDefautBg();
+				directionBtn.get("center").setCursor(oModGraph.getDefaultCursor());
 			}else{
 				fmmDirection.fixMouse(e.getXOnScreen(), e.getYOnScreen());
 				oModGraph.setDirectionOrientation("center");
+				directionBtn.get("center").setCursor(oModGraph.getTransparentCursor());
 			}
 			
 		}else if( tourelleBtn.get("center").equals(e.getSource()) && oModCtrl.isTourelleEnable()){
 			if( fmmTourelle.isFixedMouse() ){
 				fmmTourelle.releaseMouse();
 				oModGraph.setTourDefautBg();
+				tourelleBtn.get("center").setCursor(oModGraph.getDefaultCursor());
 			}else{
 				fmmTourelle.fixMouse(e.getXOnScreen(), e.getYOnScreen());
 				oModGraph.setTourelleOrientation("center");
+				tourelleBtn.get("center").setCursor(oModGraph.getTransparentCursor());
 			}
 		}
 	}
