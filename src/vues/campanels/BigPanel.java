@@ -96,11 +96,15 @@ public class BigPanel extends JPanel {
 			
 		}catch( NullPointerException e ){}
 		
-		//on ajoute la nouvelle ca
-		Webcam currentCam = Webcam.getWebcams().get(oModCam.getIndexSelectedDevice());
-		camP = new WebcamPanel(currentCam);
-		camP.setFillArea(true);
-		add( camP, BorderLayout.CENTER );
+		//on ajoute la nouvelle cam
+		try{
+			Webcam currentCam = Webcam.getWebcams().get(oModCam.getIndexSelectedDevice());
+			camP = new WebcamPanel(currentCam);
+			camP.setFillArea(true);
+			add( camP, BorderLayout.CENTER );
+		}catch( Exception e ){
+			throw new CamException("Impossible d'acceder à la caméra");
+		}
 	}
 	
 	public void stopCam(){
