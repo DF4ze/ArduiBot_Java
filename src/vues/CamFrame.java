@@ -39,6 +39,7 @@ public class CamFrame extends JFrame {
 		setIconImage((new ImageIcon("images/logo.png")).getImage());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		pack();
+		setLocationRelativeTo(null);
 		setVisible(true);
 		
 	}

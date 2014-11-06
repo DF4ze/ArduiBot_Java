@@ -2,7 +2,7 @@ package controleurs;
 
 public class Debug {
 		
-	private static boolean enable = true;
+	private static boolean enable = false;
 
 	private Debug() {
 		// TODO Auto-generated constructor stub
