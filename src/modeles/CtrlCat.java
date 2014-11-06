@@ -13,6 +13,10 @@ public class CtrlCat extends Observable {
 	private boolean takePictureEnable = false;
 	private boolean takeVideoEnable = false;
 	
+	private boolean reverseYDir = false;
+	private boolean reverseYTour = false;
+
+	
 	private GraphPilotCat oModGraph;
 
 	public CtrlCat( GraphPilotCat oModGraph ) {
@@ -105,5 +109,27 @@ public class CtrlCat extends Observable {
 		notifyObservers("TAKEVIDEOENABLE");
 
 	}
+	
+	public boolean isReverseYDir() {
+		return reverseYDir;
+	}
+	public void setReverseYDir(boolean reverseYDir) {
+		this.reverseYDir = reverseYDir;
+
+		setChanged();
+		notifyObservers("REVERSEYDIR");
+	}
+
+	public boolean isReverseYTour() {
+		return reverseYTour;
+	}
+	public void setReverseYTour(boolean reverseYTour) {
+		this.reverseYTour = reverseYTour;
+
+		setChanged();
+		notifyObservers("REVERSEYTOUR");
+
+	}
+
 
 }

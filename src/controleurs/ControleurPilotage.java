@@ -1,6 +1,7 @@
 package controleurs;
 
 import java.awt.AWTException;
+import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -26,8 +28,8 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 	private GraphPilotCat oModGraph;
 	private KeyCat oModKey;
 	
-	private HashMap<String, JButton>  directionBtn;
-	private HashMap<String, JButton>  tourelleBtn;
+	private HashMap<String, Component>  directionBtn;
+	private HashMap<String, Component>  tourelleBtn;
 	
 	private HashMap<String, JSlider>  directionSliders;
 	private HashMap<String, JSlider>  tourelleSliders;
@@ -91,6 +93,19 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 				oModGraph.setTourelleOrientation("center");
 				tourelleBtn.get("center").setCursor(oModGraph.getTransparentCursor());
 			}
+		}else if( directionBtn.get("checkbox").equals(e.getSource()) && oModCtrl.isDirectionEnable() ){
+			JCheckBox cb = (JCheckBox)directionBtn.get("checkbox");
+			if( Debug.isEnable() )
+				System.out.println("CheckBox Dir "+cb.isSelected());
+			
+			oModCtrl.setReverseYDir(cb.isSelected());
+			
+		}else if( tourelleBtn.get("checkbox").equals(e.getSource()) && oModCtrl.isTourelleEnable() ){
+			JCheckBox cb = (JCheckBox)tourelleBtn.get("checkbox");
+			if( Debug.isEnable() )
+				System.out.println("CheckBox Tour "+cb.isSelected());
+			
+			oModCtrl.setReverseYTour(cb.isSelected());
 		}
 	}
 
@@ -98,11 +113,11 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 	public void mouseEntered(MouseEvent e) {
 		boolean bDir = false;
 		if( oModCtrl.isDirectionEnable() ){
-			for(Entry<String, JButton> entry : directionBtn.entrySet() ) {
+			for(Entry<String, Component> entry : directionBtn.entrySet() ) {
 			    String sDir = entry.getKey();
-			    JButton button = entry.getValue();
+			    Component button = entry.getValue();
 	
-			    if( button.equals(e.getSource()) ){
+			    if( button.equals(e.getSource()) && (button instanceof JButton) ){
 			    	bDir = true;
 			    	oModGraph.setDirectionOver(sDir);
 			    	break;
@@ -111,11 +126,11 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 		}
 		if( !bDir ){
 			if( oModCtrl.isTourelleEnable() ){
-				for(Entry<String, JButton> entry : tourelleBtn.entrySet() ) {
+				for(Entry<String, Component> entry : tourelleBtn.entrySet() ) {
 					String sDir = entry.getKey();
-					JButton button = entry.getValue();
+					Component button = entry.getValue();
 					
-					if( button.equals(e.getSource()) ){
+					if( button.equals(e.getSource()) && (button instanceof JButton) ){
 						oModGraph.setTourelleOver(sDir);
 						break;
 					}
@@ -136,10 +151,10 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 			boolean bTour = false;
 			
 			if( oModCtrl.isDirectionEnable() ){
-				for(Entry<String, JButton> entry : directionBtn.entrySet() ) {
-				    JButton button = entry.getValue();
+				for(Entry<String, Component> entry : directionBtn.entrySet() ) {
+					Component button = entry.getValue();
 		
-				    if( button.equals(e.getSource()) ){
+				    if( button.equals(e.getSource()) && (button instanceof JButton) ){
 				    	bDir = true;
 				    	break;
 				    }
@@ -147,10 +162,10 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 			}
 			if( !bDir ){
 				if( oModCtrl.isTourelleEnable() ){
-					for(Entry<String, JButton> entry : tourelleBtn.entrySet() ) {
-						JButton button = entry.getValue();
+					for(Entry<String, Component> entry : tourelleBtn.entrySet() ) {
+						Component button = entry.getValue();
 						
-						if( button.equals(e.getSource()) ){
+						if( button.equals(e.getSource()) && (button instanceof JButton) ){
 							bTour = true;
 							break;
 						}
@@ -175,11 +190,11 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 		String sDirection = null;
 		
 		if( oModCtrl.isDirectionEnable() ){
-			for(Entry<String, JButton> entry : directionBtn.entrySet() ) {
+			for(Entry<String, Component> entry : directionBtn.entrySet() ) {
 			    String sDir = entry.getKey();
-			    JButton button = entry.getValue();
+			    Component button = entry.getValue();
 	
-			    if( button.equals(e.getSource()) ){
+			    if( button.equals(e.getSource()) && (button instanceof JButton)){
 			    	bDir = true;
 			    	oModGraph.setDirectionOrientation(sDir);
 			    	sDirection = sDir;
@@ -189,11 +204,11 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 		}
 		if( !bDir )
 			if( oModCtrl.isTourelleEnable() ){
-				for(Entry<String, JButton> entry : tourelleBtn.entrySet() ) {
+				for(Entry<String, Component> entry : tourelleBtn.entrySet() ) {
 					String sDir = entry.getKey();
-					JButton button = entry.getValue();
+					Component button = entry.getValue();
 					
-					if( button.equals(e.getSource()) ){
+					if( button.equals(e.getSource()) && (button instanceof JButton) ){
 						bTour = true;
 						oModGraph.setTourelleOrientation(sDir);
 				    	sDirection = sDir;
@@ -213,11 +228,11 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 		String sDirection = null;
 		
 		if( oModCtrl.isDirectionEnable() ){
-			for(Entry<String, JButton> entry : directionBtn.entrySet() ) {
+			for(Entry<String, Component> entry : directionBtn.entrySet() ) {
 				String sDir = entry.getKey();
-			    JButton button = entry.getValue();
+				Component button = entry.getValue();
 	
-			    if( button.equals(e.getSource()) ){
+			    if( button.equals(e.getSource()) && (button instanceof JButton) ){
 			    	oModGraph.setDirectionOver(sDir);
 			    	bDir = true;
 			    	break;
@@ -226,11 +241,11 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 		}
 		if( !bDir ){
 			if( oModCtrl.isTourelleEnable() ){
-				for(Entry<String, JButton> entry : tourelleBtn.entrySet() ) {
+				for(Entry<String, Component> entry : tourelleBtn.entrySet() ) {
 					String sDir = entry.getKey();
-					JButton button = entry.getValue();
+					Component button = entry.getValue();
 					
-					if( button.equals(e.getSource()) ){
+					if( button.equals(e.getSource()) && (button instanceof JButton) ){
 				    	oModGraph.setTourelleOver(sDir);
 						bTour = true;
 						break;
@@ -257,13 +272,22 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 		
 			// Parametrage graphique : BackGround
 			if( fmmDirection.getTotalMovedY() < -1 && fmmDirection.getTotalMovedX() < -1){
-				oModGraph.setDirectionOrientation("upleft");
+				if( oModCtrl.isReverseYDir() )
+					oModGraph.setDirectionOrientation("downleft");
+				else
+					oModGraph.setDirectionOrientation("upleft");
 				
 			}else if( fmmDirection.getTotalMovedY() < -1 && fmmDirection.getTotalMovedX() >= -1 && fmmDirection.getTotalMovedX() <= 1){
-				oModGraph.setDirectionOrientation("up");
+				if( oModCtrl.isReverseYDir() )
+					oModGraph.setDirectionOrientation("down");
+				else
+					oModGraph.setDirectionOrientation("up");
 				
 			}else if( fmmDirection.getTotalMovedY() < -1 && fmmDirection.getTotalMovedX() > 1 ){
-				oModGraph.setDirectionOrientation("upright");
+				if( oModCtrl.isReverseYDir() )
+					oModGraph.setDirectionOrientation("downright");
+				else
+					oModGraph.setDirectionOrientation("upright");
 				
 			}else if( fmmDirection.getTotalMovedY() <= 1 && fmmDirection.getTotalMovedY() >= -1 && fmmDirection.getTotalMovedX() > 1 ){
 				oModGraph.setDirectionOrientation("right");
@@ -272,13 +296,22 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 				oModGraph.setDirectionOrientation("left");
 				
 			}else if( fmmDirection.getTotalMovedY() > 1  && fmmDirection.getTotalMovedX() < -1 ){
-				oModGraph.setDirectionOrientation("downleft");
+				if( oModCtrl.isReverseYDir() )
+					oModGraph.setDirectionOrientation("upleft");
+				else
+					oModGraph.setDirectionOrientation("downleft");
 				
 			}else  if( fmmDirection.getTotalMovedY() > 1  && fmmDirection.getTotalMovedX() > 1 ){
-				oModGraph.setDirectionOrientation("downright");
+				if( oModCtrl.isReverseYDir() )
+					oModGraph.setDirectionOrientation("upright");
+				else
+					oModGraph.setDirectionOrientation("downright");
 				
 			}else if( fmmDirection.getTotalMovedY() > 1  && fmmDirection.getTotalMovedX() <= 1 && fmmDirection.getTotalMovedX() >= -1 ){
-				oModGraph.setDirectionOrientation("down");
+				if( oModCtrl.isReverseYDir() )
+					oModGraph.setDirectionOrientation("up");
+				else
+					oModGraph.setDirectionOrientation("down");
 				
 			}else
 				oModGraph.setDirectionOrientation("center");
@@ -300,13 +333,22 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 
 			// Parametrage graphique
 			if( fmmTourelle.getTotalMovedY() < -1 && fmmTourelle.getTotalMovedX() < -1){
-				oModGraph.setTourelleOrientation("upleft");
+				if( oModCtrl.isReverseYTour() )
+					oModGraph.setTourelleOrientation("downleft");
+				else
+					oModGraph.setTourelleOrientation("upleft");
 				
 			}else if( fmmTourelle.getTotalMovedY() < -1 && fmmTourelle.getTotalMovedX() >= -1 && fmmTourelle.getTotalMovedX() <= 1){
-				oModGraph.setTourelleOrientation("up");
+				if( oModCtrl.isReverseYTour() )
+					oModGraph.setTourelleOrientation("down");
+				else
+					oModGraph.setTourelleOrientation("up");
 				
 			}else if( fmmTourelle.getTotalMovedY() < -1 && fmmTourelle.getTotalMovedX() > 1 ){
-				oModGraph.setTourelleOrientation("upright");
+				if( oModCtrl.isReverseYTour() )
+					oModGraph.setTourelleOrientation("downright");
+				else
+					oModGraph.setTourelleOrientation("upright");
 				
 			}else if( fmmTourelle.getTotalMovedY() <= 1 && fmmTourelle.getTotalMovedY() >= -1 && fmmTourelle.getTotalMovedX() > 1 ){
 				oModGraph.setTourelleOrientation("right");
@@ -315,13 +357,22 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 				oModGraph.setTourelleOrientation("left");
 				
 			}else if( fmmTourelle.getTotalMovedY() > 1  && fmmTourelle.getTotalMovedX() < -1 ){
-				oModGraph.setTourelleOrientation("downleft");
+				if( oModCtrl.isReverseYTour() )
+					oModGraph.setTourelleOrientation("upleft");
+				else
+					oModGraph.setTourelleOrientation("downleft");
 				
 			}else  if( fmmTourelle.getTotalMovedY() > 1  && fmmTourelle.getTotalMovedX() > 1 ){
-				oModGraph.setTourelleOrientation("downright");
+				if( oModCtrl.isReverseYTour() )
+					oModGraph.setTourelleOrientation("upright");
+				else
+					oModGraph.setTourelleOrientation("downright");
 				
 			}else if( fmmTourelle.getTotalMovedY() > 1  && fmmTourelle.getTotalMovedX() <= 1 && fmmTourelle.getTotalMovedX() >= -1 ){
-				oModGraph.setTourelleOrientation("down");
+				if( oModCtrl.isReverseYTour() )
+					oModGraph.setTourelleOrientation("up");
+				else
+					oModGraph.setTourelleOrientation("down");
 				
 			}else
 				oModGraph.setTourelleOrientation("center");

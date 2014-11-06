@@ -1,6 +1,7 @@
 package vues.campanels.controls;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -14,7 +15,6 @@ import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -42,6 +42,7 @@ public class DirectionPanel extends JPanel implements Observer{
 	private JMapButton btDirUPLEFT;
 	
 	private JCheckBox cbReverseY;
+	private boolean  bReverseY;
 	
 	private JSlider verticalSpeed;
 	private JSlider horizontalSpeed;
@@ -80,6 +81,8 @@ public class DirectionPanel extends JPanel implements Observer{
 		southP.add(horizontalSpeed);
 		
 		cbReverseY = new JCheckBox();
+		bReverseY = oModel.isReverseYDir();
+		cbReverseY.setSelected(bReverseY);
 		southP.add(cbReverseY);
 		
 		globalDirP.add(southP, BorderLayout.SOUTH);
@@ -87,7 +90,6 @@ public class DirectionPanel extends JPanel implements Observer{
 		
 		add( globalDirP);
 		
-			
 		
 		
 		
@@ -147,20 +149,34 @@ public class DirectionPanel extends JPanel implements Observer{
 
 		
 
+		btDirCENTER.setToolTipText("Cliquez ici pour piloter avec la souris");
+		btDirDOWN.setToolTipText("Piloter les moteurs");
+		btDirDOWNLEFT.setToolTipText("Piloter les moteurs");
+		btDirDOWNRIGHT.setToolTipText("Piloter les moteurs");
+		btDirLEFT.setToolTipText("Piloter les moteurs");
+		btDirRIGHT.setToolTipText("Piloter les moteurs");
+		btDirUP.setToolTipText("Piloter les moteurs");
+		btDirUPLEFT.setToolTipText("Piloter les moteurs");
+		btDirUPRIGHT.setToolTipText("Piloter les moteurs");
+		verticalSpeed.setToolTipText("Vitesse des déplacements");
+		horizontalSpeed.setToolTipText("Vitesse de rotation");
+		cbReverseY.setToolTipText("Inverser l'axe Y");
 		
 		if( oModel.isDirectionEnable() ){
-			for(Entry<String, JButton> entry : getDirectionBtn().entrySet()  ){
+			for(Entry<String, Component> entry : getDirectionBtn().entrySet()  ){
 				entry.getValue().setEnabled(true);
 			}
 			horizontalSpeed.setEnabled(true);
 			verticalSpeed.setEnabled(true);
+			cbReverseY.setEnabled(true);
 			
 		}else{
-			for(Entry<String, JButton> entry : getDirectionBtn().entrySet()  ){
+			for(Entry<String, Component> entry : getDirectionBtn().entrySet()  ){
 				entry.getValue().setEnabled(false);
 			}
 			horizontalSpeed.setEnabled(false);
 			verticalSpeed.setEnabled(false);
+			cbReverseY.setEnabled(false);
 		}
 
 	}
@@ -168,25 +184,36 @@ public class DirectionPanel extends JPanel implements Observer{
 	@Override
 	public void update(Observable o, Object message) {
 
-		if( o == oModel && message.equals("DIRECTIONENABLE")){
-			
-			if( Debug.isEnable() )
-				System.out.println("Direction Panel : Update Receved");
-			
-			if( oModel.isDirectionEnable() ){
-				for(Entry<String, JButton> entry : getDirectionBtn().entrySet()  ){
-					entry.getValue().setEnabled(true);
+		if( o == oModel ){
+			if( message.equals("DIRECTIONENABLE")){
+				if( Debug.isEnable() )
+					System.out.println("Direction Panel : Update Receved");
+				
+				if( oModel.isDirectionEnable() ){
+					for(Entry<String, Component> entry : getDirectionBtn().entrySet()  ){
+						entry.getValue().setEnabled(true);
+					}
+					
+					horizontalSpeed.setEnabled(true);
+					verticalSpeed.setEnabled(true);
+					cbReverseY.setEnabled(true);
+				}else{
+					for(Entry<String, Component> entry : getDirectionBtn().entrySet()  ){
+						entry.getValue().setEnabled(false);
+					}
+					horizontalSpeed.setEnabled(false);
+					verticalSpeed.setEnabled(false);
+					cbReverseY.setEnabled(false);
 				}
 				
-				horizontalSpeed.setEnabled(true);
-				verticalSpeed.setEnabled(true);
-			}else{
-				for(Entry<String, JButton> entry : getDirectionBtn().entrySet()  ){
-					entry.getValue().setEnabled(false);
-				}
-				horizontalSpeed.setEnabled(false);
-				verticalSpeed.setEnabled(false);
+			}else if( message.equals("REVERSEYDIR") ){
+				bReverseY = oModel.isReverseYDir();
+				cbReverseY.setSelected(bReverseY);
+				if( Debug.isEnable() )
+					System.out.println("Vue : ReverseY : "+ bReverseY);
+				
 			}
+		
 			
 		}else if( o == oModGraph ){
 			
@@ -206,16 +233,17 @@ public class DirectionPanel extends JPanel implements Observer{
 	
 	public void setPilotListener( MouseListener cpCtrlPil ){
 
-		for(Entry<String, JButton> entry : getDirectionBtn().entrySet()  ){
+		for(Entry<String, Component> entry : getDirectionBtn().entrySet()  ){
 			entry.getValue().addMouseListener(cpCtrlPil);
 			entry.getValue().addMouseMotionListener((MouseMotionListener)cpCtrlPil);
 		}
 
+		cbReverseY.addMouseListener(cpCtrlPil);
 		verticalSpeed.addChangeListener((ChangeListener) cpCtrlPil);
 		horizontalSpeed.addChangeListener((ChangeListener) cpCtrlPil);
 	}	
 	public void setKeyListener( KeyListener cpCtrlPil ){
-		for(Entry<String, JButton> entry : getDirectionBtn().entrySet()  ){
+		for(Entry<String, Component> entry : getDirectionBtn().entrySet()  ){
 			entry.getValue().addKeyListener(cpCtrlPil);
 		}
 		horizontalSpeed.addKeyListener(cpCtrlPil);
@@ -224,19 +252,22 @@ public class DirectionPanel extends JPanel implements Observer{
 		this.addKeyListener(cpCtrlPil);
 	}
 	
-	public HashMap<String, JButton> getDirectionBtn(){
-		HashMap<String, JButton> directionBtn = new HashMap<String, JButton>();
+	public HashMap<String, Component> getDirectionBtn(){
+		HashMap<String, Component> directionBtn = new HashMap<String, Component>();
 		directionBtn.put("up", btDirUP);
 		directionBtn.put("down", btDirDOWN);
-		directionBtn.put("right", btDirRIGHT);
-		directionBtn.put("left", btDirLEFT);
-		
 		directionBtn.put("upleft", btDirUPLEFT);
 		directionBtn.put("upright", btDirUPRIGHT);
 		directionBtn.put("downright", btDirDOWNRIGHT);
 		directionBtn.put("downleft", btDirDOWNLEFT);
+
+		directionBtn.put("right", btDirRIGHT);
+		directionBtn.put("left", btDirLEFT);
+		
 		
 		directionBtn.put("center", btDirCENTER);
+
+		directionBtn.put("checkbox", cbReverseY);
 		
 		return directionBtn;
 	}

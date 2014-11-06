@@ -1,12 +1,12 @@
 package vues.campanels;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -63,10 +63,10 @@ public class BigPanel extends JPanel {
 		this.addKeyListener(cpCtrlPil);
 	}
 
-	public HashMap<String, JButton> getDirectionBtn(){
+	public HashMap<String, Component> getDirectionBtn(){
 		return ctrlP.getDirectionBtn();
 	}
-	public HashMap<String, JButton> getTourelleBtn(){
+	public HashMap<String, Component> getTourelleBtn(){
 		return ctrlP.getTourelleBtn();
 		
 	}
@@ -96,8 +96,9 @@ public class BigPanel extends JPanel {
 			
 		}catch( NullPointerException e ){}
 		
-		//on ajoute la nouvelle cam
-		camP = new WebcamPanel(Webcam.getWebcams().get(oModCam.getIndexSelectedDevice()));
+		//on ajoute la nouvelle ca
+		Webcam currentCam = Webcam.getWebcams().get(oModCam.getIndexSelectedDevice());
+		camP = new WebcamPanel(currentCam);
 		camP.setFillArea(true);
 		add( camP, BorderLayout.CENTER );
 	}

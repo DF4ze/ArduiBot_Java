@@ -1,6 +1,7 @@
 package vues.campanels.controls;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -8,13 +9,12 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -43,6 +43,7 @@ public class TourellePanel extends JPanel implements Observer {
 	private BgPanel bgp;
 	
 	private JCheckBox cbReverseY;
+	private boolean bReverseY;
 
 	private JSlider verticalSpeed;
 	private JSlider horizontalSpeed;
@@ -140,14 +141,29 @@ public class TourellePanel extends JPanel implements Observer {
 		c.gridy = iLigne++;
 		bgp.add(btTourDOWNRIGHT, c);	
 		
+		
+		btTourCENTER.setToolTipText("Cliquez ici pour piloter avec la souris");
+		btTourDOWN.setToolTipText("Piloter les moteurs");
+		btTourDOWNLEFT.setToolTipText("Piloter les moteurs");
+		btTourDOWNRIGHT.setToolTipText("Piloter les moteurs");
+		btTourLEFT.setToolTipText("Piloter les moteurs");
+		btTourRIGHT.setToolTipText("Piloter les moteurs");
+		btTourUP.setToolTipText("Piloter les moteurs");
+		btTourUPLEFT.setToolTipText("Piloter les moteurs");
+		btTourUPRIGHT.setToolTipText("Piloter les moteurs");
+		verticalSpeed.setToolTipText("Vitesse des déplacements");
+		horizontalSpeed.setToolTipText("Vitesse de rotation");
+		cbReverseY.setToolTipText("Inverser l'axe Y");
+		
+		
 		if( oModel.isTourelleEnable() ){
-			for(Entry<String, JButton> entry : getTourelleBtn().entrySet()  ){
+			for(Entry<String, Component> entry : getTourelleBtn().entrySet()  ){
 				entry.getValue().setEnabled(true);
 			}
 			horizontalSpeed.setEnabled(true);
 			verticalSpeed.setEnabled(true);
 		}else{
-			for(Entry<String, JButton> entry : getTourelleBtn().entrySet()  ){
+			for(Entry<String, Component> entry : getTourelleBtn().entrySet()  ){
 				entry.getValue().setEnabled(false);
 			}
 			horizontalSpeed.setEnabled(false);
@@ -160,22 +176,29 @@ public class TourellePanel extends JPanel implements Observer {
 	@Override
 	public void update(Observable o, Object message) {
 
-		if( o == oModel && message.equals("TOURELLEENABLE")){
-			if( Debug.isEnable() )
-				System.out.println("Tourelle Panel : Update Receved");
-
-			if( oModel.isTourelleEnable() ){
-				for(Entry<String, JButton> entry : getTourelleBtn().entrySet()  ){
-					entry.getValue().setEnabled(true);
+		if( o == oModel ){
+			if( message.equals("TOURELLEENABLE")){
+				if( Debug.isEnable() )
+					System.out.println("Tourelle Panel : Update Receved");
+	
+				if( oModel.isTourelleEnable() ){
+					for(Entry<String, Component> entry : getTourelleBtn().entrySet()  ){
+						entry.getValue().setEnabled(true);
+					}
+					horizontalSpeed.setEnabled(true);
+					verticalSpeed.setEnabled(true);
+				}else{
+					for(Entry<String, Component> entry : getTourelleBtn().entrySet()  ){
+						entry.getValue().setEnabled(false);
+					}
+					horizontalSpeed.setEnabled(false);
+					verticalSpeed.setEnabled(false);
 				}
-				horizontalSpeed.setEnabled(true);
-				verticalSpeed.setEnabled(true);
-			}else{
-				for(Entry<String, JButton> entry : getTourelleBtn().entrySet()  ){
-					entry.getValue().setEnabled(false);
-				}
-				horizontalSpeed.setEnabled(false);
-				verticalSpeed.setEnabled(false);
+			
+			}else if( message.equals("REVERSEYDIR") ){
+				bReverseY = oModel.isReverseYTour();
+				cbReverseY.setSelected(bReverseY);
+				
 			}
 			
 		}else if( o == oModGraph ){
@@ -197,7 +220,7 @@ public class TourellePanel extends JPanel implements Observer {
 	
 
 	public void setPilotListener( MouseListener cpCtrlPil ){
-		for(Entry<String, JButton> entry : getTourelleBtn().entrySet()  ){
+		for(Entry<String, Component> entry : getTourelleBtn().entrySet()  ){
 			entry.getValue().addMouseListener(cpCtrlPil);
 			entry.getValue().addMouseMotionListener((MouseMotionListener)cpCtrlPil);
 		}
@@ -205,7 +228,7 @@ public class TourellePanel extends JPanel implements Observer {
 		horizontalSpeed.addChangeListener((ChangeListener) cpCtrlPil);
 	}
 	public void setKeyListener( KeyListener cpCtrlPil ){
-		for(Entry<String, JButton> entry : getTourelleBtn().entrySet()  ){
+		for(Entry<String, Component> entry : getTourelleBtn().entrySet()  ){
 			entry.getValue().addKeyListener(cpCtrlPil);
 		}
 		horizontalSpeed.addKeyListener(cpCtrlPil);
@@ -213,8 +236,8 @@ public class TourellePanel extends JPanel implements Observer {
 		
 		this.addKeyListener(cpCtrlPil);
 	}	
-	public HashMap<String, JButton> getTourelleBtn(){
-		HashMap<String, JButton> tourBtn = new HashMap<String, JButton>();
+	public HashMap<String, Component> getTourelleBtn(){
+		HashMap<String, Component> tourBtn = new HashMap<String, Component>();
 		tourBtn.put("up", btTourUP);
 		tourBtn.put("down", btTourDOWN);
 		tourBtn.put("right", btTourRIGHT);
@@ -226,6 +249,8 @@ public class TourellePanel extends JPanel implements Observer {
 		tourBtn.put("downleft", btTourDOWNLEFT);
 		
 		tourBtn.put("center", btTourCENTER);
+		
+		tourBtn.put("checkbox", cbReverseY);
 		return tourBtn;
 	}
 	

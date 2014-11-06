@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import modeles.CamCat;
 import modeles.CtrlCat;
@@ -34,6 +36,22 @@ public class ControleurGeneral implements ActionListener{
 	
 	
 	public ControleurGeneral() {
+		
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+//            UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+//            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+        } catch (UnsupportedLookAndFeelException ex) {
+            ex.printStackTrace();
+        } catch (IllegalAccessException ex) {
+            ex.printStackTrace();
+        } catch (InstantiationException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+		
+		
 		// les modeles
 		oModGraph = new GraphPilotCat();
 		oModCtrl = new CtrlCat( oModGraph );

@@ -55,6 +55,7 @@ public class GraphPilotCat extends Observable {
 	private Cursor transparentCursor;
 	private Cursor defaultCursor;
 	
+	
 	public GraphPilotCat(  ){
 		
 		vertSliderDirPos = 125;
@@ -276,7 +277,7 @@ public class GraphPilotCat extends Observable {
 		this.vertSliderDirPos = vertSliderDirPos;
 
 		if( Debug.isEnable() )
-			System.out.println("verti dir" + vertSliderDirPos);
+			System.out.println("verti dir " + vertSliderDirPos);
 
 		setChanged();
 		notifyObservers("VERTIDIRSLIDER");
@@ -289,7 +290,7 @@ public class GraphPilotCat extends Observable {
 		this.horiSliderDirPos = horiSliderDirPos;
 		
 		if( Debug.isEnable() )
-			System.out.println("hori dir"+horiSliderDirPos);
+			System.out.println("hori dir "+horiSliderDirPos);
 
 		setChanged();
 		notifyObservers("HORIDIRSLIDER");
@@ -303,7 +304,7 @@ public class GraphPilotCat extends Observable {
 		this.vertSliderTourPos = vertSliderTourPos;
 		
 		if( Debug.isEnable() )
-			System.out.println("Verti tour" + vertSliderTourPos);
+			System.out.println("Verti tour " + vertSliderTourPos);
 
 		setChanged();
 		notifyObservers("VERTITOURSLIDER");
@@ -316,7 +317,7 @@ public class GraphPilotCat extends Observable {
 		this.horiSliderTourPos = horiSliderTourPos;
 		
 		if( Debug.isEnable() )
-			System.out.println("hori tour" + horiSliderTourPos);
+			System.out.println("hori tour " + horiSliderTourPos);
 	 	
 		setChanged();
 		notifyObservers("HORITOURSLIDER");
@@ -357,6 +358,7 @@ public class GraphPilotCat extends Observable {
 	public Cursor getDefaultCursor() {
 		return defaultCursor;
 	}
+
 
 
 }
