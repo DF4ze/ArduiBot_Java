@@ -1,12 +1,13 @@
 package vues;
 
+import java.awt.Component;
 import java.awt.HeadlessException;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
 
-import javax.swing.JButton;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JSlider;
 
@@ -31,8 +32,14 @@ public class CamFrame extends JFrame {
 		bp = new BigPanel( oModel, oModCam, oModGraph );
 		add( bp);		
 		
+		
+
+		
+		
+		setIconImage((new ImageIcon("images/logo.png")).getImage());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		pack();
+		setLocationRelativeTo(null);
 		setVisible(true);
 		
 	}
@@ -48,10 +55,10 @@ public class CamFrame extends JFrame {
 		this.addKeyListener(cpCtrlPil);
 	}
 	
-	public HashMap<String, JButton> getDirectionBtn(){
+	public HashMap<String, Component> getDirectionBtn(){
 		return bp.getDirectionBtn();
 	}
-	public HashMap<String, JButton> getTourelleBtn(){
+	public HashMap<String, Component> getTourelleBtn(){
 		return bp.getTourelleBtn();
 		
 	}

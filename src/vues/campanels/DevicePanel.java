@@ -50,13 +50,22 @@ public class DevicePanel extends JPanel implements Observer{
 		combModelCamChoix 	= new DefaultComboBoxModel<String>(this.oModCam.getArrayCams());
 		combCamChoix 		= new JComboBox<String>(combModelCamChoix);
 		
+		btnAddCam.setToolTipText("Ajouter une caméra");
+		btnConnect.setToolTipText("Se connecter à la caméra sélectionnée");
+		btnDelCam.setToolTipText("Supprimer la caméra sélectionnée");
+		btnReadCams.setToolTipText("Charger les caméras du fichier");
+		btnSaveCams.setToolTipText("Sauvegarder les caméras");
+		btnTakePicture.setToolTipText("Prendre une photo");
+		btnTakeVideo.setToolTipText("Prendre une vidéo");
+		combCamChoix.setToolTipText("Sélectionnez une caméra");
+		
+		
 		add( combCamChoix );
 		add( btnConnect );
 		add( btnAddCam );
 		add( btnDelCam );
 		add( btnSaveCams );
-		if( Debug.isEnable() )
-			add( btnReadCams );
+		add( btnReadCams );
 		add( btnTakePicture );
 		add( btnTakeVideo );
 //		add( new JButton("Lina-Joy") );

@@ -1,12 +1,12 @@
 package vues.campanels;
 
+import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
 
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
@@ -55,10 +55,10 @@ public class ControlPanel extends JPanel {
 		tourPanel.setKeyListener( cpCtrlPil );
 		this.addKeyListener(cpCtrlPil);
 	}	
-	public HashMap<String, JButton> getDirectionBtn(){
+	public HashMap<String, Component> getDirectionBtn(){
 		return directionPanel.getDirectionBtn();
 	}
-	public HashMap<String, JButton> getTourelleBtn(){
+	public HashMap<String, Component> getTourelleBtn(){
 		return tourPanel.getTourelleBtn();
 	}
 	
