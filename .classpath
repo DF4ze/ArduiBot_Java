@@ -19,5 +19,10 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="libs_JSON/json-simple-1.1.jar"/>
 	<classpathentry kind="lib" path="libs_ipcam/xuggle-xuggler-5.4.jar"/>
+	<classpathentry kind="lib" path="jinput/lib/jinput.jar" sourcepath="C:/Users/Klm&amp;Didie/Downloads/JInputJoystickTestV2.zip">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/Klm&amp;Didie/Dropbox/sources/eclipse/ArduiBot_Java/jinput"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
