@@ -13,12 +13,14 @@ import javax.swing.UnsupportedLookAndFeelException;
 import modeles.CamCat;
 import modeles.CtrlCat;
 import modeles.GraphPilotCat;
+import modeles.JoystickCat;
 import modeles.KeyCat;
 
 import org.json.simple.parser.ParseException;
 
 import vues.AddCamFrame;
 import vues.CamFrame;
+import controleurs.inputs.JoystickControllerPoller;
 import exceptions.CamException;
 
 
@@ -29,6 +31,7 @@ public class ControleurGeneral implements ActionListener{
 	private CamCat oModCam;
 	private GraphPilotCat oModGraph;
 	private KeyCat oModKey;
+	private JoystickCat oModJoy;
 	
 	private CamFrame cfFrame;
 	private AddCamFrame cfAddFrame;
@@ -38,25 +41,21 @@ public class ControleurGeneral implements ActionListener{
 	public ControleurGeneral() {
 		
         try {
-//            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-//            UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-        } catch (UnsupportedLookAndFeelException ex) {
-            ex.printStackTrace();
-        } catch (IllegalAccessException ex) {
-            ex.printStackTrace();
-        } catch (InstantiationException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-		
+//        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+//        UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+//        UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+        	UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            if( Debug.isEnable() )
+            	e.printStackTrace();
+        }		
 		
 		// les modeles
 		oModGraph = new GraphPilotCat();
 		oModCtrl = new CtrlCat( oModGraph );
 		oModCam = new CamCat();
 		oModKey = new KeyCat();
+		oModJoy = new JoystickCat();
 		
 		// la vue
 		cfFrame = new CamFrame("DroneCtrl", oModCtrl, oModCam, oModGraph);
@@ -68,6 +67,22 @@ public class ControleurGeneral implements ActionListener{
 		cfFrame.setListener(this);
 		cfFrame.setPilotListener(cpCtrlPil);
 		cfFrame.setKeyListener(cpCtrlPil);
+		
+		
+		if( oModJoy.isControllerFound() ){
+			// On ajoute le controleur de pilotage en tant qu'observeur
+			oModJoy.addObserver(cpCtrlPil);
+			
+			// Création du Poller
+			JoystickControllerPoller cp = new JoystickControllerPoller( oModJoy );
+			cp.setDaemon(true);
+
+			// Lancement du poll
+			cp.start();
+		}else
+			if( Debug.isEnable() )
+				System.out.println( "Controller not Found" );
+
 
 	}
 

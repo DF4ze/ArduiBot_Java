@@ -9,6 +9,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -19,9 +21,11 @@ import javax.swing.event.ChangeListener;
 import modeles.CtrlCat;
 import modeles.GraphPilotCat;
 import modeles.KeyCat;
+import net.java.games.input.Component.Identifier;
 import vues.CamFrame;
+import controleurs.inputs.FixedMotionMouse;
 
-public class ControleurPilotage implements MouseListener, MouseMotionListener, ChangeListener, KeyListener{
+public class ControleurPilotage implements MouseListener, MouseMotionListener, ChangeListener, KeyListener, Observer{
 
 	private CamFrame cfFrame;
 	private CtrlCat oModCtrl;
@@ -54,8 +58,8 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 		tourelleSliders = this.cfFrame.getTourelleSliders();
 		
 		try {
-			fmmDirection = new FixedMotionMouse(true, true);
-			fmmTourelle = new FixedMotionMouse(true, true);
+			fmmDirection = new FixedMotionMouse(false, true);
+			fmmTourelle = new FixedMotionMouse(false, false);
 		} catch (AWTException e) {
 			if( Debug.isEnable() )
 				e.printStackTrace();
@@ -465,6 +469,60 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 			else if( oModKey.getLastPanel().equals("tour") )
 				oModGraph.setTourelleOrientation(oModKey.getTourWay());
 		}		
+	}
+
+
+
+
+
+
+	@Override
+	public void update(Observable oModJoy, Object compo) {
+		net.java.games.input.Component component = (net.java.games.input.Component)compo;
+        Identifier componentIdentifier = component.getIdentifier();
+        
+        // Buttons
+        //if(component.getName().contains("Button")){ // If the language is not english, this won't work.
+        if(componentIdentifier.getName().matches("^[0-9]*$")){ // If the component identifier name contains only numbers, then this is a button.
+        	if(component.getPollData() == 0.0f)
+        		;
+        	
+        	
+        }else if(component.isAnalog()){
+            float axisValue = component.getPollData();
+            int axisValueForSlider = (int)(axisValue*255); // il va falloir mettre le 255 en constante quelque part!!!
+            
+            // Left Stick
+            // X axis
+            if(componentIdentifier == net.java.games.input.Component.Identifier.Axis.X){
+            	oModGraph.setHoriSliderDirPos( Math.abs(axisValueForSlider) );
+                //continue; // Go to next component.
+            }
+            // Y axis
+            if(componentIdentifier == net.java.games.input.Component.Identifier.Axis.Y){
+            	oModGraph.setVertSliderDirPos( Math.abs(axisValueForSlider) );
+                //continue; // Go to next component.
+            }
+            
+            // Right Stick
+            // X axis
+            if(componentIdentifier == net.java.games.input.Component.Identifier.Axis.SLIDER){
+            	oModGraph.setVertSliderTourPos( Math.abs(axisValueForSlider) );
+                //continue; // Go to next component.
+            }
+            // Y axis
+            if(componentIdentifier == net.java.games.input.Component.Identifier.Axis.RZ){
+            	oModGraph.setHoriSliderTourPos( Math.abs(axisValueForSlider) );
+                //continue; // Go to next component.
+            }
+            
+            // Other axis
+//            JLabel progressBarLabel = new JLabel(component.getName());
+//            JProgressBar progressBar = new JProgressBar(0, 100);
+//            progressBar.setValue(axisValueInPercentage);
+//            axesPanel.add(progressBarLabel);
+//            axesPanel.add(progressBar);
+        }
 	}
 
 }

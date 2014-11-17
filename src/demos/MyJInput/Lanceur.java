@@ -32,6 +32,7 @@ public class Lanceur implements Observer{
 
 		
 		System.out.println( "Press Enter to STOP" );
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		sc.next();
 	}

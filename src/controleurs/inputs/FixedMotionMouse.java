@@ -1,4 +1,4 @@
-package controleurs;
+package controleurs.inputs;
 
 import java.awt.AWTException;
 import java.awt.Robot;
