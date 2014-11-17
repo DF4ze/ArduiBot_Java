@@ -20,8 +20,8 @@ import javax.swing.event.ChangeListener;
 
 import modeles.CtrlCat;
 import modeles.GraphPilotCat;
+import modeles.JoystickCat;
 import modeles.KeyCat;
-import net.java.games.input.Component.Identifier;
 import vues.CamFrame;
 import controleurs.inputs.FixedMotionMouse;
 
@@ -477,53 +477,40 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 
 
 	@Override
-	public void update(Observable oModJoy, Object compo) {
-		net.java.games.input.Component component = (net.java.games.input.Component)compo;
-        Identifier componentIdentifier = component.getIdentifier();
+	public void update(Observable oModel, Object message) {
+		//System.out.println("Update receved");
+		
+		String sMsg = (String)message;
+		JoystickCat oModJoy = (JoystickCat) oModel;
+		 HashMap<String, Float> components = oModJoy.getComponents();
+		
+		if( sMsg.equals("TOURELLE") && oModCtrl.isTourelleEnable()){
+			oModGraph.setTourelleOrientation(oModJoy.getTourWay(oModCtrl.isReverseYTour()));
+			oModGraph.setVertSliderTourPos(  oModJoy.axisForSlider(components.get("slider") ));
+			oModGraph.setHoriSliderTourPos( oModJoy.axisForSlider(components.get("rz") ));
+			
+		}else if( sMsg.equals("DIRECTION") && oModCtrl.isDirectionEnable() ){
+			oModGraph.setDirectionOrientation(oModJoy.getDirWay(oModCtrl.isReverseYDir()));
+			oModGraph.setVertSliderDirPos( oModJoy.axisForSlider(components.get("y") ));
+			oModGraph.setHoriSliderDirPos( oModJoy.axisForSlider(components.get("x") ));
+			
+		}else{
+			if( oModCtrl.isExtraEnable() ){
+				if( sMsg.equals("0") )
+					if( components.get("0") == 1.0f )
+						oModCtrl.setStrobCheck(!oModCtrl.isStrobCheck());
+					
+				if( sMsg.equals("2") )
+					if( components.get("2") == 1.0f )
+						oModCtrl.setLazerCheck(!oModCtrl.isLazerCheck());
+				
+				if( sMsg.equals("3") )
+					if( components.get("3") == 1.0f )
+						oModCtrl.setLightCheck(!oModCtrl.isLightCheck());
+			}
         
-        // Buttons
-        //if(component.getName().contains("Button")){ // If the language is not english, this won't work.
-        if(componentIdentifier.getName().matches("^[0-9]*$")){ // If the component identifier name contains only numbers, then this is a button.
-        	if(component.getPollData() == 0.0f)
-        		;
-        	
-        	
-        }else if(component.isAnalog()){
-            float axisValue = component.getPollData();
-            int axisValueForSlider = (int)(axisValue*255); // il va falloir mettre le 255 en constante quelque part!!!
-            
-            // Left Stick
-            // X axis
-            if(componentIdentifier == net.java.games.input.Component.Identifier.Axis.X){
-            	oModGraph.setHoriSliderDirPos( Math.abs(axisValueForSlider) );
-            	oModGraph.setDirectionOrientation(((JoystickCat) oModJoy).getDirWay());
-            	//continue; // Go to next component.
-            }
-            // Y axis
-            if(componentIdentifier == net.java.games.input.Component.Identifier.Axis.Y){
-            	oModGraph.setVertSliderDirPos( Math.abs(axisValueForSlider) );
-                //continue; // Go to next component.
-            }
-            
-            // Right Stick
-            // X axis
-            if(componentIdentifier == net.java.games.input.Component.Identifier.Axis.SLIDER){
-            	oModGraph.setVertSliderTourPos( Math.abs(axisValueForSlider) );
-                //continue; // Go to next component.
-            }
-            // Y axis
-            if(componentIdentifier == net.java.games.input.Component.Identifier.Axis.RZ){
-            	oModGraph.setHoriSliderTourPos( Math.abs(axisValueForSlider) );
-                //continue; // Go to next component.
-            }
-            
-            // Other axis
-//            JLabel progressBarLabel = new JLabel(component.getName());
-//            JProgressBar progressBar = new JProgressBar(0, 100);
-//            progressBar.setValue(axisValueInPercentage);
-//            axesPanel.add(progressBarLabel);
-//            axesPanel.add(progressBar);
-        }
+		}
+
 	}
 
 }

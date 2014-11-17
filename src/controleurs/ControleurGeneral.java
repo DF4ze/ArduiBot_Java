@@ -193,6 +193,14 @@ public class ControleurGeneral implements ActionListener{
 		}else if( action.equals("BTNTAKEVIDEO") ){
 			oModCam.takeVideo();
 			
+		}else if( action.equals("CBLIGHT") ){
+			oModCtrl.setLightCheck(!oModCtrl.isLightCheck());
+			
+		}else if( action.equals("CBSTROB") ){
+			oModCtrl.setStrobCheck(!oModCtrl.isStrobCheck());
+			
+		}else if( action.equals("CBLAZER") ){
+			oModCtrl.setLazerCheck(!oModCtrl.isLazerCheck());
 		} 
 	}
 }

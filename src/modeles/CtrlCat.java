@@ -16,6 +16,10 @@ public class CtrlCat extends Observable {
 	private boolean reverseYDir = false;
 	private boolean reverseYTour = false;
 
+	private boolean lightCheck = false;
+	private boolean strobCheck = false;
+	private boolean lazerCheck = false;
+	
 	
 	private GraphPilotCat oModGraph;
 
@@ -128,7 +132,42 @@ public class CtrlCat extends Observable {
 
 		setChanged();
 		notifyObservers("REVERSEYTOUR");
+	}
 
+
+
+	public boolean isLightCheck() {
+		return lightCheck;
+	}
+	public void setLightCheck(boolean lightCheck) {
+		this.lightCheck = lightCheck;
+		
+		setChanged();
+		notifyObservers("LIGHTCHECK");
+	}
+
+
+
+	public boolean isStrobCheck() {
+		return strobCheck;
+	}
+	public void setStrobCheck(boolean strobCheck) {
+		this.strobCheck = strobCheck;
+		
+		setChanged();
+		notifyObservers("STROBCHECK");
+	}
+
+
+
+	public boolean isLazerCheck() {
+		return lazerCheck;
+	}
+	public void setLazerCheck(boolean lazerCheck) {
+		this.lazerCheck = lazerCheck;
+		
+		setChanged();
+		notifyObservers("LAZERCHECK");
 	}
 
 

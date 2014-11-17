@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.util.HashMap;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
@@ -15,6 +16,7 @@ import modeles.GraphPilotCat;
 import vues.campanels.controls.DirectionPanel;
 import vues.campanels.controls.ExtraPanel;
 import vues.campanels.controls.TourellePanel;
+import vues.tools.JIconButton;
 
 
 public class ControlPanel extends JPanel {
@@ -24,10 +26,13 @@ public class ControlPanel extends JPanel {
 	private DirectionPanel directionPanel;
 	private TourellePanel tourPanel;
 	private ExtraPanel extraPanel;
+	private JIconButton reduceBtn;
 	
 	
 	public ControlPanel( CtrlCat oModel, GraphPilotCat oModGraph ) {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
+		reduceBtn = new JIconButton(new ImageIcon("images/rightArrow.png"), new ImageIcon("images/rightArrow.png"), new ImageIcon("images/rightArrow.png"));
 		
 		// Panel Direction
 		directionPanel = new DirectionPanel(oModel, oModGraph);

@@ -61,6 +61,9 @@ public class ExtraPanel extends JPanel implements Observer{
 			if( Debug.isEnable() )
 				System.out.println("Extra Panel : Update Receved");
 
+			cbLight.setSelected(oModel.isLightCheck());
+			cbStrob.setSelected(oModel.isStrobCheck());
+			cbLazer.setSelected(oModel.isLazerCheck());
 			if( oModel.isExtraEnable() ){
 				cbLight.setEnabled(true);
 				cbStrob.setEnabled(true);
@@ -70,6 +73,14 @@ public class ExtraPanel extends JPanel implements Observer{
 				cbStrob.setEnabled(false);
 				cbLazer.setEnabled(false);
 			}		
+		}else if( message.equals("LIGHTCHECK") ){
+			cbLight.setSelected(oModel.isLightCheck());
+			
+		}else if( message.equals("STROBCHECK") ){
+			cbStrob.setSelected(oModel.isStrobCheck());
+			
+		}else if( message.equals("LAZERCHECK") ){
+			cbLazer.setSelected(oModel.isLazerCheck());
 		}
 	}
 	
