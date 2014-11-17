@@ -1,6 +1,7 @@
 package modeles;
 
 
+import java.util.HashMap;
 import java.util.Observable;
 
 import net.java.games.input.Component;
@@ -10,6 +11,7 @@ import net.java.games.input.ControllerEnvironment;
 public class JoystickCat extends Observable {
 	private float[] componentsValue = null;
 	private Controller firstController = null;
+	private HashMap<String, Float> components = null;
 
 	public JoystickCat() {
         Controller[] controllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
@@ -47,29 +49,47 @@ public class JoystickCat extends Observable {
 			
 		}else{
 			//System.out.println("Init");
-			this.componentsValue = new float[components.length];
-			for( int i = 0; i < components.length; i++ ){
-				this.componentsValue[i] = components[i].getPollData();
+//			this.componentsValue = new float[components.length];
+//			for( int i = 0; i < components.length; i++ ){
+//				this.componentsValue[i] = components[i].getPollData();
+//			}
+			
+			for( Component compo : components ){
+				this.components.put(compo.getIdentifier().getName(), compo.getPollData());
 			}
 		}
 	}
 
 	protected void checkModified( Component[] components ){
 		// on fait le tour des composants du Controller
-		for( int i = 0; i < components.length; i++ ){
+		for( Component compo : components ){
+			String sID = compo.getIdentifier().getName();
+
 			// si une valeur est différente
-			if( this.componentsValue[i] != components[i].getPollData() ){
-				// System.out.println("Change");
+			if( this.components.get(sID) != compo.getPollData() ){
+
 				// On enregistre la nouvelle valeur
-				this.componentsValue[i] = components[i].getPollData();
+				this.components.put(sID, compo.getPollData() );
 				
 				//on signale la modification
 				setChanged();
-				notifyObservers(components[i]);
+				if( compo.getIdentifier() == Component.Identifier.Axis.X || compo.getIdentifier() == Component.Identifier.Axis.Y )
+					notifyObservers("DIRECTION");
+				//.........
 			}
 //			else
 //				System.out.println("Not Change");
 //				
 		}
+	}
+	
+	public String getDirWay(){
+		
+		return "";
+	}
+	
+	public String getTourWay(){
+		
+		return "";		
 	}
 }
