@@ -496,7 +496,8 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
             // X axis
             if(componentIdentifier == net.java.games.input.Component.Identifier.Axis.X){
             	oModGraph.setHoriSliderDirPos( Math.abs(axisValueForSlider) );
-                //continue; // Go to next component.
+            	oModGraph.setDirectionOrientation(((JoystickCat) oModJoy).getDirWay());
+            	//continue; // Go to next component.
             }
             // Y axis
             if(componentIdentifier == net.java.games.input.Component.Identifier.Axis.Y){

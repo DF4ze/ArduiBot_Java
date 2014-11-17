@@ -46,7 +46,6 @@ public class JoystickCat extends Observable {
 			checkModified( components );
 			
 		}else{
-			//System.out.println("Init");
 			this.componentsValue = new float[components.length];
 			for( int i = 0; i < components.length; i++ ){
 				this.componentsValue[i] = components[i].getPollData();
@@ -54,6 +53,12 @@ public class JoystickCat extends Observable {
 		}
 	}
 
+	public String getDirWay(){
+		
+		
+		return "";
+	}
+	
 	protected void checkModified( Component[] components ){
 		// on fait le tour des composants du Controller
 		for( int i = 0; i < components.length; i++ ){
