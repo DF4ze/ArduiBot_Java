@@ -2,7 +2,7 @@ package modeles.inputs;
 
 import java.util.Observable;
 
-public class KeyCat extends Observable {
+public class KeyCat extends Observable{
 
 	//// Direction
 	// code

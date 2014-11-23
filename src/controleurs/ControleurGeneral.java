@@ -68,7 +68,6 @@ public class ControleurGeneral implements ActionListener{
 		cfFrame.setPilotListener(cpCtrlPil);
 		cfFrame.setKeyListener(cpCtrlPil);
 		
-		
 		if( oModJoy.isControllerFound() ){
 			// On ajoute le controleur de pilotage en tant qu'observeur
 			oModJoy.addObserver(cpCtrlPil);
