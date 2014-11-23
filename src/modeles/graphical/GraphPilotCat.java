@@ -1,4 +1,4 @@
-package modeles;
+package modeles.graphical;
 
 import java.awt.Cursor;
 import java.awt.Image;

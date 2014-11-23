@@ -6,7 +6,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import modeles.CamCat;
+import modeles.graphical.CamCat;
 
 import com.github.sarxos.webcam.ds.ipcam.IpCamDevice;
 

@@ -20,8 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeListener;
 
-import modeles.CtrlCat;
-import modeles.GraphPilotCat;
+import modeles.graphical.CtrlCat;
+import modeles.graphical.GraphPilotCat;
 import vues.tools.BgPanel;
 import vues.tools.JMapButton;
 import controleurs.Debug;

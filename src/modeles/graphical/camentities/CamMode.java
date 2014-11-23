@@ -1,4 +1,4 @@
-package modeles.tools;
+package modeles.graphical.camentities;
 
 import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
 

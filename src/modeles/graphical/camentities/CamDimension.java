@@ -1,4 +1,4 @@
-package modeles.tools;
+package modeles.graphical.camentities;
 
 import java.awt.Dimension;
 

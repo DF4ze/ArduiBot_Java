@@ -1,6 +1,6 @@
 package controleurs.inputs;
 
-import modeles.JoystickCat;
+import modeles.inputs.JoystickCat;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
 

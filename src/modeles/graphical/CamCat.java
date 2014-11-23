@@ -1,4 +1,4 @@
-package modeles;
+package modeles.graphical;
 
 import java.awt.Dimension;
 import java.io.IOException;
@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Observable;
 
-import modeles.dao.FileIPCamStream;
-import modeles.tools.CamDimension;
-import modeles.tools.CamMode;
+import modeles.dao.camrecord.FileIPCamStream;
+import modeles.graphical.camentities.CamDimension;
+import modeles.graphical.camentities.CamMode;
 
 import org.json.simple.parser.ParseException;
 

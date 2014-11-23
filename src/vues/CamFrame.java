@@ -11,9 +11,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JSlider;
 
-import modeles.CamCat;
-import modeles.CtrlCat;
-import modeles.GraphPilotCat;
+import modeles.graphical.CamCat;
+import modeles.graphical.CtrlCat;
+import modeles.graphical.GraphPilotCat;
 import vues.campanels.BigPanel;
 import exceptions.CamException;
 

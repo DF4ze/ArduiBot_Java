@@ -10,11 +10,11 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import modeles.CamCat;
-import modeles.CtrlCat;
-import modeles.GraphPilotCat;
-import modeles.JoystickCat;
-import modeles.KeyCat;
+import modeles.graphical.CamCat;
+import modeles.graphical.CtrlCat;
+import modeles.graphical.GraphPilotCat;
+import modeles.inputs.JoystickCat;
+import modeles.inputs.KeyCat;
 
 import org.json.simple.parser.ParseException;
 
@@ -201,6 +201,9 @@ public class ControleurGeneral implements ActionListener{
 			
 		}else if( action.equals("CBLAZER") ){
 			oModCtrl.setLazerCheck(!oModCtrl.isLazerCheck());
+			
+		}else if( action.equals("REDUCECTRL") ){
+			oModCtrl.setReduceCtrl(!oModCtrl.isReduceCtrl());;
 		} 
 	}
 }

@@ -5,13 +5,14 @@ import java.awt.event.KeyListener;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import modeles.CamCat;
-import modeles.CtrlCat;
+import modeles.graphical.CamCat;
+import modeles.graphical.CtrlCat;
 import vues.tools.JIconButton;
 import vues.tools.JIconSwitchButton;
 import controleurs.Debug;
@@ -38,7 +39,10 @@ public class DevicePanel extends JPanel implements Observer{
 		oModCam.addObserver(this);
 		this.oModCtrl = oModCtrl;
 		oModCtrl.addObserver(this);
-			
+
+		setBorder(BorderFactory.createRaisedBevelBorder());
+
+		
 		btnConnect 		= new JIconSwitchButton( new ImageIcon("images/play.png"), new ImageIcon("images/play_over.png"), new ImageIcon("images/play_down.png"), new ImageIcon("images/stop.png"), new ImageIcon("images/stop_over.png"), new ImageIcon("images/stop_down.png") );		
 		btnAddCam 		= new JIconButton( new ImageIcon("images/add.png"), new ImageIcon("images/add_over.png"), new ImageIcon("images/add_down.png") );	
 		btnDelCam 		= new JIconButton( new ImageIcon("images/del.png"), new ImageIcon("images/del_over.png"), new ImageIcon("images/del_down.png") );	

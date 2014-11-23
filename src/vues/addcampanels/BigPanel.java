@@ -15,9 +15,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import modeles.CamCat;
-import modeles.tools.CamDimension;
-import modeles.tools.CamMode;
+import modeles.graphical.CamCat;
+import modeles.graphical.camentities.CamDimension;
+import modeles.graphical.camentities.CamMode;
 
 public class BigPanel extends JPanel {
 

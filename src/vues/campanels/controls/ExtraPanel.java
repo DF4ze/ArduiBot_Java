@@ -10,7 +10,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
 import controleurs.Debug;
-import modeles.CtrlCat;
+import modeles.graphical.CtrlCat;
 
 public class ExtraPanel extends JPanel implements Observer{
 

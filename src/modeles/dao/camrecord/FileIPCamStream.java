@@ -1,4 +1,4 @@
-package modeles.dao;
+package modeles.dao.camrecord;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;

@@ -1,4 +1,4 @@
-package modeles;
+package modeles.graphical;
 
 import java.util.Observable;
 
@@ -19,6 +19,8 @@ public class CtrlCat extends Observable {
 	private boolean lightCheck = false;
 	private boolean strobCheck = false;
 	private boolean lazerCheck = false;
+
+	private boolean reduceCtrl = true;
 	
 	
 	private GraphPilotCat oModGraph;
@@ -168,6 +170,19 @@ public class CtrlCat extends Observable {
 		
 		setChanged();
 		notifyObservers("LAZERCHECK");
+	}
+
+
+
+	public boolean isReduceCtrl() {
+		return reduceCtrl;
+	}
+	public void setReduceCtrl(boolean reduceCtrl) {
+		this.reduceCtrl = reduceCtrl;
+		
+		setChanged();
+		notifyObservers("REDUCECTRL");
+
 	}
 
 

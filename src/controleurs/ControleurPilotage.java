@@ -18,10 +18,10 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import modeles.CtrlCat;
-import modeles.GraphPilotCat;
-import modeles.JoystickCat;
-import modeles.KeyCat;
+import modeles.graphical.CtrlCat;
+import modeles.graphical.GraphPilotCat;
+import modeles.inputs.JoystickCat;
+import modeles.inputs.KeyCat;
 import vues.CamFrame;
 import controleurs.inputs.FixedMotionMouse;
 

@@ -1,4 +1,4 @@
-package modeles;
+package modeles.inputs;
 
 
 import java.util.HashMap;
