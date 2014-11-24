@@ -12,12 +12,6 @@ import net.java.games.input.ControllerEnvironment;
 public class JoystickCat extends Observable {
 	private Controller firstController = null;
 	private HashMap<String, Float> components;
-
-//	private final String upWay = "up";
-//	private final String leftWay = "left";
-//	private final String rightWay = "right";
-//	private final String downWay = "down";
-	
 	
 	public JoystickCat() {
         Controller[] controllers = ControllerEnvironment.getDefaultEnvironment().getControllers();

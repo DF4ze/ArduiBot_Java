@@ -7,11 +7,6 @@ import modeles.DroneActions;
 public class KeyCat extends Observable{
 
 	//// Direction
-	// code
-//	public final int dirUpCode = 90;		// Z
-//	public final int dirLeftCode = 81;		// Q
-//	public final int dirRightCode = 68;		// D
-//	public final int dirDownCode = 83;		// S
 	// statut
 	private boolean dirUp = false;
 	private boolean dirLeft = false;
@@ -19,22 +14,12 @@ public class KeyCat extends Observable{
 	private boolean dirDown = false;	
 	
 	//// Tourelle
-	// code
-//	public final int tourUpCode = 38;		// fleche haut
-//	public final int tourLeftCode = 37;		// gauche
-//	public final int tourRightCode = 39;	// ...
-//	public final int tourDownCode = 40;		// ...
 	// statut
 	private boolean tourUp = false;
 	private boolean tourLeft = false;
 	private boolean tourRight = false;
 	private boolean tourDown = false;
 	
-	//// string d'appel
-//	private final String upWay = "up";
-//	private final String leftWay = "left";
-//	private final String rightWay = "right";
-//	private final String downWay = "down";
 
 	private String lastPanel = "none";
 	

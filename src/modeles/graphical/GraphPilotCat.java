@@ -123,31 +123,31 @@ public class GraphPilotCat extends Observable {
 	
 	public void setDirectionOrientation( String orient ){
 		switch( orient ){
-		case "up" : // UP
+		case DroneActions.upWay : // UP
 			bgDir = upBtnDOWN;
 			break;
-		case "down" :	// DOWN
+		case DroneActions.downWay :	// DOWN
 			bgDir = downBtnDOWN;
 			break;
-		case "left" : // LEFT
+		case DroneActions.leftWay : // LEFT
 			bgDir = leftBtnDOWN;
 			break;
-		case "right" :	// RIGHT
+		case DroneActions.rightWay :	// RIGHT
 			bgDir = rightBtnDOWN;
 			break;
 		case "center" :	// CENTER
 			bgDir = centerBtnDOWN;
 			break;
-		case "upleft" : // UP LEFT
+		case DroneActions.upleftWay : // UP LEFT
 			bgDir = upLeftBtnDOWN;
 			break;
-		case "upright" : // UP RIGHT
+		case DroneActions.uprightWay : // UP RIGHT
 			bgDir = upRightBtnDOWN;
 			break;
-		case "downright" :	// DOWN RIGHT
+		case DroneActions.downrightWay :	// DOWN RIGHT
 			bgDir = downRightBtnDOWN;
 			break;
-		case "downleft" :	// DOWN LEFT
+		case DroneActions.downleftWay :	// DOWN LEFT
 			bgDir = downLeftBtnDOWN;
 			break;
 		default :
@@ -159,31 +159,31 @@ public class GraphPilotCat extends Observable {
 	}
 	public void setTourelleOrientation( String orient ){
 		switch( orient ){
-		case "up" : // UP
+		case DroneActions.upWay : // UP
 			bgTour = upBtnDOWN;
 			break;
-		case "down" :	// DOWN
+		case DroneActions.downWay :	// DOWN
 			bgTour = downBtnDOWN;
 			break;
-		case "left" : // LEFT
+		case DroneActions.leftWay : // LEFT
 			bgTour = leftBtnDOWN;
 			break;
-		case "right" :	// RIGHT
+		case DroneActions.rightWay :	// RIGHT
 			bgTour = rightBtnDOWN;
 			break;
 		case "center" :	// CENTER
 			bgTour = centerBtnDOWN;
 			break;
-		case "upleft" : // UP LEFT
+		case DroneActions.upleftWay : // UP LEFT
 			bgTour = upLeftBtnDOWN;
 			break;
-		case "upright" : // UP RIGHT
+		case DroneActions.uprightWay : // UP RIGHT
 			bgTour = upRightBtnDOWN;
 			break;
-		case "downright" :	// DOWN RIGHT
+		case DroneActions.downrightWay :	// DOWN RIGHT
 			bgTour = downRightBtnDOWN;
 			break;
-		case "downleft" :	// DOWN LEFT
+		case DroneActions.downleftWay :	// DOWN LEFT
 			bgTour = downLeftBtnDOWN;
 			break;
 		default :
@@ -198,31 +198,31 @@ public class GraphPilotCat extends Observable {
 	
 	public void setDirectionOver( String orient ){
 		switch(orient){
-		case "up" :
+		case DroneActions.upWay :
 			bgDir = upBtnOVER;
 			break;
-		case "down" : 
+		case DroneActions.downWay : 
 			bgDir = downBtnOVER;
 			break;
-		case "left" : 
+		case DroneActions.leftWay : 
 			bgDir = leftBtnOVER;
 			break;
-		case "right" : 
+		case DroneActions.rightWay : 
 			bgDir = rightBtnOVER;
 			break;
 		case "center" : 
 			bgDir = centerBtnOVER;
 			break;
-		case "upright" : 
+		case DroneActions.uprightWay : 
 			bgDir = upRightBtnOVER;
 			break;
-		case "upleft" : 
+		case DroneActions.upleftWay : 
 			bgDir = upLeftBtnOVER;
 			break;
-		case "downright" : 
+		case DroneActions.downrightWay : 
 			bgDir = downRightBtnOVER;
 			break;
-		case "downleft" : 
+		case DroneActions.downleftWay : 
 			bgDir = downLeftBtnOVER;
 			break;
 		default :
@@ -234,31 +234,31 @@ public class GraphPilotCat extends Observable {
 	}
 	public void setTourelleOver( String orient ){
 		switch(orient){
-		case "up" :
+		case DroneActions.upWay :
 			bgTour = upBtnOVER;
 			break;
-		case "down" : 
+		case DroneActions.downWay : 
 			bgTour = downBtnOVER;
 			break;
-		case "left" : 
+		case DroneActions.leftWay : 
 			bgTour = leftBtnOVER;
 			break;
-		case "right" : 
+		case DroneActions.rightWay : 
 			bgTour = rightBtnOVER;
 			break;
 		case "center" : 
 			bgTour = centerBtnOVER;
 			break;
-		case "upright" : 
+		case DroneActions.uprightWay : 
 			bgTour = upRightBtnOVER;
 			break;
-		case "upleft" : 
+		case DroneActions.upleftWay : 
 			bgTour = upLeftBtnOVER;
 			break;
-		case "downright" : 
+		case DroneActions.downrightWay : 
 			bgTour = downRightBtnOVER;
 			break;
-		case "downleft" : 
+		case DroneActions.downleftWay : 
 			bgTour = downLeftBtnOVER;
 			break;
 		default :
