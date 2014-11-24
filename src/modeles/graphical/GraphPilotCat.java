@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import java.awt.image.MemoryImageSource;
 import java.util.Observable;
 
+import modeles.DroneActions;
 import controleurs.Debug;
 
 public class GraphPilotCat extends Observable {
@@ -58,20 +59,20 @@ public class GraphPilotCat extends Observable {
 	
 	public GraphPilotCat(  ){
 		
-		vertSliderDirPos = 125;
-		horiSliderDirPos = 125;	
-		vertSliderTourPos = 125;
-		horiSliderTourPos = 125;
+		vertSliderDirPos = DroneActions.maxVerticalPower/2;
+		horiSliderDirPos = DroneActions.maxHorizontalPower/2;	
+		vertSliderTourPos = DroneActions.maxVerticalPower/2;
+		horiSliderTourPos = DroneActions.maxHorizontalPower/2;	
 		
 		minVertSliderDirPos = 0;
 		minHoriSliderDirPos = 0;	
 		minVertSliderTourPos = 0;
 		minHoriSliderTourPos = 0;
 		
-		maxVertSliderDirPos = 255;
-		maxHoriSliderDirPos = 255;	
-		maxVertSliderTourPos = 255;
-		maxHoriSliderTourPos = 255;
+		maxVertSliderDirPos = DroneActions.maxVerticalPower;
+		maxHoriSliderDirPos = DroneActions.maxHorizontalPower;	
+		maxVertSliderTourPos = DroneActions.maxVerticalPower;
+		maxHoriSliderTourPos = DroneActions.maxHorizontalPower;
 		
 		
 		int[] pixels = new int[16 * 16];

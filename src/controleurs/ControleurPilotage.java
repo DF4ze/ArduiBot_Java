@@ -18,6 +18,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import modeles.DroneActions;
 import modeles.graphical.CtrlCat;
 import modeles.graphical.GraphPilotCat;
 import modeles.inputs.JoystickCat;
@@ -321,12 +322,31 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 				oModGraph.setDirectionOrientation("center");
 			
 			// Sliders
-			if( fmmDirection.isAbsoluteX() )
-				oModGraph.setHoriSliderDirPos(Math.abs(fmmDirection.getTotalMovedX()));
+			if( fmmDirection.isAbsoluteX() ){
+				int iSliderPos;
+				int iMoved = fmmDirection.getTotalMovedX();
+				if( Math.abs( iMoved ) > DroneActions.maxHorizontalPower ){
+					iMoved = ((iMoved>0)?1:-1)*DroneActions.maxHorizontalPower;
+					fmmDirection.setTotalMovedX(iMoved);
+					iSliderPos = Math.abs(iMoved);
+				}else
+					iSliderPos = Math.abs(iMoved);
+				
+				oModGraph.setHoriSliderDirPos( iSliderPos );
+			}
 			
-			if( fmmDirection.isAbsoluteY() )
-				oModGraph.setVertSliderDirPos(Math.abs(fmmDirection.getTotalMovedY()));
-			
+			if( fmmDirection.isAbsoluteY() ){
+				int iSliderPos;
+				int iMoved = fmmDirection.getTotalMovedY();
+				if( Math.abs(iMoved) > DroneActions.maxVerticalPower ){
+					iMoved = ((iMoved>0)?1:-1)*DroneActions.maxVerticalPower;
+					fmmDirection.setTotalMovedY(iMoved);
+					iSliderPos = Math.abs(iMoved);
+				}else
+					iSliderPos = Math.abs(iMoved);
+				
+				oModGraph.setVertSliderDirPos( iSliderPos );
+			}
 			
 			
 		}else if( fmmTourelle.isFixedMouse() ){
@@ -382,11 +402,32 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 				oModGraph.setTourelleOrientation("center");
 		
 			// Sliders
-			if( fmmTourelle.isAbsoluteX() )
-				oModGraph.setHoriSliderTourPos(Math.abs(fmmTourelle.getTotalMovedX()));
+			if( fmmTourelle.isAbsoluteX() ){
+				int iSliderPos;
+				int iMoved = fmmTourelle.getTotalMovedX();
+				if( Math.abs( iMoved ) > DroneActions.maxHorizontalPower ){
+					iMoved = ((iMoved>0)?1:-1)*DroneActions.maxHorizontalPower;
+					fmmTourelle.setTotalMovedX(iMoved);
+					iSliderPos = Math.abs(iMoved);
+				}else
+					iSliderPos = Math.abs(iMoved);
+
+				oModGraph.setHoriSliderTourPos(iSliderPos);
+			}
 			
-			if( fmmTourelle.isAbsoluteY() )
-				oModGraph.setVertSliderTourPos(Math.abs(fmmTourelle.getTotalMovedY()));
+			if( fmmTourelle.isAbsoluteY() ){
+				int iSliderPos;
+				int iMoved = fmmTourelle.getTotalMovedY();
+				if( Math.abs(iMoved) > DroneActions.maxVerticalPower ){
+					iMoved = ((iMoved>0)?1:-1)*DroneActions.maxVerticalPower;
+					fmmTourelle.setTotalMovedY(iMoved);
+					iSliderPos = Math.abs(iMoved);
+				}else
+					iSliderPos = Math.abs(iMoved);
+
+				
+				oModGraph.setVertSliderTourPos( iSliderPos );
+			}
 		}
 		
 			
@@ -452,9 +493,9 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 		
 		if( oModKey.setPressedKey( e.getKeyCode() )){
 			if( oModKey.getLastPanel().equals("dir") )
-				oModGraph.setDirectionOrientation(oModKey.getDirWay());
+				oModGraph.setDirectionOrientation(oModKey.getDirWay(oModCtrl.isReverseYDir()));
 			else if( oModKey.getLastPanel().equals("tour") )
-				oModGraph.setTourelleOrientation(oModKey.getTourWay());
+				oModGraph.setTourelleOrientation(oModKey.getTourWay(oModCtrl.isReverseYTour()));
 		}		
 	}
 
@@ -465,9 +506,9 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 
 		if( oModKey.setReleasedKey( e.getKeyCode() )){
 			if( oModKey.getLastPanel().equals("dir") )
-				oModGraph.setDirectionOrientation(oModKey.getDirWay());
+				oModGraph.setDirectionOrientation(oModKey.getDirWay(oModCtrl.isReverseYDir()));
 			else if( oModKey.getLastPanel().equals("tour") )
-				oModGraph.setTourelleOrientation(oModKey.getTourWay());
+				oModGraph.setTourelleOrientation(oModKey.getTourWay(oModCtrl.isReverseYTour()));
 		}		
 	}
 

@@ -4,6 +4,7 @@ package modeles.inputs;
 import java.util.HashMap;
 import java.util.Observable;
 
+import modeles.DroneActions;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
@@ -12,10 +13,10 @@ public class JoystickCat extends Observable {
 	private Controller firstController = null;
 	private HashMap<String, Float> components;
 
-	private final String upWay = "up";
-	private final String leftWay = "left";
-	private final String rightWay = "right";
-	private final String downWay = "down";
+//	private final String upWay = "up";
+//	private final String leftWay = "left";
+//	private final String rightWay = "right";
+//	private final String downWay = "down";
 	
 	
 	public JoystickCat() {
@@ -100,24 +101,24 @@ public class JoystickCat extends Observable {
 	public String getDirWay( boolean reverseY ){
 		String sWay = "";
 		if( components.get("y") > 0.01){ // !!! axe des Y est inversé !!!
-			sWay = (reverseY)?upWay:downWay;
+			sWay = (reverseY)?DroneActions.upWay:DroneActions.downWay;
 			if( components.get("x") > 0.01 )
-				sWay += rightWay;
+				sWay += DroneActions.rightWay;
 			else if( components.get("x") < -0.01 )
-				sWay += leftWay;
+				sWay += DroneActions.leftWay;
 			
 		}else if( components.get("y") < -0.01){ // !!! axe des Y est inversé !!!
-			sWay = (reverseY)?downWay:upWay;
+			sWay = (reverseY)?DroneActions.downWay:DroneActions.upWay;
 			if( components.get("x") > 0.01 )
-				sWay += rightWay;
+				sWay += DroneActions.rightWay;
 			else if( components.get("x") < -0.01 )
-				sWay += leftWay;
+				sWay += DroneActions.leftWay;
 			
 		}else if( components.get("x") > 0.01 )
-			sWay = rightWay;
+			sWay = DroneActions.rightWay;
 		
 		else if( components.get("x") < -0.01 )
-			sWay = leftWay;
+			sWay = DroneActions.leftWay;
 		
 		
 		return sWay;
@@ -126,24 +127,24 @@ public class JoystickCat extends Observable {
 	public String getTourWay( boolean reverseY ){
 		String sWay = "";
 		if( components.get("slider") > 0.01){ // !!! axe des Y est inversé !!!
-			sWay = (reverseY)?upWay:downWay;
+			sWay = (reverseY)?DroneActions.upWay:DroneActions.downWay;
 			if( components.get("rz") > 0.01 )
-				sWay += rightWay;
+				sWay += DroneActions.rightWay;
 			else if( components.get("rz") < -0.01 )
-				sWay += leftWay;
+				sWay += DroneActions.leftWay;
 			
 		}else if( components.get("slider") < -0.01){ // !!! axe des Y est inversé !!!
-			sWay = (reverseY)?downWay:upWay;
+			sWay = (reverseY)?DroneActions.downWay:DroneActions.upWay;
 			if( components.get("rz") > 0.01 )
-				sWay += rightWay;
+				sWay += DroneActions.rightWay;
 			else if( components.get("rz") < -0.01 )
-				sWay += leftWay;
+				sWay += DroneActions.leftWay;
 			
 		}else if( components.get("rz") > 0.01 )
-			sWay = rightWay;
+			sWay = DroneActions.rightWay;
 		
 		else if( components.get("rz") < -0.01 )
-			sWay = leftWay;
+			sWay = DroneActions.leftWay;
 		
 		
 		return sWay;

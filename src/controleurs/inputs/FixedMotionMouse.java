@@ -61,14 +61,14 @@ public class FixedMotionMouse {
 	public int getTotalMovedX() {
 		return totalMovedX;
 	}
-	protected void setTotalMovedX(int totalMovedX) {
+	public void setTotalMovedX(int totalMovedX) {
 		this.totalMovedX = totalMovedX;
 	}
 
 	public int getTotalMovedY() {
 		return totalMovedY;
 	}
-	protected void setTotalMovedY(int totalMovedY) {
+	public void setTotalMovedY(int totalMovedY) {
 		this.totalMovedY = totalMovedY;
 	}
 	

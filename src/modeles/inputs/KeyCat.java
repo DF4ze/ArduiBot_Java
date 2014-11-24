@@ -2,14 +2,16 @@ package modeles.inputs;
 
 import java.util.Observable;
 
+import modeles.DroneActions;
+
 public class KeyCat extends Observable{
 
 	//// Direction
 	// code
-	public final int dirUpCode = 90;		// Z
-	public final int dirLeftCode = 81;		// Q
-	public final int dirRightCode = 68;		// D
-	public final int dirDownCode = 83;		// S
+//	public final int dirUpCode = 90;		// Z
+//	public final int dirLeftCode = 81;		// Q
+//	public final int dirRightCode = 68;		// D
+//	public final int dirDownCode = 83;		// S
 	// statut
 	private boolean dirUp = false;
 	private boolean dirLeft = false;
@@ -18,10 +20,10 @@ public class KeyCat extends Observable{
 	
 	//// Tourelle
 	// code
-	public final int tourUpCode = 38;		// fleche haut
-	public final int tourLeftCode = 37;		// gauche
-	public final int tourRightCode = 39;	// ...
-	public final int tourDownCode = 40;		// ...
+//	public final int tourUpCode = 38;		// fleche haut
+//	public final int tourLeftCode = 37;		// gauche
+//	public final int tourRightCode = 39;	// ...
+//	public final int tourDownCode = 40;		// ...
 	// statut
 	private boolean tourUp = false;
 	private boolean tourLeft = false;
@@ -29,10 +31,10 @@ public class KeyCat extends Observable{
 	private boolean tourDown = false;
 	
 	//// string d'appel
-	private final String upWay = "up";
-	private final String leftWay = "left";
-	private final String rightWay = "right";
-	private final String downWay = "down";
+//	private final String upWay = "up";
+//	private final String leftWay = "left";
+//	private final String rightWay = "right";
+//	private final String downWay = "down";
 
 	private String lastPanel = "none";
 	
@@ -43,43 +45,43 @@ public class KeyCat extends Observable{
 	public boolean setPressedKey( int code ){
 		boolean bFinded = false;
 		switch(code){
-		case dirUpCode : 
+		case DroneActions.dirUpCode : 
 			dirUp = true;
 			lastPanel = "dir";
 			bFinded = true;
 			break;
-		case dirLeftCode : 
+		case DroneActions.dirLeftCode : 
 			dirLeft = true;
 			lastPanel = "dir";
 			bFinded = true;
 			break;
-		case dirRightCode : 
+		case DroneActions.dirRightCode : 
 			dirRight = true;
 			lastPanel = "dir";
 			bFinded = true;
 			break;
-		case dirDownCode : 
+		case DroneActions.dirDownCode : 
 			dirDown = true;
 			lastPanel = "dir";
 			bFinded = true;
 			break;
 			
-		case tourUpCode : 
+		case DroneActions.tourUpCode : 
 			tourUp = true;
 			bFinded = true;
 			lastPanel = "tour";
 			break;
-		case tourLeftCode : 
+		case DroneActions.tourLeftCode : 
 			tourLeft = true;
 			lastPanel = "tour";
 			bFinded = true;
 			break;
-		case tourRightCode : 
+		case DroneActions.tourRightCode : 
 			tourRight = true;
 			lastPanel = "tour";
 			bFinded = true;
 			break;
-		case tourDownCode : 
+		case DroneActions.tourDownCode : 
 			tourDown = true;
 			lastPanel = "tour";
 			bFinded = true;
@@ -101,36 +103,36 @@ public class KeyCat extends Observable{
 	public boolean setReleasedKey( int code ){
 		boolean bFinded = false;
 		switch(code){
-		case dirUpCode : 
+		case DroneActions.dirUpCode : 
 			dirUp = false;
 			bFinded = true;
 			break;
-		case dirLeftCode : 
+		case DroneActions.dirLeftCode : 
 			dirLeft = false;
 			bFinded = true;
 			break;
-		case dirRightCode : 
+		case DroneActions.dirRightCode : 
 			dirRight = false;
 			bFinded = true;
 			break;
-		case dirDownCode : 
+		case DroneActions.dirDownCode : 
 			dirDown = false;
 			bFinded = true;
 			break;
 			
-		case tourUpCode : 
+		case DroneActions.tourUpCode : 
 			tourUp = false;
 			bFinded = true;
 			break;
-		case tourLeftCode : 
+		case DroneActions.tourLeftCode : 
 			tourLeft = false;
 			bFinded = true;
 			break;
-		case tourRightCode : 
+		case DroneActions.tourRightCode : 
 			tourRight = false;
 			bFinded = true;
 			break;
-		case tourDownCode : 
+		case DroneActions.tourDownCode : 
 			tourDown = false;
 			bFinded = true;
 			break;
@@ -143,48 +145,48 @@ public class KeyCat extends Observable{
 		return bFinded;
 	}
 	
-	public String getDirWay(){
+	public String getDirWay(boolean reverseY){
 		String sWay = "";
 		if( dirUp ){
-			sWay += upWay;
+			sWay += (reverseY)?DroneActions.downWay:DroneActions.upWay;
 			if( dirLeft )
-				sWay += leftWay;
+				sWay += DroneActions.leftWay;
 			else if( dirRight )
-				sWay += rightWay;
+				sWay += DroneActions.rightWay;
 			
 		}else if( dirDown ){
-			sWay += downWay;
+			sWay += (reverseY)?DroneActions.upWay:DroneActions.downWay;
 			if( dirLeft )
-				sWay += leftWay;
+				sWay += DroneActions.leftWay;
 			else if( dirRight )
-				sWay += rightWay;
+				sWay += DroneActions.rightWay;
 		}else if( dirLeft )
-			sWay += leftWay;
+			sWay += DroneActions.leftWay;
 		else if( dirRight )
-			sWay += rightWay;
+			sWay += DroneActions.rightWay;
 		
 		return sWay;
 	}
 
-	public String getTourWay(){
+	public String getTourWay(boolean reverseY){
 		String sWay = "";
 		if( tourUp ){
-			sWay += upWay;
+			sWay += (reverseY)?DroneActions.downWay:DroneActions.upWay;
 			if( tourLeft )
-				sWay += leftWay;
+				sWay += DroneActions.leftWay;
 			else if( tourRight )
-				sWay += rightWay;
+				sWay += DroneActions.rightWay;
 			
 		}else if( tourDown ){
-			sWay += downWay;
+			sWay += (reverseY)?DroneActions.upWay:DroneActions.downWay;
 			if( tourLeft )
-				sWay += leftWay;
+				sWay += DroneActions.leftWay;
 			else if( tourRight )
-				sWay += rightWay;
+				sWay += DroneActions.rightWay;
 		}else if( tourLeft )
-			sWay += leftWay;
+			sWay += DroneActions.leftWay;
 		else if( tourRight )
-			sWay += rightWay;
+			sWay += DroneActions.rightWay;
 		
 		return sWay;
 	}
