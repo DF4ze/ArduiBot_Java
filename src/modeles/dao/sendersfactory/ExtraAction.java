@@ -1,16 +1,12 @@
 package modeles.dao.sendersfactory;
 
-public class ExtraAction implements ISendable{
+public class ExtraAction implements IActionCommunication{
 
 	public ExtraAction() {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public String getHurryAction() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public String getAction() {

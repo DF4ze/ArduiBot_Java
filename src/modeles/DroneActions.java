@@ -36,16 +36,7 @@ public class DroneActions {
 	public final static int tourDownCode 	= 40;		// ...
 	
 	
-	//// Extra
-	// Lights
-	public final static int Lazer 	= 1;
-	public final static int Strobe 	= 2;
-	public final static int Light 	= 3;
-	
-	// Alims
-	public final static int alimArduino = 1;
-	public final static int alimElectro = 2;
-	public final static int alimPeriph 	= 3;
+
 	
 	
 	private DroneActions() {
