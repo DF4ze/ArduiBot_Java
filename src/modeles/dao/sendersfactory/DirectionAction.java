@@ -1,48 +1,48 @@
 package modeles.dao.sendersfactory;
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class DirectionAction implements IActionCommunication {
-	private int vitesse 	= 0;
-	private int delta 		= 0;
-	private int priority 	= 0;
-	private long timeStamp 	= 0;
+
+public class DirectionAction extends GeneralAction implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4827229773521990841L;
+	
+	private Integer vitesse 	= null;
+	private Integer delta 		= null;
 		
 	public DirectionAction() {
-		setTimeStamp(0); 
+		super(); 
 	}
 
 	public DirectionAction( int vitesse, int delta ) {
+		super(); 
 		this.vitesse = vitesse;
 		this.delta = delta;
-		setTimeStamp(0); 
 	}
 
 	public DirectionAction( int vitesse, int delta, int priority ) {
+		super(); 
 		this.vitesse = vitesse;
 		this.delta = delta;
-		this.priority = priority;
-		setTimeStamp(0); 
+		setPriority(priority);
 	}
 	
 	@Override
 	public String getAction() {
-		// TODO Auto-generated method stub
 		return IActionCommunication.modeMotor+"."+vitesse+"."+delta;
 	}
-
-	@Override
-	public long getTimeStamp() {
-		// TODO Auto-generated method stub
-		return timeStamp;
+	public boolean isComplete(){
+		boolean bOk = true;
+		if( vitesse == null )
+			bOk = false;
+		else if( delta == null )
+			bOk = false;
+		
+		return bOk;
 	}
-
-	@Override
-	public int getPriority() {
-		// TODO Auto-generated method stub
-		return priority;
-	}
-
+	
 	public int getVitesse() {
 		return vitesse;
 	}
@@ -58,16 +58,4 @@ public class DirectionAction implements IActionCommunication {
 	public void setDelta(int delta) {
 		this.delta = delta;
 	}
-
-	public void setPriority(int priority) {
-		this.priority = priority;
-	}
-
-	public void setTimeStamp(long timestamp) {
-		if( timestamp == 0 )
-			this.timeStamp = new Date().getTime();
-		else
-			this.timeStamp = timestamp;
-	}
-
 }

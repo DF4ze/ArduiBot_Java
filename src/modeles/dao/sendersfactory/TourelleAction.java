@@ -1,34 +1,59 @@
 package modeles.dao.sendersfactory;
 
-public class TourelleAction implements IActionCommunication {
 
-	private int servo	 	= 0;
-	private int degres 		= 0;
-	private int priority 	= 0;
-	private long timeStamp 	= 0;
+public class TourelleAction extends GeneralAction {
+
+	private Integer servo	 	= null;
+	private Integer degres 		= null;
 
 	public TourelleAction() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
+	public TourelleAction( int servo, int degres) {
+		super();
+		this.degres=degres;
+		this.servo=servo;
+	}
 
+	public TourelleAction( int servo, int degres, int priority) {
+		super();
+		this.degres=degres;
+		this.servo=servo;
+		setPriority(priority);
+	}
 
-	@Override
+	
 	public String getAction() {
-		// TODO Auto-generated method stub
-		return null;
+		return IActionCommunication.modeServo +"."+ servo +"."+ degres;
+	}
+	
+	public boolean isComplete(){
+		boolean bOk = true;
+		if( servo == null )
+			bOk = false;
+		else if( degres == null )
+			bOk = false;
+		
+		return bOk;
+	}
+	
+	public int getServo() {
+		return servo;
+	}
+	public void setServo(int servo) {
+		this.servo = servo;
 	}
 
-	@Override
-	public long getTimeStamp() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getDegres() {
+		return degres;
+	}
+	public void setDegres(int degres) {
+		this.degres = degres;
 	}
 
-	@Override
-	public int getPriority() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
+
+
 
 }

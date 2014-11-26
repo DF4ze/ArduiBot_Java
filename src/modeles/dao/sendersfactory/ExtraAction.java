@@ -1,29 +1,56 @@
 package modeles.dao.sendersfactory;
 
-public class ExtraAction implements IActionCommunication{
+public class ExtraAction extends GeneralAction{
+
+	private Integer key 	= null;
+	private Integer value 	= null;
 
 	public ExtraAction() {
-		// TODO Auto-generated constructor stub
+		super();
+	}
+
+	public ExtraAction(int key, int value) {
+		super();
+		this.key = key;
+		this.value = value;
+	}
+
+	public ExtraAction(int key, int value, int priority) {
+		super();
+		this.key = key;
+		this.value = value;
+		setPriority(priority);
 	}
 
 
 
-	@Override
 	public String getAction() {
-		// TODO Auto-generated method stub
-		return null;
+		return IActionCommunication.modeExtra +"."+ key +"."+ value;
+	}
+	
+	public boolean isComplete(){
+		boolean bOk = true;
+		if( key == null )
+			bOk = false;
+		else if( value == null )
+			bOk = false;
+		
+		return bOk;
 	}
 
-	@Override
-	public long getTimeStamp() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getKey() {
+		return key;
+	}
+	public void setKey(int key) {
+		this.key = key;
 	}
 
-	@Override
-	public int getPriority() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getValue() {
+		return value;
 	}
+	public void setValue(int value) {
+		this.value = value;
+	}
+
 
 }
