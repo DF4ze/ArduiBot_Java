@@ -22,8 +22,9 @@ public class Reception implements Runnable {
 			System.out.println("Le serveur vous dit :" +message);
 			
 		    } catch (IOException e) {
-				
-				e.printStackTrace();
+				System.out.println("Le serveur s'est deconnecté");
+				break;
+				//e.printStackTrace();
 			}
 		}
 	}

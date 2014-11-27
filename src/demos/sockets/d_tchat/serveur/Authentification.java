@@ -56,6 +56,7 @@ public class Authentification implements Runnable {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private static boolean isValid(String login, String pass) {
 		
 		
