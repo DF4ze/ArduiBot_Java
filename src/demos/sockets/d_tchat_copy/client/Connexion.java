@@ -1,7 +1,5 @@
 package demos.sockets.d_tchat_copy.client;
-import java.net.*;
-import java.util.Scanner;
-import java.io.*;
+import java.net.Socket;
 
 public class Connexion implements Runnable {
 
@@ -9,10 +7,10 @@ public class Connexion implements Runnable {
 	public static Thread t2;
 	public static String login = null, 
 			pass = null;
-	private PrintWriter out = null;
-	private BufferedReader in = null;
-	private Scanner sc = null;
-	private boolean connect = false;
+//	private PrintWriter out = null;
+//	private BufferedReader in = null;
+//	private Scanner sc = null;
+//	private boolean connect = false;
 	
 	public Connexion(Socket s){
 		
