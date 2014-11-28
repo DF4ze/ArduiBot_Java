@@ -10,9 +10,10 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import modeles.dao.communication.ArduiBotServer;
 import modeles.graphical.CamCat;
 import modeles.graphical.CtrlCat;
-import modeles.graphical.GraphPilotCat;
+import modeles.graphical.PilotCat;
 import modeles.inputs.JoystickCat;
 import modeles.inputs.KeyCat;
 
@@ -21,6 +22,7 @@ import org.json.simple.parser.ParseException;
 import vues.AddCamFrame;
 import vues.CamFrame;
 import controleurs.inputs.JoystickControllerPoller;
+import controleurs.socketclient.SocketClient;
 import exceptions.CamException;
 
 
@@ -29,14 +31,17 @@ public class ControleurGeneral implements ActionListener{
 
 	private CtrlCat oModCtrl;
 	private CamCat oModCam;
-	private GraphPilotCat oModGraph;
+	private PilotCat oModPilot;
 	private KeyCat oModKey;
 	private JoystickCat oModJoy;
+	private ArduiBotServer oModSock;
 	
 	private CamFrame cfFrame;
 	private AddCamFrame cfAddFrame;
 	private ControleurPilotage cpCtrlPil;
+	private ControleurEmission cpCtrlEmiss;
 	
+	private SocketClient socket;
 	
 	public ControleurGeneral() {
 		
@@ -51,22 +56,24 @@ public class ControleurGeneral implements ActionListener{
         }		
 		
 		// les modeles
-		oModGraph = new GraphPilotCat();
-		oModCtrl = new CtrlCat( oModGraph );
+		oModPilot = new PilotCat();
+		oModCtrl = new CtrlCat( oModPilot );
 		oModCam = new CamCat();
 		oModKey = new KeyCat();
 		oModJoy = new JoystickCat();
+		oModSock = new ArduiBotServer();
 		
 		// la vue
-		cfFrame = new CamFrame("DroneCtrl", oModCtrl, oModCam, oModGraph);
+		cfFrame = new CamFrame( "DroneCtrl", oModCtrl, oModCam, oModPilot );
 		
 		// Autres controleurs
-		cpCtrlPil = new ControleurPilotage( cfFrame, oModCtrl, oModGraph, oModKey );
+		cpCtrlPil = new ControleurPilotage( cfFrame, oModCtrl, oModPilot, oModKey );
+		cpCtrlEmiss = new ControleurEmission( oModPilot );
 		
 		// Attribution des listeners
 		cfFrame.setListener(this);
-		cfFrame.setPilotListener(cpCtrlPil);
-		cfFrame.setKeyListener(cpCtrlPil);
+		cfFrame.setPilotListener( cpCtrlPil );
+		cfFrame.setKeyListener( cpCtrlPil );
 		
 		if( oModJoy.isControllerFound() ){
 			// On ajoute le controleur de pilotage en tant qu'observeur
@@ -82,6 +89,8 @@ public class ControleurGeneral implements ActionListener{
 			if( Debug.isEnable() )
 				System.out.println( "Controller not Found" );
 
+		// On prépare la socket
+		socket = new SocketClient(oModSock);
 
 	}
 
@@ -99,18 +108,21 @@ public class ControleurGeneral implements ActionListener{
 				cfFrame.showCam();
 				oModCtrl.setCameraEnable(true);
 				cfFrame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-				 
+				socket.start();
+				
 			} catch (CamException e1) {
 				cfFrame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 				cfFrame.setCamError(e1.getMessage());
 				oModCtrl.setCameraEnable(false);
-
+				socket.stop();
+				
 				if( Debug.isEnable() )
 					e1.printStackTrace();
 			}
 			  
 		 }else if (action.equals("BTNSTOPCAM")) {
 				cfFrame.stopCam();	
+				socket.stop();
 				
 				oModCtrl.setCameraEnable(false);
 				

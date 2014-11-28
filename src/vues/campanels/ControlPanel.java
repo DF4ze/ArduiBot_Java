@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 
 import modeles.graphical.CtrlCat;
-import modeles.graphical.GraphPilotCat;
+import modeles.graphical.PilotCat;
 import vues.campanels.controls.DirectionPanel;
 import vues.campanels.controls.ExtraPanel;
 import vues.campanels.controls.TourellePanel;
@@ -36,7 +36,7 @@ public class ControlPanel extends JPanel implements Observer{
 	private CtrlCat oModel;
 	
 	
-	public ControlPanel( CtrlCat oModel, GraphPilotCat oModGraph ) {
+	public ControlPanel( CtrlCat oModel, PilotCat oModGraph ) {
 		this.oModel = oModel;
 		this.oModel.addObserver(this);
 		

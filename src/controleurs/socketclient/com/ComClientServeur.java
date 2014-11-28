@@ -1,4 +1,4 @@
-package demos.sockets.d_tchat_copy.client;
+package controleurs.socketclient.com;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -6,33 +6,40 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 
-public class Chat_ClientServeur implements Runnable {
+public class ComClientServeur implements Runnable {
 
 	private Socket socket;
-//	private PrintWriter out = null;
 	private ObjectOutputStream outObject = null;
 	private BufferedReader in = null;
-	//private Scanner sc;
+	private Thread thEmiss;
+	private Thread thRecep;
+	private Emission emiss = null;
+	private Reception recep = null;
 	
-	public Chat_ClientServeur(Socket s){
+	public ComClientServeur(Socket s){
 		socket = s;
+	}
+	
+	public void stop(){
+		if( emiss != null && recep != null ){
+			emiss.stop();
+			recep.stop();
+		}
 	}
 	
 	public void run() {
 		try {
-//			out = new PrintWriter(socket.getOutputStream());
 			outObject = new ObjectOutputStream(socket.getOutputStream());
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+						
+			emiss = new Emission( outObject );
+			thEmiss = new Thread( emiss );
+			thEmiss.start();
 			
-			//sc = new Scanner(System.in);
-			
-			Thread t4 = new Thread(new Emission(outObject));
-			t4.start();
-			Thread t3 = new Thread(new Reception(in));
-			t3.start();
-		
-		   
-		    
+			recep = new Reception(in);
+			thRecep = new Thread( recep );
+			thRecep.start();
+ 
 		} catch (IOException e) {
 			System.err.println("Le serveur distant s'est déconnecté !");
 		}

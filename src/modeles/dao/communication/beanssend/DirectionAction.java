@@ -1,13 +1,11 @@
-package modeles.dao.sendersfactory;
-
-import java.io.Serializable;
+package modeles.dao.communication.beanssend;
 
 
-public class DirectionAction extends GeneralAction implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4827229773521990841L;
+
+public class DirectionAction extends GeneralAction {
+
+
+	private static final long serialVersionUID = 1L;
 	
 	private Integer vitesse 	= null;
 	private Integer delta 		= null;
@@ -31,7 +29,7 @@ public class DirectionAction extends GeneralAction implements Serializable {
 	
 	@Override
 	public String getAction() {
-		return IActionCommunication.modeMotor+"."+vitesse+"."+delta;
+		return IAction.modeMotor+"."+vitesse+"."+delta;
 	}
 	public boolean isComplete(){
 		boolean bOk = true;

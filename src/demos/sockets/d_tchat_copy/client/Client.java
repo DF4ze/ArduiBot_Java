@@ -13,7 +13,8 @@ public class Client {
 	try {
 		
 		System.out.println("Demande de connexion");
-		socket = new Socket("192.168.1.33",2009);
+		socket = new Socket("127.0.0.1",2009);
+//		socket = new Socket("192.168.1.33",2009);
 		System.out.println("Connexion établie avec le serveur, "); // Si le message s'affiche c'est que je suis connecté
 		
 		t1 = new Thread(new Connexion(socket));

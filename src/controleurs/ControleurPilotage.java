@@ -20,7 +20,7 @@ import javax.swing.event.ChangeListener;
 
 import modeles.DroneActions;
 import modeles.graphical.CtrlCat;
-import modeles.graphical.GraphPilotCat;
+import modeles.graphical.PilotCat;
 import modeles.inputs.JoystickCat;
 import modeles.inputs.KeyCat;
 import vues.CamFrame;
@@ -30,7 +30,7 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 
 	private CamFrame cfFrame;
 	private CtrlCat oModCtrl;
-	private GraphPilotCat oModGraph;
+	private PilotCat oModGraph;
 	private KeyCat oModKey;
 	
 	private HashMap<String, Component>  directionBtn;
@@ -46,7 +46,7 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 	
 	
 	
-	public ControleurPilotage( CamFrame cfFrame, CtrlCat oModCtrl, GraphPilotCat oModGraph, KeyCat oModKey ) {
+	public ControleurPilotage( CamFrame cfFrame, CtrlCat oModCtrl, PilotCat oModGraph, KeyCat oModKey ) {
 		this.cfFrame = cfFrame;
 		this.oModCtrl = oModCtrl;
 		this.oModGraph = oModGraph;

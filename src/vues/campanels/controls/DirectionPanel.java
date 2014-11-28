@@ -21,7 +21,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeListener;
 
 import modeles.graphical.CtrlCat;
-import modeles.graphical.GraphPilotCat;
+import modeles.graphical.PilotCat;
 import vues.tools.BgPanel;
 import vues.tools.JMapButton;
 import controleurs.Debug;
@@ -50,9 +50,9 @@ public class DirectionPanel extends JPanel implements Observer{
 	private BgPanel bgp;
 
 	private CtrlCat oModel;
-	private GraphPilotCat oModGraph;
+	private PilotCat oModGraph;
 
-	public DirectionPanel( CtrlCat oModel, GraphPilotCat oModGraph ) {
+	public DirectionPanel( CtrlCat oModel, PilotCat oModGraph ) {
 		this.oModel = oModel;
 		this.oModGraph = oModGraph;
 		oModel.addObserver(this);

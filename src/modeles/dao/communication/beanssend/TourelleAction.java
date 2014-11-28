@@ -1,8 +1,10 @@
-package modeles.dao.sendersfactory;
+package modeles.dao.communication.beanssend;
 
 
 public class TourelleAction extends GeneralAction {
 
+	private static final long serialVersionUID = 1L;
+	
 	private Integer servo	 	= null;
 	private Integer degres 		= null;
 
@@ -25,7 +27,7 @@ public class TourelleAction extends GeneralAction {
 
 	
 	public String getAction() {
-		return IActionCommunication.modeServo +"."+ servo +"."+ degres;
+		return IAction.modeServo +"."+ servo +"."+ degres;
 	}
 	
 	public boolean isComplete(){

@@ -10,7 +10,7 @@ import java.util.Observable;
 import modeles.DroneActions;
 import controleurs.Debug;
 
-public class GraphPilotCat extends Observable {
+public class PilotCat extends Observable {
 	
 	private final String upBtnOVER 		= "images/upOver.png";
 	private final String upBtnDOWN 		= "images/upDown.png";
@@ -56,8 +56,13 @@ public class GraphPilotCat extends Observable {
 	private Cursor transparentCursor;
 	private Cursor defaultCursor;
 	
+	private boolean dirMove;
+	private boolean tourMove;
 	
-	public GraphPilotCat(  ){
+	public PilotCat(  ){
+		
+		setDirMove(false);
+		setTourMove(false);
 		
 		vertSliderDirPos = DroneActions.maxVerticalPower/2;
 		horiSliderDirPos = DroneActions.maxHorizontalPower/2;	
@@ -91,12 +96,14 @@ public class GraphPilotCat extends Observable {
 
 	public void setDirDefautBg(){
 		bgDir = defaultBG;
+		dirMove = false;
 		
 		setChanged();
 		notifyObservers("BGDIRECTION");
 	}
 	public void setTourDefautBg(){
 		bgTour = defaultBG;
+		tourMove = false;
 		
 		setChanged();
 		notifyObservers("BGTOURELLE");
@@ -122,6 +129,8 @@ public class GraphPilotCat extends Observable {
 	}
 	
 	public void setDirectionOrientation( String orient ){
+		dirMove = true;
+		
 		switch( orient ){
 		case DroneActions.upWay : // UP
 			bgDir = upBtnDOWN;
@@ -151,6 +160,7 @@ public class GraphPilotCat extends Observable {
 			bgDir = downLeftBtnDOWN;
 			break;
 		default :
+			dirMove = false;
 			bgDir = defaultBG;
 		}
 		
@@ -158,6 +168,8 @@ public class GraphPilotCat extends Observable {
 		notifyObservers("BGDIRECTION");
 	}
 	public void setTourelleOrientation( String orient ){
+		tourMove = true;
+		
 		switch( orient ){
 		case DroneActions.upWay : // UP
 			bgTour = upBtnDOWN;
@@ -187,6 +199,7 @@ public class GraphPilotCat extends Observable {
 			bgTour = downLeftBtnDOWN;
 			break;
 		default :
+			tourMove = false;
 			bgTour = defaultBG;
 		}
 
@@ -358,6 +371,20 @@ public class GraphPilotCat extends Observable {
 	}
 	public Cursor getDefaultCursor() {
 		return defaultCursor;
+	}
+
+	public boolean isDirMove() {
+		return dirMove;
+	}
+	protected void setDirMove(boolean dirMove) {
+		this.dirMove = dirMove;
+	}
+
+	public boolean isTourMove() {
+		return tourMove;
+	}
+	protected void setTourMove(boolean tourMove) {
+		this.tourMove = tourMove;
 	}
 
 

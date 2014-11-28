@@ -1,9 +1,11 @@
-package modeles.dao.sendersfactory;
+package modeles.dao.communication.beanssend;
 
 import java.util.Date;
 
-public abstract class GeneralAction implements IActionCommunication {
+public abstract class GeneralAction implements IAction {
 
+	private static final long serialVersionUID = 1L;
+	
 	private int priority 	= 0;
 	private long timeStamp 	= 0;
 
@@ -35,6 +37,10 @@ public abstract class GeneralAction implements IActionCommunication {
 			this.timeStamp = new Date().getTime();
 		else
 			this.timeStamp = timeStamp;
+	}
+	
+	public String toString(){
+		return getAction();
 	}
 
 }

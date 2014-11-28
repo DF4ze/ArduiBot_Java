@@ -1,7 +1,9 @@
-package modeles.dao.sendersfactory;
+package modeles.dao.communication.beanssend;
 
 public class ExtraAction extends GeneralAction{
 
+	private static final long serialVersionUID = 1L;
+	
 	private Integer key 	= null;
 	private Integer value 	= null;
 
@@ -25,7 +27,7 @@ public class ExtraAction extends GeneralAction{
 
 
 	public String getAction() {
-		return IActionCommunication.modeExtra +"."+ key +"."+ value;
+		return IAction.modeExtra +"."+ key +"."+ value;
 	}
 	
 	public boolean isComplete(){

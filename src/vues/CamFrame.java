@@ -13,7 +13,7 @@ import javax.swing.JSlider;
 
 import modeles.graphical.CamCat;
 import modeles.graphical.CtrlCat;
-import modeles.graphical.GraphPilotCat;
+import modeles.graphical.PilotCat;
 import vues.campanels.BigPanel;
 import exceptions.CamException;
 
@@ -25,7 +25,7 @@ public class CamFrame extends JFrame {
 	
 	private BigPanel bp;
 
-	public CamFrame(String arg0, CtrlCat oModel, CamCat oModCam, GraphPilotCat oModGraph) throws HeadlessException {
+	public CamFrame(String arg0, CtrlCat oModel, CamCat oModCam, PilotCat oModGraph) throws HeadlessException {
 		super(arg0);
 		
 		

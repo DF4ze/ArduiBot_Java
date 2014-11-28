@@ -23,9 +23,9 @@ public class CtrlCat extends Observable {
 	private boolean reduceCtrl = true;
 	
 	
-	private GraphPilotCat oModGraph;
+	private PilotCat oModGraph;
 
-	public CtrlCat( GraphPilotCat oModGraph ) {
+	public CtrlCat( PilotCat oModGraph ) {
 		this.oModGraph = oModGraph;
 	}
 

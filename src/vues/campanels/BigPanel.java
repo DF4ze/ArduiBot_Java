@@ -13,7 +13,7 @@ import javax.swing.JSlider;
 
 import modeles.graphical.CamCat;
 import modeles.graphical.CtrlCat;
-import modeles.graphical.GraphPilotCat;
+import modeles.graphical.PilotCat;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
@@ -33,7 +33,7 @@ public class BigPanel extends JPanel {
 //	private CtrlCat oModel;
 	private CamCat oModCam;
 	
-	public BigPanel(CtrlCat oModel, CamCat oModCam, GraphPilotCat oModGraph) {
+	public BigPanel(CtrlCat oModel, CamCat oModCam, PilotCat oModGraph) {
 //		this.oModel = oModel;
 		this.oModCam = oModCam;
 		
