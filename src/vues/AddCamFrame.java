@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import javax.swing.JFrame;
 
-import modeles.graphical.CamCat;
+import modeles.catalogues.CamCat;
 import vues.addcampanels.BigPanel;
 
 public class AddCamFrame extends JFrame {

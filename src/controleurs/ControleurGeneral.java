@@ -10,10 +10,11 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import modeles.DroneActions;
+import modeles.catalogues.CamCat;
+import modeles.catalogues.CtrlCat;
+import modeles.catalogues.PilotCat;
 import modeles.dao.communication.ArduiBotServer;
-import modeles.graphical.CamCat;
-import modeles.graphical.CtrlCat;
-import modeles.graphical.PilotCat;
 import modeles.inputs.JoystickCat;
 import modeles.inputs.KeyCat;
 
@@ -29,19 +30,19 @@ import exceptions.CamException;
 
 public class ControleurGeneral implements ActionListener{
 
-	private CtrlCat oModCtrl;
-	private CamCat oModCam;
-	private PilotCat oModPilot;
-	private KeyCat oModKey;
-	private JoystickCat oModJoy;
-	private ArduiBotServer oModSock;
+	private CtrlCat 		oModCtrl;
+	private CamCat 			oModCam;
+	private PilotCat 		oModPilot;
+	private KeyCat 			oModKey;
+	private JoystickCat 	oModJoy;
+	private ArduiBotServer 	oModSock;
 	
-	private CamFrame cfFrame;
-	private AddCamFrame cfAddFrame;
-	private ControleurPilotage cpCtrlPil;
-	private ControleurEmission cpCtrlEmiss;
+	private CamFrame 			cfFrame;
+	private AddCamFrame 		cfAddFrame;
+	private ControleurPilotage 	cpCtrlPil;
+//	private ControleurEmission 	cpCtrlEmiss;
 	
-	private SocketClient socket;
+	private SocketClient 		socket;
 	
 	public ControleurGeneral() {
 		
@@ -68,12 +69,13 @@ public class ControleurGeneral implements ActionListener{
 		
 		// Autres controleurs
 		cpCtrlPil = new ControleurPilotage( cfFrame, oModCtrl, oModPilot, oModKey );
-		cpCtrlEmiss = new ControleurEmission( oModPilot );
+		/*cpCtrlEmiss = */new ControleurEmission( );
 		
 		// Attribution des listeners
 		cfFrame.setListener(this);
 		cfFrame.setPilotListener( cpCtrlPil );
 		cfFrame.setKeyListener( cpCtrlPil );
+		DroneActions.setObserv(oModPilot);
 		
 		if( oModJoy.isControllerFound() ){
 			// On ajoute le controleur de pilotage en tant qu'observeur

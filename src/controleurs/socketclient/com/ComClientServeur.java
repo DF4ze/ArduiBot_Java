@@ -34,10 +34,12 @@ public class ComClientServeur implements Runnable {
 						
 			emiss = new Emission( outObject );
 			thEmiss = new Thread( emiss );
+			thEmiss.setDaemon(true);
 			thEmiss.start();
 			
 			recep = new Reception(in);
 			thRecep = new Thread( recep );
+			thRecep.setDaemon(true);
 			thRecep.start();
  
 		} catch (IOException e) {

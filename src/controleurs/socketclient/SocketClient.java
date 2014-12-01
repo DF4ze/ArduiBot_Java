@@ -29,6 +29,7 @@ public class SocketClient {
 		
 			con = new ComClientServeur(socket);
 			t1 = new Thread( con );
+			t1.setDaemon(true);
 			t1.start();
 		
 		} catch (UnknownHostException e) {

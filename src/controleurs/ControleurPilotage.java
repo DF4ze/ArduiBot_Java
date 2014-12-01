@@ -19,8 +19,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import modeles.DroneActions;
-import modeles.graphical.CtrlCat;
-import modeles.graphical.PilotCat;
+import modeles.catalogues.CtrlCat;
+import modeles.catalogues.PilotCat;
 import modeles.inputs.JoystickCat;
 import modeles.inputs.KeyCat;
 import vues.CamFrame;
@@ -59,8 +59,8 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 		tourelleSliders = this.cfFrame.getTourelleSliders();
 		
 		try {
-			fmmDirection = new FixedMotionMouse(false, true);
-			fmmTourelle = new FixedMotionMouse(false, false);
+			fmmDirection = new FixedMotionMouse(DroneActions.absoluteDirX, DroneActions.absoluteDirY);
+			fmmTourelle = new FixedMotionMouse(DroneActions.absoluteTourX, DroneActions.absoluteTourY);
 		} catch (AWTException e) {
 			if( Debug.isEnable() )
 				e.printStackTrace();
@@ -356,43 +356,43 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 			
 
 			// Parametrage graphique
-			if( fmmTourelle.getTotalMovedY() < -1 && fmmTourelle.getTotalMovedX() < -1){
+			if( fmmTourelle.getTotalMovedY() < 0 && fmmTourelle.getTotalMovedX() < 0){
 				if( oModCtrl.isReverseYTour() )
 					oModGraph.setTourelleOrientation("downleft");
 				else
 					oModGraph.setTourelleOrientation("upleft");
 				
-			}else if( fmmTourelle.getTotalMovedY() < -1 && fmmTourelle.getTotalMovedX() >= -1 && fmmTourelle.getTotalMovedX() <= 1){
+			}else if( fmmTourelle.getTotalMovedY() < 0 && fmmTourelle.getTotalMovedX() >= -1 && fmmTourelle.getTotalMovedX() <= 1){
 				if( oModCtrl.isReverseYTour() )
 					oModGraph.setTourelleOrientation("down");
 				else
 					oModGraph.setTourelleOrientation("up");
 				
-			}else if( fmmTourelle.getTotalMovedY() < -1 && fmmTourelle.getTotalMovedX() > 1 ){
+			}else if( fmmTourelle.getTotalMovedY() < 0 && fmmTourelle.getTotalMovedX() > 0 ){
 				if( oModCtrl.isReverseYTour() )
 					oModGraph.setTourelleOrientation("downright");
 				else
 					oModGraph.setTourelleOrientation("upright");
 				
-			}else if( fmmTourelle.getTotalMovedY() <= 1 && fmmTourelle.getTotalMovedY() >= -1 && fmmTourelle.getTotalMovedX() > 1 ){
+			}else if( fmmTourelle.getTotalMovedY() <= 1 && fmmTourelle.getTotalMovedY() >= -1 && fmmTourelle.getTotalMovedX() > 0 ){
 				oModGraph.setTourelleOrientation("right");
 				
-			}else if( fmmTourelle.getTotalMovedY() <= 1 && fmmTourelle.getTotalMovedY() >= -1 && fmmTourelle.getTotalMovedX() < -1 ){
+			}else if( fmmTourelle.getTotalMovedY() <= 1 && fmmTourelle.getTotalMovedY() >= -1 && fmmTourelle.getTotalMovedX() < 0 ){
 				oModGraph.setTourelleOrientation("left");
 				
-			}else if( fmmTourelle.getTotalMovedY() > 1  && fmmTourelle.getTotalMovedX() < -1 ){
+			}else if( fmmTourelle.getTotalMovedY() > 0  && fmmTourelle.getTotalMovedX() < 0 ){
 				if( oModCtrl.isReverseYTour() )
 					oModGraph.setTourelleOrientation("upleft");
 				else
 					oModGraph.setTourelleOrientation("downleft");
 				
-			}else  if( fmmTourelle.getTotalMovedY() > 1  && fmmTourelle.getTotalMovedX() > 1 ){
+			}else  if( fmmTourelle.getTotalMovedY() > 0  && fmmTourelle.getTotalMovedX() > 0 ){
 				if( oModCtrl.isReverseYTour() )
 					oModGraph.setTourelleOrientation("upright");
 				else
 					oModGraph.setTourelleOrientation("downright");
 				
-			}else if( fmmTourelle.getTotalMovedY() > 1  && fmmTourelle.getTotalMovedX() <= 1 && fmmTourelle.getTotalMovedX() >= -1 ){
+			}else if( fmmTourelle.getTotalMovedY() > 0  && fmmTourelle.getTotalMovedX() <= 1 && fmmTourelle.getTotalMovedX() >= 0 ){
 				if( oModCtrl.isReverseYTour() )
 					oModGraph.setTourelleOrientation("up");
 				else

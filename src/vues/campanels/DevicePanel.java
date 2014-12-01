@@ -11,8 +11,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import modeles.graphical.CamCat;
-import modeles.graphical.CtrlCat;
+import modeles.catalogues.CamCat;
+import modeles.catalogues.CtrlCat;
 import vues.tools.JIconButton;
 import vues.tools.JIconSwitchButton;
 import controleurs.Debug;

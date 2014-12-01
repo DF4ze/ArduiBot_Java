@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 import modeles.dao.communication.FifoSenderAction;
-import modeles.dao.communication.beanssend.IAction;
+import modeles.dao.communication.beansactions.IAction;
 
 
 public class Emission implements Runnable {

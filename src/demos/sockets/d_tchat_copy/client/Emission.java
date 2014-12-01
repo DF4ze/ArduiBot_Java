@@ -3,8 +3,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
-import modeles.dao.communication.beanssend.ExtraAction;
-import modeles.dao.communication.beanssend.IAction;
+import modeles.dao.communication.beansactions.ExtraAction;
+import modeles.dao.communication.beansactions.IAction;
 
 
 public class Emission implements Runnable {

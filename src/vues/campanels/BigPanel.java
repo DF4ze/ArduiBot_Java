@@ -11,9 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
-import modeles.graphical.CamCat;
-import modeles.graphical.CtrlCat;
-import modeles.graphical.PilotCat;
+import modeles.catalogues.CamCat;
+import modeles.catalogues.CtrlCat;
+import modeles.catalogues.PilotCat;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;

@@ -1,4 +1,4 @@
-package modeles.graphical;
+package modeles.catalogues;
 
 import java.awt.Cursor;
 import java.awt.Image;
@@ -58,6 +58,9 @@ public class PilotCat extends Observable {
 	
 	private boolean dirMove;
 	private boolean tourMove;
+	
+	private String dirWay;
+	private String tourWay;
 	
 	public PilotCat(  ){
 		
@@ -130,78 +133,108 @@ public class PilotCat extends Observable {
 	
 	public void setDirectionOrientation( String orient ){
 		dirMove = true;
+		boolean orientValid = false;
 		
 		switch( orient ){
 		case DroneActions.upWay : // UP
 			bgDir = upBtnDOWN;
+			orientValid = true;
 			break;
 		case DroneActions.downWay :	// DOWN
 			bgDir = downBtnDOWN;
+			orientValid = true;
 			break;
 		case DroneActions.leftWay : // LEFT
 			bgDir = leftBtnDOWN;
+			orientValid = true;
 			break;
 		case DroneActions.rightWay :	// RIGHT
 			bgDir = rightBtnDOWN;
+			orientValid = true;
 			break;
 		case "center" :	// CENTER
 			bgDir = centerBtnDOWN;
+			orientValid = true;
 			break;
 		case DroneActions.upleftWay : // UP LEFT
 			bgDir = upLeftBtnDOWN;
+			orientValid = true;
 			break;
 		case DroneActions.uprightWay : // UP RIGHT
 			bgDir = upRightBtnDOWN;
+			orientValid = true;
 			break;
 		case DroneActions.downrightWay :	// DOWN RIGHT
 			bgDir = downRightBtnDOWN;
+			orientValid = true;
 			break;
 		case DroneActions.downleftWay :	// DOWN LEFT
 			bgDir = downLeftBtnDOWN;
+			orientValid = true;
 			break;
 		default :
 			dirMove = false;
 			bgDir = defaultBG;
 		}
 		
+		if( orientValid )
+			setDirWay(orient);
+		else 
+			setDirWay(DroneActions.centerWay);
+		
 		setChanged();
 		notifyObservers("BGDIRECTION");
 	}
 	public void setTourelleOrientation( String orient ){
 		tourMove = true;
+		boolean orientValid = false;
 		
 		switch( orient ){
 		case DroneActions.upWay : // UP
 			bgTour = upBtnDOWN;
+			orientValid = true;
 			break;
 		case DroneActions.downWay :	// DOWN
 			bgTour = downBtnDOWN;
+			orientValid = true;
 			break;
 		case DroneActions.leftWay : // LEFT
 			bgTour = leftBtnDOWN;
+			orientValid = true;
 			break;
 		case DroneActions.rightWay :	// RIGHT
 			bgTour = rightBtnDOWN;
+			orientValid = true;
 			break;
 		case "center" :	// CENTER
 			bgTour = centerBtnDOWN;
+			orientValid = true;
 			break;
 		case DroneActions.upleftWay : // UP LEFT
 			bgTour = upLeftBtnDOWN;
+			orientValid = true;
 			break;
 		case DroneActions.uprightWay : // UP RIGHT
 			bgTour = upRightBtnDOWN;
+			orientValid = true;
 			break;
 		case DroneActions.downrightWay :	// DOWN RIGHT
 			bgTour = downRightBtnDOWN;
+			orientValid = true;
 			break;
 		case DroneActions.downleftWay :	// DOWN LEFT
 			bgTour = downLeftBtnDOWN;
+			orientValid = true;
 			break;
 		default :
 			tourMove = false;
 			bgTour = defaultBG;
 		}
+		
+		if( orientValid )
+			setTourWay(orient);
+		else 
+			setTourWay(DroneActions.centerWay);
 
 		
 		setChanged();
@@ -241,6 +274,7 @@ public class PilotCat extends Observable {
 		default :
 			bgDir = defaultBG;
 		}
+		setDirWay(DroneActions.centerWay);
 		
 		setChanged();
 		notifyObservers("BGDIRECTION");
@@ -259,7 +293,7 @@ public class PilotCat extends Observable {
 		case DroneActions.rightWay : 
 			bgTour = rightBtnOVER;
 			break;
-		case "center" : 
+		case DroneActions.centerWay : 
 			bgTour = centerBtnOVER;
 			break;
 		case DroneActions.uprightWay : 
@@ -277,6 +311,7 @@ public class PilotCat extends Observable {
 		default :
 			bgTour = defaultBG;
 		}
+		setTourWay(DroneActions.centerWay);
 		
 		setChanged();
 		notifyObservers("BGTOURELLE");
@@ -385,6 +420,22 @@ public class PilotCat extends Observable {
 	}
 	protected void setTourMove(boolean tourMove) {
 		this.tourMove = tourMove;
+	}
+
+	public String getDirWay() {
+		return dirWay;
+	}
+
+	public void setDirWay(String dirWay) {
+		this.dirWay = dirWay;
+	}
+
+	public String getTourWay() {
+		return tourWay;
+	}
+
+	public void setTourWay(String tourWay) {
+		this.tourWay = tourWay;
 	}
 
 

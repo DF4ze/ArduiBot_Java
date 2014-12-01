@@ -16,8 +16,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
-import modeles.graphical.CtrlCat;
-import modeles.graphical.PilotCat;
+import modeles.catalogues.CtrlCat;
+import modeles.catalogues.PilotCat;
 import vues.campanels.controls.DirectionPanel;
 import vues.campanels.controls.ExtraPanel;
 import vues.campanels.controls.TourellePanel;

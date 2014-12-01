@@ -1,4 +1,4 @@
-package modeles.graphical;
+package modeles.catalogues;
 
 import java.util.Observable;
 

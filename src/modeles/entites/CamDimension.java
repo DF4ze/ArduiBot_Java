@@ -1,4 +1,4 @@
-package modeles.graphical.camentities;
+package modeles.entites;
 
 import java.awt.Dimension;
 

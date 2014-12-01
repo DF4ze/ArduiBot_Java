@@ -1,14 +1,16 @@
 package modeles.dao.communication;
 
+import modeles.DroneActions;
+
 public class ArduiBotServer {
 	private String name;
 	private String ip;
 	private int port;
 
 	public ArduiBotServer( ) {
-		this.setName("ArduiBot");
-		this.setIp("127.0.0.1");
-		this.setPort(2009);
+		this.setName(DroneActions.name);
+		this.setIp(DroneActions.ip);
+		this.setPort(DroneActions.port);
 	}	
 	
 	public ArduiBotServer( String name, String ip, int port ) {

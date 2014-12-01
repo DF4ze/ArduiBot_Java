@@ -1,4 +1,4 @@
-package modeles.dao.communication.beanssend;
+package modeles.dao.communication.beansactions;
 
 public class ExtraAction extends GeneralAction{
 
