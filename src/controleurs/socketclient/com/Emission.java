@@ -13,6 +13,7 @@ public class Emission implements Runnable {
 	private ObjectOutputStream out;
 	private static LinkedList<IAction> fifo = FifoSenderAction.getInstance();
 	private boolean bRunning = true;
+	private static IAction lastActionHero = null;
 	
 	public Emission(ObjectOutputStream out) {
 		this.out = out;
@@ -21,10 +22,24 @@ public class Emission implements Runnable {
 
 	
 	public static void addAction( IAction action ){
-		synchronized (fifo) {
-			fifo.addLast(action);
-			fifo.notifyAll();
+		boolean send = true;
+		if( lastActionHero != null ){
+			if( !lastActionHero.toString().equals(action.toString()) ){
+				send = false;
+			}
+				
 		}
+		
+		if( send ){
+			synchronized (fifo) {
+				fifo.addLast(action);
+				fifo.notifyAll();
+			}
+			System.out.println("Send : Last : "+lastActionHero.toString()+" new : "+action.toString());
+			lastActionHero = action;
+		}else
+			System.out.println("Not Send : Last : "+lastActionHero.toString()+" new : "+action.toString());
+
 		
 	}
 	
