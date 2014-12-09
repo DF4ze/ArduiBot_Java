@@ -3,6 +3,7 @@ package modeles;
 import java.util.Observable;
 import java.util.Observer;
 
+import modeles.catalogues.CtrlCat;
 import modeles.catalogues.PilotCat;
 
 public class DroneActions extends Observable implements Observer{
@@ -56,7 +57,8 @@ public class DroneActions extends Observable implements Observer{
 	
 	////// Emplacement réseau du bot
 	public final static String name = "ArduiBot";
-	public final static String ip = "127.0.0.1";
+	public final static String ip = "192.168.1.33";
+//	public final static String ip = "127.0.0.1";
 	public final static int port = 2009;
 
 	
@@ -74,6 +76,15 @@ public class DroneActions extends Observable implements Observer{
 	private static double tourY = tourYCenter;
 	
 	private static int maxDegreeAtOnce = 2;
+	
+	///// Lumières du Drone
+	private static boolean light = false;
+	private static boolean lazer = false;
+	private static boolean strob = false;
+	
+	//// Extras
+	private static boolean standBy = false;
+	private static boolean webCamService = false;
 	
 	private DroneActions() {
 		
@@ -207,12 +218,36 @@ public class DroneActions extends Observable implements Observer{
 					me.notifyObservers("TOURELLE");
 
 				}
-
-				
-				
 			}
+			
+		}else if( model instanceof CtrlCat ){
+			CtrlCat oModCtrl = (CtrlCat)model;
+			if( message.equals("STROBCHECK") ){
+				setStrob(oModCtrl.isStrobCheck());
+				me.setChanged();
+				me.notifyObservers("STROBCHECK");
+
+			}else if( message.equals("LIGHTCHECK") ){
+				setLight(oModCtrl.isLightCheck());
+				me.setChanged();
+				me.notifyObservers("LIGHTCHECK");
+				
+			}else if( message.equals("LAZERCHECK") ){
+				setLazer(oModCtrl.isLazerCheck());
+				me.setChanged();
+				me.notifyObservers("LAZERCHECK");
+				
+			}else if( message.equals("STANDBYCHECK") ){
+				setStandBy(oModCtrl.isStandByCheck());
+				me.setChanged();
+				me.notifyObservers("STANDBYCHECK");
+				
+			}else if( message.equals("WEBCAMSERVICE") ){
+				setWebCamService(oModCtrl.isWebCamService());
+				me.setChanged();
+				me.notifyObservers("WEBCAMSERVICE");
+			} 
 		}
-		
 	}
 
 	public static int getDirX() {
@@ -248,5 +283,40 @@ public class DroneActions extends Observable implements Observer{
 	}
 	private static double sliderYToDegree( int slider ){
 		return (double)slider*maxDegreeAtOnce/maxVerticalPower;
+	}
+
+	public static boolean isLight() {
+		return light;
+	}
+	private static void setLight(boolean light) {
+		DroneActions.light = light;
+	}
+
+	public static boolean isLazer() {
+		return lazer;
+	}
+	private static void setLazer(boolean lazer) {
+		DroneActions.lazer = lazer;
+	}
+
+	public static boolean isStrob() {
+		return strob;
+	}
+	private static void setStrob(boolean strobe) {
+		DroneActions.strob = strobe;
+	}
+
+	public static boolean isStandBy() {
+		return standBy;
+	}
+	public static void setStandBy(boolean standBy) {
+		DroneActions.standBy = standBy;
+	}
+
+	public static boolean isWebCamService() {
+		return webCamService;
+	}
+	public static void setWebCamService(boolean webCamService) {
+		DroneActions.webCamService = webCamService;
 	}
 }

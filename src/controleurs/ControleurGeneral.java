@@ -76,6 +76,7 @@ public class ControleurGeneral implements ActionListener{
 		cfFrame.setPilotListener( cpCtrlPil );
 		cfFrame.setKeyListener( cpCtrlPil );
 		DroneActions.setObserv(oModPilot);
+		DroneActions.setObserv(oModCtrl);
 		
 		if( oModJoy.isControllerFound() ){
 			// On ajoute le controleur de pilotage en tant qu'observeur
@@ -214,6 +215,12 @@ public class ControleurGeneral implements ActionListener{
 			
 		}else if( action.equals("CBLAZER") ){
 			oModCtrl.setLazerCheck(!oModCtrl.isLazerCheck());
+			
+		}else if( action.equals("CBSTANDBY") ){
+			oModCtrl.setStandByCheck(!oModCtrl.isStandByCheck());
+			
+		}else if( action.equals("BTNWEBCAMSERVICE") ){
+			oModCtrl.setWebCamService(!oModCtrl.isWebCamService());
 			
 		}else if( action.equals("REDUCECTRL") ){
 			oModCtrl.setReduceCtrl(!oModCtrl.isReduceCtrl());;

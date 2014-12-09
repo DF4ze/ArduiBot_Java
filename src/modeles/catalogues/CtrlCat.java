@@ -19,6 +19,8 @@ public class CtrlCat extends Observable {
 	private boolean lightCheck = false;
 	private boolean strobCheck = false;
 	private boolean lazerCheck = false;
+	private boolean standByCheck = false;
+	private boolean webCamService = false;
 
 	private boolean reduceCtrl = true;
 	
@@ -148,8 +150,6 @@ public class CtrlCat extends Observable {
 		notifyObservers("LIGHTCHECK");
 	}
 
-
-
 	public boolean isStrobCheck() {
 		return strobCheck;
 	}
@@ -159,8 +159,6 @@ public class CtrlCat extends Observable {
 		setChanged();
 		notifyObservers("STROBCHECK");
 	}
-
-
 
 	public boolean isLazerCheck() {
 		return lazerCheck;
@@ -172,8 +170,25 @@ public class CtrlCat extends Observable {
 		notifyObservers("LAZERCHECK");
 	}
 
+	public boolean isStandByCheck() {
+		return standByCheck;
+	}
+	public void setStandByCheck(boolean standByCheck) {
+		this.standByCheck = standByCheck;
+		setChanged();
+		notifyObservers("STANDBYCHECK");
+	}
 
-
+	public boolean isWebCamService() {
+		return webCamService;
+	}
+	public void setWebCamService(boolean webCamService) {
+		this.webCamService = webCamService;
+		
+		setChanged();
+		notifyObservers("WEBCAMSERVICE");
+	}
+	
 	public boolean isReduceCtrl() {
 		return reduceCtrl;
 	}
@@ -184,6 +199,5 @@ public class CtrlCat extends Observable {
 		notifyObservers("REDUCECTRL");
 
 	}
-
 
 }

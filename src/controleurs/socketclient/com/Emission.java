@@ -24,11 +24,12 @@ public class Emission implements Runnable {
 	public static void addAction( IAction action ){
 		boolean send = true;
 		if( lastActionHero != null ){
-			if( !lastActionHero.toString().equals(action.toString()) ){
+			if( lastActionHero.toString().equals(action.toString()) ){
 				send = false;
 			}
 				
-		}
+		}else
+			lastActionHero = action;
 		
 		if( send ){
 			synchronized (fifo) {
