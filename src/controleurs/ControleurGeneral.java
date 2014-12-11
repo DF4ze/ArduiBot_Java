@@ -250,9 +250,9 @@ public class ControleurGeneral implements ActionListener{
 			}
 		}else if( action.equals("BTNSTOPSOCKET") ){
 			socket.stop();
+			oModCtrl.setExtraEnable(false);
 			oModCtrl.setDirectionEnable(false);
 			oModCtrl.setTourelleEnable(false);
-			oModCtrl.setExtraEnable(false);
 			
 			
 		}else if (action.equals("BTNSAVESOCKETS")) {			

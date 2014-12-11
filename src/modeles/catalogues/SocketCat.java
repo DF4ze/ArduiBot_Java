@@ -14,7 +14,7 @@ public class SocketCat extends Observable{
 	
 	private String name;
 	private ArrayList<SocketModel> sockets;
-	private Integer selected = null;
+	private Integer selected = 0;
 
 	public static final String FILESOCKS = "configs/listSocks.json";
 
@@ -54,12 +54,14 @@ public class SocketCat extends Observable{
 	
 	public void delSocket( SocketModel pro ){
 		sockets.remove(pro);
+		setSelected(0);
 		
 		setChanged();
 		notifyObservers("SOCKETDELETED");
 	}
 	public void delSocket( int pro ){
 		sockets.remove(pro);
+		setSelected(0);
 		
 		setChanged();
 		notifyObservers("SOCKETDELETED");

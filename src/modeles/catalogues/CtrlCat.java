@@ -96,6 +96,12 @@ public class CtrlCat extends Observable {
 			System.out.println("Model : setExtraEnable: "+extraEnable);
 
 		this.extraEnable = extraEnable;
+		
+		if( !standByCheck ){
+			setDirectionEnable(true);
+			setTourelleEnable(true);
+		}
+			
 		setChanged();
 		notifyObservers("EXTRAENABLE");
 	}
