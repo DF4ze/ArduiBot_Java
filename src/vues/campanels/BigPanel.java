@@ -119,7 +119,8 @@ public class BigPanel extends JPanel {
 	}
 	
 	public void stopCam(){
-		camP.stop();
+		if( camP != null )
+			camP.stop();
 	}
 	
 	public void setCamError( String sError ){

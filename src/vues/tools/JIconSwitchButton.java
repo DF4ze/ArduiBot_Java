@@ -119,5 +119,11 @@ public class JIconSwitchButton extends JButton {
 		setIcon(normalDOWN);
 		setActionCommand(actionCommandDOWN);
 	}
+	public void setState( boolean state){
+		if( state )
+			setUp();
+		else
+			setDown();
+	}
 
 }

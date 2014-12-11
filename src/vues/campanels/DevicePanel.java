@@ -110,6 +110,9 @@ public class DevicePanel extends JPanel implements Observer{
 			
 			}else if( message.equals("TAKEVIDEOENABLE") ){
 				btnTakeVideo.setEnabled(oModCtrl.isTakeVideoEnable());
+			
+			}else if( message.equals("CAMENABLE") ){
+				btnConnect.setState( oModCtrl.isPlayCamBtnState() );
 			}
 		}
 		

@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import modeles.dao.communication.ArduiBotServer;
+import modeles.catalogues.SocketCat;
 import controleurs.Debug;
 import controleurs.socketclient.com.ComClientServeur;
 
@@ -11,19 +11,19 @@ public class SocketClient {
 
 	private Socket socket = null;
 	private Thread t1;
-	private ArduiBotServer model;
+	private SocketCat model;
 	private ComClientServeur con = null;
 	
-	public SocketClient( ArduiBotServer model ){
+	public SocketClient( SocketCat model ){
 		this.model = model;
 	}
 	
-	public void start() {
+	public boolean start() {
+		boolean bOk = true;
 		try {
 			if( Debug.isEnable() )
 				System.out.println("Demande de connexion");
-			socket = new Socket( model.getIp(), model.getPort());
-//			socket = new Socket("192.168.1.33",2009);
+			socket = new Socket( model.getSelectedSocket().getIp(), model.getSelectedSocket().getPort());
 			if( Debug.isEnable() )
 				System.out.println("Connexion établie avec le serveur, "); // Si le message s'affiche c'est que je suis connecté
 		
@@ -35,10 +35,14 @@ public class SocketClient {
 		} catch (UnknownHostException e) {
 			if( Debug.isEnable() )
 				System.err.println("Impossible de se connecter à l'adresse "+socket.getLocalAddress());
+			bOk = false;
 		} catch (IOException e) {
 			if( Debug.isEnable() )
 				System.err.println("Aucun serveur à l'écoute du port 2009");
+			bOk = false;
 		}
+		
+		return bOk;
 	}
 	
 	public void stop(){

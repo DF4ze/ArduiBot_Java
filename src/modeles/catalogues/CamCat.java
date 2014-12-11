@@ -38,7 +38,7 @@ public class CamCat extends Observable{
 			new CamMode(IpCamMode.PUSH, "PUSH" ),
 			new CamMode(IpCamMode.PULL, "PULL" )};
 	
-	public static final String FILECAM = "ipcams/listIPCams.json";
+	public static final String FILECAM = "configs/listIPCams.json";
 	public static final String FILECAPPHOTO = "captures/photo.png";
 	
     static {
@@ -53,8 +53,8 @@ public class CamCat extends Observable{
 			readCams();
 		} catch (IOException | ParseException | CamException e) {
 			if( Debug.isEnable() ){
-				System.out.println("Erreur de lecture des cams lors du chargement");
-				e.printStackTrace();
+				System.err.println("Erreur de lecture des cams lors du chargement");
+				//e.printStackTrace();
 			}
 		}
 	}

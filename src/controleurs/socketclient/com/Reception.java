@@ -2,6 +2,8 @@ package controleurs.socketclient.com;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import controleurs.Debug;
+
 
 public class Reception implements Runnable {
 
@@ -39,6 +41,8 @@ public class Reception implements Runnable {
 				
 			}
 		}
+		if( Debug.isEnable() )
+			System.out.println("Sortie propre du Thread Reception");
 	}
 
 }
