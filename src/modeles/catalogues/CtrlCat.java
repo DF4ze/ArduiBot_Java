@@ -7,11 +7,11 @@ import controleurs.Debug;
 public class CtrlCat extends Observable {
 		
 	private boolean directionEnable = true;
-	private boolean tourelleEnable = false;
-	private boolean cameraEnable = false;
-	private boolean extraEnable = false;
-	private boolean takePictureEnable = false;
-	private boolean takeVideoEnable = false;
+	private boolean tourelleEnable = true;
+	private boolean cameraEnable = true;
+	private boolean extraEnable = true;
+	private boolean takePictureEnable = true;
+	private boolean takeVideoEnable = true;
 	
 	private boolean reverseYDir = false;
 	private boolean reverseYTour = false;

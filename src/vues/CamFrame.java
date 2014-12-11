@@ -14,6 +14,7 @@ import javax.swing.JSlider;
 import modeles.catalogues.CamCat;
 import modeles.catalogues.CtrlCat;
 import modeles.catalogues.PilotCat;
+import modeles.catalogues.SocketCat;
 import vues.campanels.BigPanel;
 import exceptions.CamException;
 
@@ -25,11 +26,11 @@ public class CamFrame extends JFrame {
 	
 	private BigPanel bp;
 
-	public CamFrame(String arg0, CtrlCat oModel, CamCat oModCam, PilotCat oModGraph) throws HeadlessException {
+	public CamFrame(String arg0, CtrlCat oModel, CamCat oModCam, PilotCat oModGraph, SocketCat oModSock) throws HeadlessException {
 		super(arg0);
 		
 		
-		bp = new BigPanel( oModel, oModCam, oModGraph );
+		bp = new BigPanel( oModel, oModCam, oModGraph, oModSock );
 		add( bp);		
 		
 		
@@ -72,6 +73,9 @@ public class CamFrame extends JFrame {
 	
 	public int getSelectedCam(){
 		return bp.getSelectedCam();
+	}
+	public int getSelectedSocket(){
+		return bp.getSelectedSocket();
 	}
 	
 	public void setCamError( String sError ){

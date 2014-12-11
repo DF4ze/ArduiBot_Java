@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Observable;
 
-import modeles.dao.camrecord.FileIPCamStream;
+import modeles.dao.filerecord.FileIPCamStream;
 import modeles.entites.CamDimension;
 import modeles.entites.CamMode;
 

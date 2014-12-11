@@ -4,6 +4,8 @@ import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
+import controleurs.Debug;
+
 import modeles.dao.communication.FifoSenderAction;
 import modeles.dao.communication.beansactions.IAction;
 
@@ -36,10 +38,12 @@ public class Emission implements Runnable {
 				fifo.addLast(action);
 				fifo.notifyAll();
 			}
-			System.out.println("Send : Last : "+lastActionHero.toString()+" new : "+action.toString());
+			if( Debug.isEnable() )
+				System.out.println("Send : Last : "+lastActionHero.toString()+" new : "+action.toString());
 			lastActionHero = action;
 		}else
-			System.out.println("Not Send : Last : "+lastActionHero.toString()+" new : "+action.toString());
+			if( Debug.isEnable() )
+				System.out.println("Not Send : Last : "+lastActionHero.toString()+" new : "+action.toString());
 
 		
 	}

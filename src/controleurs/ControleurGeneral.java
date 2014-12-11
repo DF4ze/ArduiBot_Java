@@ -14,6 +14,7 @@ import modeles.DroneActions;
 import modeles.catalogues.CamCat;
 import modeles.catalogues.CtrlCat;
 import modeles.catalogues.PilotCat;
+import modeles.catalogues.SocketCat;
 import modeles.dao.communication.ArduiBotServer;
 import modeles.inputs.JoystickCat;
 import modeles.inputs.KeyCat;
@@ -21,6 +22,7 @@ import modeles.inputs.KeyCat;
 import org.json.simple.parser.ParseException;
 
 import vues.AddCamFrame;
+import vues.AddSocketFrame;
 import vues.CamFrame;
 import controleurs.inputs.JoystickControllerPoller;
 import controleurs.socketclient.SocketClient;
@@ -35,10 +37,12 @@ public class ControleurGeneral implements ActionListener{
 	private PilotCat 		oModPilot;
 	private KeyCat 			oModKey;
 	private JoystickCat 	oModJoy;
-	private ArduiBotServer 	oModSock;
+	private ArduiBotServer 	oModServSock;
+	private SocketCat 		oModSock;
 	
 	private CamFrame 			cfFrame;
-	private AddCamFrame 		cfAddFrame;
+	private AddCamFrame 		cfAddFrameCam;
+	private AddSocketFrame 		cfAddFrameSock;
 	private ControleurPilotage 	cpCtrlPil;
 //	private ControleurEmission 	cpCtrlEmiss;
 	
@@ -62,10 +66,11 @@ public class ControleurGeneral implements ActionListener{
 		oModCam = new CamCat();
 		oModKey = new KeyCat();
 		oModJoy = new JoystickCat();
-		oModSock = new ArduiBotServer();
+		oModServSock = new ArduiBotServer();
+		oModSock = new SocketCat();
 		
 		// la vue
-		cfFrame = new CamFrame( "DroneCtrl", oModCtrl, oModCam, oModPilot );
+		cfFrame = new CamFrame( "DroneCtrl", oModCtrl, oModCam, oModPilot, oModSock );
 		
 		// Autres controleurs
 		cpCtrlPil = new ControleurPilotage( cfFrame, oModCtrl, oModPilot, oModKey );
@@ -93,7 +98,7 @@ public class ControleurGeneral implements ActionListener{
 				System.out.println( "Controller not Found" );
 
 		// On prépare la socket
-		socket = new SocketClient(oModSock);
+		socket = new SocketClient(oModServSock);
 
 	}
 
@@ -163,16 +168,16 @@ public class ControleurGeneral implements ActionListener{
 			
 			
 		}else if( action.equals("BTNADDCAM") ){
-			cfAddFrame = new AddCamFrame("Ajouter une caméra", oModCam);
-			cfAddFrame.setListener(this);
+			cfAddFrameCam = new AddCamFrame("Ajouter une caméra", oModCam);
+			cfAddFrameCam.setListener(this);
 			
 		}else if( action.equals("BTNDELCAM") ){
 			oModCam.delCam( cfFrame.getSelectedCam() );
 			
 		}else if( action.equals("OKADDCAM") ){
 			try {
-				oModCam.addCam( cfAddFrame.getValues() );
-				cfAddFrame.dispose();
+				oModCam.addCam( cfAddFrameCam.getValues() );
+				cfAddFrameCam.dispose();
 				
 			} catch (MalformedURLException e1) {
 				JOptionPane.showMessageDialog(null,
@@ -189,7 +194,7 @@ public class ControleurGeneral implements ActionListener{
 			
 			
 		}else if( action.equals("ANNULERADDCAM") ){
-			cfAddFrame.dispose();
+			cfAddFrameCam.dispose();
 			
 		}else if( action.equals("BTNTAKEPICTURE") ){
 			try {
@@ -223,7 +228,23 @@ public class ControleurGeneral implements ActionListener{
 			oModCtrl.setWebCamService(!oModCtrl.isWebCamService());
 			
 		}else if( action.equals("REDUCECTRL") ){
-			oModCtrl.setReduceCtrl(!oModCtrl.isReduceCtrl());;
-		} 
+			oModCtrl.setReduceCtrl(!oModCtrl.isReduceCtrl());
+			
+			
+		}else if( action.equals("BTNADDSOCKET") ){
+			cfAddFrameSock = new AddSocketFrame("Ajouter un Socket", oModSock);
+			cfAddFrameSock.setListener(this);
+			
+		}else if( action.equals("OKADDSOCKET") ){
+			oModSock.addSocket( cfAddFrameSock.getValues() );
+			cfAddFrameSock.dispose();
+		}else if( action.equals("ANNULERADDSOCKET") ){
+			oModSock.addSocket( cfAddFrameSock.getValues() );
+			cfAddFrameSock.dispose();
+		}else if( action.equals("BTNDELSOCKET") ){
+			oModSock.delSocket( cfFrame.getSelectedSocket() );
+			
+		}
+		
 	}
 }

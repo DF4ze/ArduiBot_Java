@@ -16,11 +16,18 @@ public class JIconSwitchButton extends JButton {
 	private static final long serialVersionUID = 1L;
 
 	private boolean up = true;
+	private boolean entered = false;
 	private String actionCommandUP;
 	private String actionCommandDOWN;
+	
+	private Icon normalUP;
+	private Icon normalDOWN;
 
 	public JIconSwitchButton(final Icon normalUP, final Icon overUP, final Icon pressedUP, final Icon normalDOWN, final Icon overDOWN, final Icon pressedDOWN ) {
 		super(normalUP);
+		
+		this.normalDOWN = normalDOWN;
+		this.normalUP = normalUP;
 		
 		setBorderPainted(false);
 	
@@ -33,7 +40,7 @@ public class JIconSwitchButton extends JButton {
 		addMouseListener(new MouseListener() {            
             @Override
             public void mouseReleased(MouseEvent arg0) {
-            	if( isEnabled() ){
+            	if( isEnabled() && entered ){
             		up = !up;
             	
 	            	if( up ){
@@ -45,6 +52,7 @@ public class JIconSwitchButton extends JButton {
 	            		setActionCommand(actionCommandDOWN);
 
 	            	}
+            		
             	}
             }           
             @Override
@@ -62,6 +70,8 @@ public class JIconSwitchButton extends JButton {
         			setIcon(normalUP);
         		else
         			setIcon(normalDOWN);
+           		
+           		entered = false;
             }           
             @Override
             public void mouseEntered(MouseEvent arg0) {
@@ -70,6 +80,8 @@ public class JIconSwitchButton extends JButton {
             			setIcon(overUP);
             		else
             			setIcon(overDOWN);
+               		
+               		entered = true;
             	}
             }           
             @Override
@@ -94,6 +106,18 @@ public class JIconSwitchButton extends JButton {
 	}
 	public void setActionCommandDOWN(String actionCommandDOWN) {
 		this.actionCommandDOWN = actionCommandDOWN;
+	}
+	
+	public void setUp(){
+		up = true;
+		setIcon(normalUP);
+		setActionCommand(actionCommandUP);
+
+	}
+	public void setDown(){
+		up = false;
+		setIcon(normalDOWN);
+		setActionCommand(actionCommandDOWN);
 	}
 
 }

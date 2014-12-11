@@ -14,6 +14,7 @@ import javax.swing.JSlider;
 import modeles.catalogues.CamCat;
 import modeles.catalogues.CtrlCat;
 import modeles.catalogues.PilotCat;
+import modeles.catalogues.SocketCat;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
@@ -28,12 +29,13 @@ public class BigPanel extends JPanel {
 	private ControlPanel ctrlP;
 	private WebcamPanel camP;
 	private DevicePanel devP;
+	private ConnectPanel conP;
 	private JLabel lblAccueil;
 	
 //	private CtrlCat oModel;
 	private CamCat oModCam;
 	
-	public BigPanel(CtrlCat oModel, CamCat oModCam, PilotCat oModGraph) {
+	public BigPanel(CtrlCat oModel, CamCat oModCam, PilotCat oModGraph, SocketCat oModSock) {
 //		this.oModel = oModel;
 		this.oModCam = oModCam;
 		
@@ -45,6 +47,9 @@ public class BigPanel extends JPanel {
 		devP = new DevicePanel(oModel, oModCam);
 		add( devP, BorderLayout.NORTH );
 		
+		conP = new ConnectPanel(oModel, oModSock);
+		add( conP, BorderLayout.SOUTH );
+		
 		lblAccueil = new JLabel("Veuillez Sélectionner une caméra");
 		add( lblAccueil, BorderLayout.CENTER );
 		
@@ -53,6 +58,7 @@ public class BigPanel extends JPanel {
 	public void setListener( ActionListener ac){
 		ctrlP.setListener( ac );
 		devP.setListener( ac );
+		conP.setListener( ac );
 	}
 	public void setPilotListener( MouseListener cpCtrlPil ){
 		ctrlP.setPilotListener( cpCtrlPil );
@@ -60,7 +66,8 @@ public class BigPanel extends JPanel {
 	public void setKeyListener( KeyListener cpCtrlPil ){
 		ctrlP.setKeyListener( cpCtrlPil );
 		devP.setKeyListener( cpCtrlPil );
-		this.addKeyListener(cpCtrlPil);
+		conP.setKeyListener( cpCtrlPil );
+		this.addKeyListener( cpCtrlPil );
 	}
 
 	public HashMap<String, Component> getDirectionBtn(){
@@ -83,6 +90,10 @@ public class BigPanel extends JPanel {
 	public int getSelectedCam(){
 		return devP.getSelectedCam();
 	}
+	public int getSelectedSocket(){
+		return conP.getSelectedSocket();
+	}
+	
 	
 	public void showCam() throws CamException{
 		// on tente de retirer le label d'accueil

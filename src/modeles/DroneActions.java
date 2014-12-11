@@ -57,8 +57,8 @@ public class DroneActions extends Observable implements Observer{
 	
 	////// Emplacement réseau du bot
 	public final static String name = "ArduiBot";
-	public final static String ip = "192.168.1.33";
-//	public final static String ip = "127.0.0.1";
+	//	public final static String ip = "192.168.1.33";
+	public final static String ip = "127.0.0.1";
 	public final static int port = 2009;
 
 	
