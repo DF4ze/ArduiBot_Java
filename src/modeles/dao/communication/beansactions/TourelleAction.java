@@ -8,6 +8,7 @@ public class TourelleAction extends GeneralAction {
 	private Integer degresX	 	= null;
 	private Integer degresY		= null;
 
+	
 	public TourelleAction() {
 		super();
 	}
@@ -53,9 +54,5 @@ public class TourelleAction extends GeneralAction {
 	public void setDegresY(int degresY) {
 		this.degresY = degresY;
 	}
-
-
-
-
 
 }
