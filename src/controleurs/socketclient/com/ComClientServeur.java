@@ -23,7 +23,14 @@ public class ComClientServeur implements Runnable {
 	public void stop(){
 		if( emiss != null && recep != null ){
 			emiss.stop();
-			recep.stop();
+			//recep.stop();
+			//thRecep.interrupt();
+			try {
+				socket.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	

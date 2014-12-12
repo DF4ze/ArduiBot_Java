@@ -162,7 +162,15 @@ public class DirectionPanel extends JPanel implements Observer{
 		horizontalSpeed.setToolTipText("Vitesse de rotation");
 		cbReverseY.setToolTipText("Inverser l'axe Y");
 		
-		if( oModel.isDirectionEnable() ){
+
+		for(Entry<String, Component> entry : getDirectionBtn().entrySet()  ){
+			entry.getValue().setEnabled(oModel.isDirectionEnable());
+		}
+		horizontalSpeed.setEnabled(oModel.isDirectionEnable());
+		verticalSpeed.setEnabled(oModel.isDirectionEnable());
+		cbReverseY.setEnabled(oModel.isDirectionEnable());
+
+/*		if( oModel.isDirectionEnable() ){
 			for(Entry<String, Component> entry : getDirectionBtn().entrySet()  ){
 				entry.getValue().setEnabled(true);
 			}
@@ -178,7 +186,7 @@ public class DirectionPanel extends JPanel implements Observer{
 			verticalSpeed.setEnabled(false);
 			cbReverseY.setEnabled(false);
 		}
-
+*/
 	}
 
 	@Override
@@ -189,7 +197,14 @@ public class DirectionPanel extends JPanel implements Observer{
 				if( Debug.isEnable() )
 					System.out.println("Direction Panel : Update Receved");
 				
-				if( oModel.isDirectionEnable() ){
+				for(Entry<String, Component> entry : getDirectionBtn().entrySet()  ){
+					entry.getValue().setEnabled(oModel.isDirectionEnable());
+				}
+				horizontalSpeed.setEnabled(oModel.isDirectionEnable());
+				verticalSpeed.setEnabled(oModel.isDirectionEnable());
+				cbReverseY.setEnabled(oModel.isDirectionEnable());	
+				
+/*				if( oModel.isDirectionEnable() ){
 					for(Entry<String, Component> entry : getDirectionBtn().entrySet()  ){
 						entry.getValue().setEnabled(true);
 					}
@@ -205,7 +220,7 @@ public class DirectionPanel extends JPanel implements Observer{
 					verticalSpeed.setEnabled(false);
 					cbReverseY.setEnabled(false);
 				}
-				
+*/				
 			}else if( message.equals("REVERSEYDIR") ){
 				bReverseY = oModel.isReverseYDir();
 				cbReverseY.setSelected(bReverseY);

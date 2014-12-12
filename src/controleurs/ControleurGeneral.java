@@ -15,7 +15,6 @@ import modeles.catalogues.CamCat;
 import modeles.catalogues.CtrlCat;
 import modeles.catalogues.PilotCat;
 import modeles.catalogues.SocketCat;
-import modeles.dao.communication.ArduiBotServer;
 import modeles.inputs.JoystickCat;
 import modeles.inputs.KeyCat;
 
@@ -37,7 +36,6 @@ public class ControleurGeneral implements ActionListener{
 	private PilotCat 		oModPilot;
 	private KeyCat 			oModKey;
 	private JoystickCat 	oModJoy;
-	private ArduiBotServer 	oModServSock;
 	private SocketCat 		oModSock;
 	
 	private CamFrame 			cfFrame;
@@ -66,7 +64,6 @@ public class ControleurGeneral implements ActionListener{
 		oModCam = new CamCat();
 		oModKey = new KeyCat();
 		oModJoy = new JoystickCat();
-		oModServSock = new ArduiBotServer();
 		oModSock = new SocketCat();
 		
 		// la vue
@@ -97,8 +94,8 @@ public class ControleurGeneral implements ActionListener{
 			if( Debug.isEnable() )
 				System.out.println( "Controller not Found" );
 
-		// On prépare la socket
-		socket = new SocketClient(oModServSock);
+		// On prépare le socket
+		socket = new SocketClient(oModSock);
 
 	}
 
@@ -116,13 +113,12 @@ public class ControleurGeneral implements ActionListener{
 				cfFrame.showCam();
 				oModCtrl.setCameraEnable(true);
 				cfFrame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-				socket.start();
+				
 				
 			} catch (CamException e1) {
 				cfFrame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 				cfFrame.setCamError(e1.getMessage());
 				oModCtrl.setCameraEnable(false);
-				socket.stop();
 				
 				if( Debug.isEnable() )
 					e1.printStackTrace();
@@ -130,7 +126,6 @@ public class ControleurGeneral implements ActionListener{
 			  
 		 }else if (action.equals("BTNSTOPCAM")) {
 				cfFrame.stopCam();	
-				socket.stop();
 				
 				oModCtrl.setCameraEnable(false);
 				
@@ -224,6 +219,9 @@ public class ControleurGeneral implements ActionListener{
 		}else if( action.equals("CBSTANDBY") ){
 			oModCtrl.setStandByCheck(!oModCtrl.isStandByCheck());
 			
+			oModCtrl.setDirectionEnable(!oModCtrl.isStandByCheck());
+			oModCtrl.setTourelleEnable(!oModCtrl.isStandByCheck()); 
+			
 		}else if( action.equals("BTNWEBCAMSERVICE") ){
 			oModCtrl.setWebCamService(!oModCtrl.isWebCamService());
 			
@@ -244,7 +242,47 @@ public class ControleurGeneral implements ActionListener{
 		}else if( action.equals("BTNDELSOCKET") ){
 			oModSock.delSocket( cfFrame.getSelectedSocket() );
 			
+		}else if( action.equals("BTNCONNECTSOCKET") ){
+			if( socket.start() ){
+				//oModCtrl.setDirectionEnable(true);
+				//oModCtrl.setTourelleEnable(true);
+				oModCtrl.setExtraEnable(true);
+			}
+		}else if( action.equals("BTNSTOPSOCKET") ){
+			socket.stop();
+			oModCtrl.setExtraEnable(false);
+			oModCtrl.setDirectionEnable(false);
+			oModCtrl.setTourelleEnable(false);
+			
+			
+		}else if (action.equals("BTNSAVESOCKETS")) {			
+			try {
+				oModSock.writeSockets();
+			} catch (IOException | ParseException e1) {
+				JOptionPane.showMessageDialog(null,
+					    "Erreur lors de la sauvegarde des caméras...",
+					    "Erreur de sauvegarde des Caméras",
+					    JOptionPane.ERROR_MESSAGE);
+			}
+			
+			
+		}else if (action.equals("BTNREADSOCKETS")) {			
+			try {
+				oModSock.readSockets();
+			} catch (IOException e1) {
+				JOptionPane.showMessageDialog(null,
+					    "Erreur lors de la lecture du fichier de caméra...",
+					    "Erreur de chargement des Caméras",
+					    JOptionPane.ERROR_MESSAGE);
+			} catch (ParseException e1) {
+				JOptionPane.showMessageDialog(null,
+					    "Erreur lors du décryptage du fichier de caméra...",
+					    "Erreur de chargement des Caméras",
+					    JOptionPane.ERROR_MESSAGE);
+			}
+			
+		}else if (action.equals("SELECTEDSOCKET")) {			
+			oModSock.setSelected( cfFrame.getSelectedSocket() );
 		}
-		
 	}
 }

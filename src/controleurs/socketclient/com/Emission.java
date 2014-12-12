@@ -89,5 +89,8 @@ public class Emission implements Runnable {
 				}
 			}
 		}
+		
+		if( Debug.isEnable() )
+			System.out.println( "Sortie propre du thread Emission" );
 	}
 }

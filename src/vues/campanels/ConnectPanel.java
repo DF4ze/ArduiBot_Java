@@ -107,10 +107,10 @@ public class ConnectPanel extends JPanel implements Observer{
 		btnDelSock.setActionCommand("BTNDELSOCKET");
 		
 		btnSaveSock.addActionListener( ac );
-		btnSaveSock.setActionCommand("BTNSAVESOCKET");
+		btnSaveSock.setActionCommand("BTNSAVESOCKETS");
 		
 		btnReadSock.addActionListener( ac );
-		btnReadSock.setActionCommand("BTNREADSOCKET");
+		btnReadSock.setActionCommand("BTNREADSOCKETS");
 		
 
 	}

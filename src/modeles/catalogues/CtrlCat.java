@@ -6,12 +6,14 @@ import controleurs.Debug;
 
 public class CtrlCat extends Observable {
 		
-	private boolean directionEnable = true;
-	private boolean tourelleEnable = true;
-	private boolean cameraEnable = true;
-	private boolean extraEnable = true;
-	private boolean takePictureEnable = true;
-	private boolean takeVideoEnable = true;
+	private boolean directionEnable = false;
+	private boolean tourelleEnable = false;
+	private boolean cameraEnable = false;
+	private boolean extraEnable = false;
+	private boolean takePictureEnable = false;
+	private boolean takeVideoEnable = false;
+	
+	private boolean playCamBtnState = true;
 	
 	private boolean reverseYDir = false;
 	private boolean reverseYTour = false;
@@ -19,7 +21,7 @@ public class CtrlCat extends Observable {
 	private boolean lightCheck = false;
 	private boolean strobCheck = false;
 	private boolean lazerCheck = false;
-	private boolean standByCheck = false;
+	private boolean standByCheck = true;
 	private boolean webCamService = false;
 
 	private boolean reduceCtrl = true;
@@ -74,12 +76,14 @@ public class CtrlCat extends Observable {
 		
 		this.cameraEnable = cameraEnable;
 
-		setDirectionEnable(cameraEnable);
-		setTourelleEnable(cameraEnable);
-		setExtraEnable(cameraEnable);
+		//setDirectionEnable(cameraEnable);
+		//setTourelleEnable(cameraEnable);
+		//setExtraEnable(cameraEnable);
 		setTakePictureEnable(cameraEnable);
 		setTakeVideoEnable(cameraEnable);
-
+		setPlayCamBtnState(!cameraEnable);
+		
+		
 		setChanged();
 		notifyObservers("CAMERAENABLE");
 	}
@@ -92,6 +96,12 @@ public class CtrlCat extends Observable {
 			System.out.println("Model : setExtraEnable: "+extraEnable);
 
 		this.extraEnable = extraEnable;
+		
+		if( !standByCheck ){
+			setDirectionEnable(true);
+			setTourelleEnable(true);
+		}
+			
 		setChanged();
 		notifyObservers("EXTRAENABLE");
 	}
@@ -198,6 +208,21 @@ public class CtrlCat extends Observable {
 		setChanged();
 		notifyObservers("REDUCECTRL");
 
+	}
+
+
+
+	public boolean isPlayCamBtnState() {
+		return playCamBtnState;
+	}
+
+
+
+	public void setPlayCamBtnState(boolean playCamBtnState) {
+		this.playCamBtnState = playCamBtnState;
+		
+		setChanged();
+		notifyObservers("PLAYCAM");
 	}
 
 }
