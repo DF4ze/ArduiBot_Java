@@ -1,7 +1,6 @@
 package controleurs.socketclient.com;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
@@ -10,7 +9,7 @@ public class ComClientServeur implements Runnable {
 
 	private Socket socket;
 	private ObjectOutputStream outObject = null;
-	private BufferedReader in = null;
+	private ObjectInputStream in = null;
 	private Thread thEmiss;
 	private Thread thRecep;
 	private Emission emiss = null;
@@ -37,7 +36,7 @@ public class ComClientServeur implements Runnable {
 	public void run() {
 		try {
 			outObject = new ObjectOutputStream(socket.getOutputStream());
-			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			in = new ObjectInputStream(socket.getInputStream());
 						
 			emiss = new Emission( outObject );
 			thEmiss = new Thread( emiss );
