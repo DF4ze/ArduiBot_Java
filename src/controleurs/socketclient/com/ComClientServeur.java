@@ -3,6 +3,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Timer;
+
+import controleurs.Debug;
 
 
 public class ComClientServeur implements Runnable {
@@ -10,7 +13,7 @@ public class ComClientServeur implements Runnable {
 	private Socket socket;
 	private ObjectOutputStream outObject = null;
 	private ObjectInputStream in = null;
-	private Thread thEmiss;
+	private Timer thEmiss;
 	private Thread thRecep;
 	private Emission emiss = null;
 	private Reception recep = null;
@@ -21,14 +24,15 @@ public class ComClientServeur implements Runnable {
 	
 	public void stop(){
 		if( emiss != null && recep != null ){
-			emiss.stop();
+			//emiss.stop();
 			//recep.stop();
 			//thRecep.interrupt();
+			thEmiss.cancel();
 			try {
 				socket.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				if( Debug.isEnable() )
+				System.err.println( "Erreur fermeture socket lors de la demande d'arret : "+e.getMessage() );
 			}
 		}
 	}
@@ -39,9 +43,8 @@ public class ComClientServeur implements Runnable {
 			in = new ObjectInputStream(socket.getInputStream());
 						
 			emiss = new Emission( outObject );
-			thEmiss = new Thread( emiss );
-			thEmiss.setDaemon(true);
-			thEmiss.start();
+			thEmiss = new Timer();
+			thEmiss.scheduleAtFixedRate(emiss, 0, 500);
 			
 			recep = new Reception(in);
 			thRecep = new Thread( recep );
