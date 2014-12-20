@@ -11,7 +11,6 @@ import modeles.dao.communication.beansactions.ExtraAction;
 import modeles.dao.communication.beansactions.GetStateAction;
 import modeles.dao.communication.beansactions.IAction;
 import modeles.dao.communication.beansactions.TourelleAction;
-import vues.campanels.controls.ExtraPanel;
 import controleurs.Debug;
 
 
@@ -84,8 +83,8 @@ public class Emission extends TimerTask {
 //					} catch (InterruptedException e) {}
 //				}
 		
-			manageFifo();
 			if( fifo.size() != 0  ){
+				manageFifo();
 				IAction action;
 				while( (action = getAction()) != null ){
 					try {
@@ -107,6 +106,8 @@ public class Emission extends TimerTask {
 		LinkedList<TourelleAction> llTour = new LinkedList<TourelleAction>();
 		LinkedList<ExtraAction> llExtra = new LinkedList<ExtraAction>();
 		LinkedList<GetStateAction> llState = new LinkedList<GetStateAction>();
+		LinkedList<IAction> llOther = new LinkedList<IAction>();
+		
 		synchronized (fifo) {
 			for( IAction ia : fifo ){
 				if( ia instanceof DirectionAction ){
@@ -115,7 +116,7 @@ public class Emission extends TimerTask {
 				}else if( ia instanceof TourelleAction ){
 					llTour.addLast((TourelleAction)ia);
 					
-				}else if( ia instanceof ExtraPanel ){
+				}else if( ia instanceof ExtraAction ){
 					llExtra.addLast((ExtraAction)ia);
 					
 				}else if( ia instanceof GetStateAction ){
@@ -135,6 +136,7 @@ public class Emission extends TimerTask {
 			
 			fifo.addAll(llExtra);
 			fifo.addAll(llState);
+			fifo.addAll(llOther);
 				
 		}
 		
