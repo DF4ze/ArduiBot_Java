@@ -527,8 +527,11 @@ public class ControleurPilotage implements MouseListener, MouseMotionListener, C
 		
 		if( sMsg.equals("TOURELLE") && oModCtrl.isTourelleEnable()){
 			oModGraph.setTourelleOrientation(oModJoy.getTourWay(oModCtrl.isReverseYTour()));
-			oModGraph.setVertSliderTourPos(  oModJoy.axisForSlider(components.get("slider") ));
-			oModGraph.setHoriSliderTourPos( oModJoy.axisForSlider(components.get("rz") ));
+			if( components.get("slider") != null ){
+				oModGraph.setVertSliderTourPos(  oModJoy.axisForSlider(components.get("slider") ));
+				oModGraph.setHoriSliderTourPos( oModJoy.axisForSlider(components.get("rz") ));
+			}
+			
 			
 		}else if( sMsg.equals("DIRECTION") && oModCtrl.isDirectionEnable() ){
 			oModGraph.setDirectionOrientation(oModJoy.getDirWay(oModCtrl.isReverseYDir()));

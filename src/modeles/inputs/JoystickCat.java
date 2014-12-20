@@ -76,9 +76,10 @@ public class JoystickCat extends Observable {
 					notifyObservers("DIRECTION");
 				}
 				
-				if( compo.getIdentifier() == Component.Identifier.Axis.RZ || compo.getIdentifier() == Component.Identifier.Axis.SLIDER  ){
+				if( compo.getIdentifier() == Component.Identifier.Axis.RZ || compo.getIdentifier() == Component.Identifier.Axis.SLIDER || compo.getIdentifier() == Component.Identifier.Axis.POV  ){
 					setChanged();
 					notifyObservers("TOURELLE");
+					//Component.Identifier.Axis.POV;
 				}
 				
 				if( compo.getIdentifier().getName().matches("^[0-9]*$") ){
@@ -119,27 +120,60 @@ public class JoystickCat extends Observable {
 	}
 	
 	public String getTourWay( boolean reverseY ){
+		
 		String sWay = "";
-		if( components.get("slider") > 0.01){ // !!! axe des Y est inversé !!!
-			sWay = (reverseY)?DroneActions.upWay:DroneActions.downWay;
-			if( components.get("rz") > 0.01 )
-				sWay += DroneActions.rightWay;
-			else if( components.get("rz") < -0.01 )
-				sWay += DroneActions.leftWay;
-			
-		}else if( components.get("slider") < -0.01){ // !!! axe des Y est inversé !!!
-			sWay = (reverseY)?DroneActions.downWay:DroneActions.upWay;
-			if( components.get("rz") > 0.01 )
-				sWay += DroneActions.rightWay;
-			else if( components.get("rz") < -0.01 )
-				sWay += DroneActions.leftWay;
-			
-		}else if( components.get("rz") > 0.01 )
-			sWay = DroneActions.rightWay;
 		
-		else if( components.get("rz") < -0.01 )
-			sWay = DroneActions.leftWay;
-		
+		if( components.get("slider") != null ){
+			if( components.get("slider") > 0.01){ // !!! axe des Y est inversé !!!
+				sWay = (reverseY)?DroneActions.upWay:DroneActions.downWay;
+				if( components.get("rz") > 0.01 )
+					sWay += DroneActions.rightWay;
+				else if( components.get("rz") < -0.01 )
+					sWay += DroneActions.leftWay;
+				
+			}else if( components.get("slider") < -0.01){ // !!! axe des Y est inversé !!!
+				sWay = (reverseY)?DroneActions.downWay:DroneActions.upWay;
+				if( components.get("rz") > 0.01 )
+					sWay += DroneActions.rightWay;
+				else if( components.get("rz") < -0.01 )
+					sWay += DroneActions.leftWay;
+				
+			}else if( components.get("rz") > 0.01 )
+				sWay = DroneActions.rightWay;
+			
+			else if( components.get("rz") < -0.01 )
+				sWay = DroneActions.leftWay;
+			
+		}else if( components.get("pov") != null ){
+			switch( (int)(components.get("pov")*1000) ){
+			case 250 :
+				sWay = DroneActions.upWay;
+				break;
+			case 375 :
+				sWay = DroneActions.uprightWay;
+				break;
+			case 500 :
+				sWay = DroneActions.rightWay;
+				break;
+			case 625 :
+				sWay = DroneActions.downrightWay;
+				break;
+			case 750 :
+				sWay = DroneActions.downWay;
+				break;
+			case 875 :
+				sWay = DroneActions.downleftWay;
+				break;
+			case 1000 :
+				sWay = DroneActions.leftWay;
+				break;
+			case 125 :
+				sWay = DroneActions.upleftWay;
+				break;
+			default :
+				sWay = DroneActions.centerWay;
+			}
+		}
 		
 		return sWay;
 	}

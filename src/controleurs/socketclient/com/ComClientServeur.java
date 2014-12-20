@@ -44,7 +44,7 @@ public class ComClientServeur implements Runnable {
 						
 			emiss = new Emission( outObject );
 			thEmiss = new Timer();
-			thEmiss.scheduleAtFixedRate(emiss, 0, 500);
+			thEmiss.scheduleAtFixedRate(emiss, 0, 250);
 			
 			recep = new Reception(in);
 			thRecep = new Thread( recep );
