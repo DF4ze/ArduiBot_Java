@@ -22,9 +22,9 @@ public interface IAction extends Serializable {
 	final int typeDrone		= 4;
 	
 	// Extra-Lights
-	final static int Lazer 	= 1;
-	final static int Strobe = 2;
-	final static int Light 	= 3;
+	final static int Lazer 	= 2;
+	final static int Strobe = 3;
+	final static int Light 	= 1;
 	
 	// Extra-Webcam
 	final static int Off		= 0;
