@@ -1,26 +1,23 @@
 package controleurs.socketclient.com;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.net.Socket;
+import java.util.Observable;
 
 import modeles.dao.communication.beansinfos.IInfo;
-import modeles.dao.communication.beansinfos.SensorInfo;
-import modeles.dao.communication.beansinfos.ShellInfo;
-import modeles.dao.communication.beansinfos.StateInfo;
-import modeles.dao.communication.beansinfos.TextInfo;
+import controleurs.ControleurReception;
 import controleurs.Debug;
 
 
-public class Reception implements Runnable {
+public class Reception extends Observable implements Runnable {
 
-//	private BufferedReader in;
 	private ObjectInputStream inObject;
-//	private String message = null;
-//	private IInfo info = null;
+	private Socket so;
 	private boolean bRunning = true;
 	
-	public Reception(ObjectInputStream in){
-		
-		this.inObject = in;
+	public Reception( Socket so, ControleurReception cr ){	
+		this.so = so;
+		addObserver(cr);
 	}
 	
 	public void stop(){
@@ -32,37 +29,18 @@ public class Reception implements Runnable {
 		
 		while( bRunning ){
 	        try {
-	        	
+	        	inObject = new ObjectInputStream(so.getInputStream());
 				Object object = inObject.readObject();
 				
 				if( object instanceof IInfo ){
-					if( object instanceof SensorInfo ){
-						SensorInfo si = (SensorInfo)object;
-						System.out.println("Capteur :" +si.getSensor() + " value : "+si.getValue());
-						
-					}else if( object instanceof StateInfo ){
-						StateInfo si = (StateInfo)object;
-						System.out.println("State :" +si.getMateriel() + " statut : "+si.getStat());
-						
-					}else if( object instanceof ShellInfo ){
-						ShellInfo si = (ShellInfo)object;
-						String cmd = "";
-						for( String txt : si.getCommand() )
-							cmd += txt+" ";
-						
-						System.out.println("Shell info : "+si.getName()+"\ncmd \"" +cmd + "\" \nresultat : "+si.getResult());
-						
-					}else if( object instanceof TextInfo ){
-						TextInfo ti = (TextInfo)object;
-						System.out.println("Info :" +ti.getInfo());
-						
-					}else
-						throw new ClassNotFoundException("IINFO ok mais non reconnu apres");
+					setChanged();
+					notifyObservers(object);
 				}else
 					throw new ClassNotFoundException("Pas IINFO");
 				
 		    } catch (IOException e) {
-				System.out.println("Le serveur s'est deconnecté");
+				System.err.println("Le serveur s'est deconnecté : "+e.getMessage());
+				//e.printStackTrace();
 				break;
 				//e.printStackTrace();
 			} catch( NullPointerException e ){

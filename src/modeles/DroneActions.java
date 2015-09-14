@@ -103,150 +103,153 @@ public class DroneActions extends Observable implements Observer{
 
 	@Override
 	public void update(Observable model, Object messageObj) {
-		String message = (String)messageObj;
 		
-		
-		if( model instanceof PilotCat ){
-			PilotCat oModPilot = (PilotCat) model;
-			if( message.equals("BGDIRECTION") ){
-				if( oModPilot.isDirMove() ){
-					int speed = 0;
-					int delta = 0;
-					
-					switch(oModPilot.getDirWay()){
-					case DroneActions.upWay :
-						speed = oModPilot.getVertSliderDirPos();
-						break;
-					case DroneActions.downWay : 
-						speed = -oModPilot.getVertSliderDirPos();
-						break;
-					case DroneActions.leftWay : 
-						delta = -oModPilot.getHoriSliderDirPos();
-						break;
-					case DroneActions.rightWay : 
-						delta = oModPilot.getHoriSliderDirPos();
-						break;
-					case DroneActions.centerWay : 
-						speed = 0;
-						delta = 0;
-						break;
-					case DroneActions.uprightWay : 
-						speed = oModPilot.getVertSliderDirPos();
-						delta = oModPilot.getHoriSliderDirPos();
-						break;
-					case DroneActions.upleftWay : 
-						speed = oModPilot.getVertSliderDirPos();
-						delta = -oModPilot.getHoriSliderDirPos();
-						break;
-					case DroneActions.downrightWay : 
-						speed = -oModPilot.getVertSliderDirPos();
-						delta = oModPilot.getHoriSliderDirPos();
-						break;
-					case DroneActions.downleftWay : 
-						speed = oModPilot.getVertSliderDirPos();
-						delta = -oModPilot.getHoriSliderDirPos();
-						break;
-					default :
-						speed = 0;
-						delta = 0;
-					}
-					DroneActions.setDirX(delta);
-					DroneActions.setDirY(speed);
-					
-					setChanged();
-					notifyObservers("DIRECTION");
-				}else{
-					DroneActions.setDirX(0);
-					DroneActions.setDirY(0);
-					
-					setChanged();
-					notifyObservers("DIRECTION");
-				}
-				
+		if( messageObj instanceof String ){
+			String message = (String)messageObj;
 			
-			}else if( message.equals("BGTOURELLE") ){
-				if( oModPilot.isTourMove() ){
-				
-					switch(oModPilot.getTourWay()){
-					case DroneActions.upWay :
-						if( DroneActions.absoluteTourY ){ // critere a prendre en compte a chaque condition...
-							
-						}else{
-							setTourY(getTourY() + sliderYToDegree( oModPilot.getVertSliderTourPos() ));
+			
+			if( model instanceof PilotCat ){
+				PilotCat oModPilot = (PilotCat) model;
+				if( message.equals("BGDIRECTION") ){
+					if( oModPilot.isDirMove() ){
+						int speed = 0;
+						int delta = 0;
+						
+						switch(oModPilot.getDirWay()){
+						case DroneActions.upWay :
+							speed = oModPilot.getVertSliderDirPos();
+							break;
+						case DroneActions.downWay : 
+							speed = -oModPilot.getVertSliderDirPos();
+							break;
+						case DroneActions.leftWay : 
+							delta = -oModPilot.getHoriSliderDirPos();
+							break;
+						case DroneActions.rightWay : 
+							delta = oModPilot.getHoriSliderDirPos();
+							break;
+						case DroneActions.centerWay : 
+							speed = 0;
+							delta = 0;
+							break;
+						case DroneActions.uprightWay : 
+							speed = oModPilot.getVertSliderDirPos();
+							delta = oModPilot.getHoriSliderDirPos();
+							break;
+						case DroneActions.upleftWay : 
+							speed = oModPilot.getVertSliderDirPos();
+							delta = -oModPilot.getHoriSliderDirPos();
+							break;
+						case DroneActions.downrightWay : 
+							speed = -oModPilot.getVertSliderDirPos();
+							delta = oModPilot.getHoriSliderDirPos();
+							break;
+						case DroneActions.downleftWay : 
+							speed = oModPilot.getVertSliderDirPos();
+							delta = -oModPilot.getHoriSliderDirPos();
+							break;
+						default :
+							speed = 0;
+							delta = 0;
 						}
-						break;
-					case DroneActions.downWay : 
-						setTourY(getTourY() - sliderYToDegree( oModPilot.getVertSliderTourPos() ));
-						break;
-					case DroneActions.leftWay : 
-						setTourX(getTourX() - sliderXToDegree( oModPilot.getHoriSliderTourPos() ));
-						break;
-					case DroneActions.rightWay : 
-						setTourX(getTourX() + sliderXToDegree( oModPilot.getHoriSliderTourPos() ));
-						break;
-					case DroneActions.centerWay : 
-						break;
-					case DroneActions.uprightWay : 
-						setTourX(getTourX() + sliderXToDegree( oModPilot.getHoriSliderTourPos() ));
-						setTourY(getTourY() + sliderYToDegree( oModPilot.getVertSliderTourPos() ));
-						break;
-					case DroneActions.upleftWay : 
-						setTourX(getTourX() - sliderXToDegree( oModPilot.getHoriSliderTourPos() ));
-						setTourY(getTourY() + sliderYToDegree( oModPilot.getVertSliderTourPos() ));
-						break;
-					case DroneActions.downrightWay : 
-						setTourX(getTourX() + sliderXToDegree( oModPilot.getHoriSliderTourPos() ));
-						setTourY(getTourY() - sliderYToDegree( oModPilot.getVertSliderTourPos() ));
-						break;
-					case DroneActions.downleftWay : 
-						setTourX(getTourX() - sliderXToDegree( oModPilot.getHoriSliderTourPos() ));
-						setTourY(getTourY() - sliderYToDegree( oModPilot.getVertSliderTourPos() ));
-						break;
-					default :
+						DroneActions.setDirX(delta);
+						DroneActions.setDirY(speed);
+						
+						setChanged();
+						notifyObservers("DIRECTION");
+					}else{
+						DroneActions.setDirX(0);
+						DroneActions.setDirY(0);
+						
+						setChanged();
+						notifyObservers("DIRECTION");
 					}
 					
-					if( getTourX() > tourXMax )
-						setTourX(tourXMax);
-					else if( getTourX() < tourXMin )
-						setTourX(tourXMin);
-					if( getTourY() > tourYMax )
-						setTourY(tourYMax);
-					else if( getTourY() < tourYMin )
-						setTourY(tourYMin);
+				
+				}else if( message.equals("BGTOURELLE") ){
+					if( oModPilot.isTourMove() ){
 					
-					me.setChanged();
-					me.notifyObservers("TOURELLE");
-
+						switch(oModPilot.getTourWay()){
+						case DroneActions.upWay :
+							if( DroneActions.absoluteTourY ){ // critere a prendre en compte a chaque condition...
+								
+							}else{
+								setTourY(getTourY() + sliderYToDegree( oModPilot.getVertSliderTourPos() ));
+							}
+							break;
+						case DroneActions.downWay : 
+							setTourY(getTourY() - sliderYToDegree( oModPilot.getVertSliderTourPos() ));
+							break;
+						case DroneActions.leftWay : 
+							setTourX(getTourX() - sliderXToDegree( oModPilot.getHoriSliderTourPos() ));
+							break;
+						case DroneActions.rightWay : 
+							setTourX(getTourX() + sliderXToDegree( oModPilot.getHoriSliderTourPos() ));
+							break;
+						case DroneActions.centerWay : 
+							break;
+						case DroneActions.uprightWay : 
+							setTourX(getTourX() + sliderXToDegree( oModPilot.getHoriSliderTourPos() ));
+							setTourY(getTourY() + sliderYToDegree( oModPilot.getVertSliderTourPos() ));
+							break;
+						case DroneActions.upleftWay : 
+							setTourX(getTourX() - sliderXToDegree( oModPilot.getHoriSliderTourPos() ));
+							setTourY(getTourY() + sliderYToDegree( oModPilot.getVertSliderTourPos() ));
+							break;
+						case DroneActions.downrightWay : 
+							setTourX(getTourX() + sliderXToDegree( oModPilot.getHoriSliderTourPos() ));
+							setTourY(getTourY() - sliderYToDegree( oModPilot.getVertSliderTourPos() ));
+							break;
+						case DroneActions.downleftWay : 
+							setTourX(getTourX() - sliderXToDegree( oModPilot.getHoriSliderTourPos() ));
+							setTourY(getTourY() - sliderYToDegree( oModPilot.getVertSliderTourPos() ));
+							break;
+						default :
+						}
+						
+						if( getTourX() > tourXMax )
+							setTourX(tourXMax);
+						else if( getTourX() < tourXMin )
+							setTourX(tourXMin);
+						if( getTourY() > tourYMax )
+							setTourY(tourYMax);
+						else if( getTourY() < tourYMin )
+							setTourY(tourYMin);
+						
+						me.setChanged();
+						me.notifyObservers("TOURELLE");
+	
+					}
 				}
+				
+			}else if( model instanceof CtrlCat ){
+				CtrlCat oModCtrl = (CtrlCat)model;
+				if( message.equals("STROBCHECK") ){
+					setStrob(oModCtrl.isStrobCheck());
+					me.setChanged();
+					me.notifyObservers("STROBCHECK");
+	
+				}else if( message.equals("LIGHTCHECK") ){
+					setLight(oModCtrl.isLightCheck());
+					me.setChanged();
+					me.notifyObservers("LIGHTCHECK");
+					
+				}else if( message.equals("LAZERCHECK") ){
+					setLazer(oModCtrl.isLazerCheck());
+					me.setChanged();
+					me.notifyObservers("LAZERCHECK");
+					
+				}else if( message.equals("STANDBYCHECK") ){
+					setStandBy(oModCtrl.isStandByCheck());
+					me.setChanged();
+					me.notifyObservers("STANDBYCHECK");
+					
+				}else if( message.equals("WEBCAMSERVICE") ){
+					setWebCamService(oModCtrl.isWebCamService());
+					me.setChanged();
+					me.notifyObservers("WEBCAMSERVICE");
+				} 
 			}
-			
-		}else if( model instanceof CtrlCat ){
-			CtrlCat oModCtrl = (CtrlCat)model;
-			if( message.equals("STROBCHECK") ){
-				setStrob(oModCtrl.isStrobCheck());
-				me.setChanged();
-				me.notifyObservers("STROBCHECK");
-
-			}else if( message.equals("LIGHTCHECK") ){
-				setLight(oModCtrl.isLightCheck());
-				me.setChanged();
-				me.notifyObservers("LIGHTCHECK");
-				
-			}else if( message.equals("LAZERCHECK") ){
-				setLazer(oModCtrl.isLazerCheck());
-				me.setChanged();
-				me.notifyObservers("LAZERCHECK");
-				
-			}else if( message.equals("STANDBYCHECK") ){
-				setStandBy(oModCtrl.isStandByCheck());
-				me.setChanged();
-				me.notifyObservers("STANDBYCHECK");
-				
-			}else if( message.equals("WEBCAMSERVICE") ){
-				setWebCamService(oModCtrl.isWebCamService());
-				me.setChanged();
-				me.notifyObservers("WEBCAMSERVICE");
-			} 
 		}
 	}
 

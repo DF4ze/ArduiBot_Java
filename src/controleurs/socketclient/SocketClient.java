@@ -4,6 +4,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import modeles.catalogues.SocketCat;
+import controleurs.ControleurReception;
 import controleurs.Debug;
 import controleurs.socketclient.com.ComClientServeur;
 
@@ -13,9 +14,11 @@ public class SocketClient {
 	private Thread t1;
 	private SocketCat model;
 	private ComClientServeur con = null;
+	private ControleurReception cr;
 	
-	public SocketClient( SocketCat model ){
+	public SocketClient( SocketCat model, ControleurReception cr ){
 		this.model = model;
+		this.cr = cr;
 	}
 	
 	public boolean start() {
@@ -27,7 +30,7 @@ public class SocketClient {
 			if( Debug.isEnable() )
 				System.out.println("Connexion établie avec le serveur, "); // Si le message s'affiche c'est que je suis connecté
 		
-			con = new ComClientServeur(socket);
+			con = new ComClientServeur(socket, cr);
 			t1 = new Thread( con );
 			t1.setDaemon(true);
 			t1.start();

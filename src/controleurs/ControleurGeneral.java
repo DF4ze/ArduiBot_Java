@@ -42,7 +42,7 @@ public class ControleurGeneral implements ActionListener{
 	private AddCamFrame 		cfAddFrameCam;
 	private AddSocketFrame 		cfAddFrameSock;
 	private ControleurPilotage 	cpCtrlPil;
-//	private ControleurEmission 	cpCtrlEmiss;
+	private ControleurReception cr;
 	
 	private SocketClient 		socket;
 	
@@ -72,6 +72,7 @@ public class ControleurGeneral implements ActionListener{
 		// Autres controleurs
 		cpCtrlPil = new ControleurPilotage( cfFrame, oModCtrl, oModPilot, oModKey );
 		/*cpCtrlEmiss = */new ControleurEmission( );
+		cr = new ControleurReception(oModCtrl);
 		
 		// Attribution des listeners
 		cfFrame.setListener(this);
@@ -95,7 +96,7 @@ public class ControleurGeneral implements ActionListener{
 				System.out.println( "Controller not Found" );
 
 		// On prépare le socket
-		socket = new SocketClient(oModSock);
+		socket = new SocketClient(oModSock, cr);
 
 	}
 
@@ -219,8 +220,8 @@ public class ControleurGeneral implements ActionListener{
 		}else if( action.equals("CBSTANDBY") ){
 			oModCtrl.setStandByCheck(!oModCtrl.isStandByCheck());
 			
-			oModCtrl.setDirectionEnable(!oModCtrl.isStandByCheck());
-			oModCtrl.setTourelleEnable(!oModCtrl.isStandByCheck()); 
+			//oModCtrl.setDirectionEnable(!oModCtrl.isStandByCheck());
+			//oModCtrl.setTourelleEnable(!oModCtrl.isStandByCheck()); 
 			
 		}else if( action.equals("BTNWEBCAMSERVICE") ){
 			oModCtrl.setWebCamService(!oModCtrl.isWebCamService());
@@ -283,6 +284,9 @@ public class ControleurGeneral implements ActionListener{
 			
 		}else if (action.equals("SELECTEDSOCKET")) {			
 			oModSock.setSelected( cfFrame.getSelectedSocket() );
-		}
+		
+		}//else if( action.equals("DISTANCES") ){
+//			
+//		}
 	}
 }

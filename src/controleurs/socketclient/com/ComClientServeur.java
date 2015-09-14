@@ -1,10 +1,10 @@
 package controleurs.socketclient.com;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Timer;
 
+import controleurs.ControleurReception;
 import controleurs.Debug;
 
 
@@ -12,14 +12,16 @@ public class ComClientServeur implements Runnable {
 
 	private Socket socket;
 	private ObjectOutputStream outObject = null;
-	private ObjectInputStream in = null;
+	//private ObjectInputStream in = null;
 	private Timer thEmiss;
 	private Thread thRecep;
 	private Emission emiss = null;
 	private Reception recep = null;
+	private ControleurReception cr;
 	
-	public ComClientServeur(Socket s){
+	public ComClientServeur(Socket s, ControleurReception cr){
 		socket = s;
+		this.cr = cr;
 	}
 	
 	public void stop(){
@@ -40,19 +42,19 @@ public class ComClientServeur implements Runnable {
 	public void run() {
 		try {
 			outObject = new ObjectOutputStream(socket.getOutputStream());
-			in = new ObjectInputStream(socket.getInputStream());
+			//in = new ObjectInputStream(socket.getInputStream());
 						
 			emiss = new Emission( outObject );
 			thEmiss = new Timer();
 			thEmiss.scheduleAtFixedRate(emiss, 0, 75);
 			
-			recep = new Reception(in);
+			recep = new Reception(socket, cr);
 			thRecep = new Thread( recep );
 			thRecep.setDaemon(true);
 			thRecep.start();
  
 		} catch (IOException e) {
-			System.err.println("Le serveur distant s'est déconnecté !");
+			System.err.println("Erreur lors de l'établissement de la connexion");
 		}
 	}
 

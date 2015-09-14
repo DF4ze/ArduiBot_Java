@@ -1,5 +1,6 @@
 package modeles.catalogues;
 
+import java.util.HashMap;
 import java.util.Observable;
 
 import controleurs.Debug;
@@ -25,6 +26,8 @@ public class CtrlCat extends Observable {
 	private boolean webCamService = false;
 
 	private boolean reduceCtrl = true;
+	
+	//private HashMap<Integer, Integer> distances = new HashMap<Integer, Integer>();
 	
 	
 	private PilotCat oModGraph;
@@ -184,9 +187,14 @@ public class CtrlCat extends Observable {
 		return standByCheck;
 	}
 	public void setStandByCheck(boolean standByCheck) {
-		this.standByCheck = standByCheck;
-		setChanged();
-		notifyObservers("STANDBYCHECK");
+		if( standByCheck != this.standByCheck ){
+			setTourelleEnable(!standByCheck);
+			setDirectionEnable(!standByCheck);
+			
+			this.standByCheck = standByCheck;
+			setChanged();
+			notifyObservers("STANDBYCHECK");
+		}
 	}
 
 	public boolean isWebCamService() {
@@ -211,12 +219,9 @@ public class CtrlCat extends Observable {
 	}
 
 
-
 	public boolean isPlayCamBtnState() {
 		return playCamBtnState;
 	}
-
-
 
 	public void setPlayCamBtnState(boolean playCamBtnState) {
 		this.playCamBtnState = playCamBtnState;
@@ -224,5 +229,16 @@ public class CtrlCat extends Observable {
 		setChanged();
 		notifyObservers("PLAYCAM");
 	}
+
+
+
+
+	public void setDistances(HashMap<Integer, Integer> distances) {
+		//this.distances = distances;
+		
+		setChanged();
+		notifyObservers( distances );
+	}
+
 
 }

@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
+import vues.campanels.bottom.BottomPanel;
+import vues.campanels.bottom.ConnectPanel;
 import modeles.catalogues.CamCat;
 import modeles.catalogues.CtrlCat;
 import modeles.catalogues.PilotCat;
@@ -29,8 +31,8 @@ public class BigPanel extends JPanel {
 	private ControlPanel ctrlP;
 	private WebcamPanel camP;
 	private DevicePanel devP;
-	private ConnectPanel conP;
 	private JLabel lblAccueil;
+	private BottomPanel bottomP;
 	
 //	private CtrlCat oModel;
 	private CamCat oModCam;
@@ -44,12 +46,12 @@ public class BigPanel extends JPanel {
 		ctrlP = new ControlPanel( oModel, oModGraph);
 		add( ctrlP, BorderLayout.EAST );
 		
+		bottomP = new BottomPanel( oModel, oModSock);
+		add( bottomP, BorderLayout.SOUTH );
+		
 		devP = new DevicePanel(oModel, oModCam);
 		add( devP, BorderLayout.NORTH );
-		
-		conP = new ConnectPanel(oModel, oModSock);
-		add( conP, BorderLayout.SOUTH );
-		
+				
 		lblAccueil = new JLabel("Veuillez Sélectionner une caméra");
 		add( lblAccueil, BorderLayout.CENTER );
 		
@@ -58,7 +60,8 @@ public class BigPanel extends JPanel {
 	public void setListener( ActionListener ac){
 		ctrlP.setListener( ac );
 		devP.setListener( ac );
-		conP.setListener( ac );
+		bottomP.setListener(ac);
+//		conP.setListener( ac );
 	}
 	public void setPilotListener( MouseListener cpCtrlPil ){
 		ctrlP.setPilotListener( cpCtrlPil );
@@ -66,7 +69,8 @@ public class BigPanel extends JPanel {
 	public void setKeyListener( KeyListener cpCtrlPil ){
 		ctrlP.setKeyListener( cpCtrlPil );
 		devP.setKeyListener( cpCtrlPil );
-		conP.setKeyListener( cpCtrlPil );
+		bottomP.setKeyListener(cpCtrlPil);
+//		conP.setKeyListener( cpCtrlPil );
 		this.addKeyListener( cpCtrlPil );
 	}
 
@@ -91,7 +95,7 @@ public class BigPanel extends JPanel {
 		return devP.getSelectedCam();
 	}
 	public int getSelectedSocket(){
-		return conP.getSelectedSocket();
+		return bottomP.getSelectedSocket();
 	}
 	
 	
@@ -130,6 +134,10 @@ public class BigPanel extends JPanel {
 		JLabel lblError = new JLabel( sError );
 		add( lblError);
 		
+	}
+	
+	public void setDistances( HashMap<Integer, Integer> distances ){
+		bottomP.setDistances(distances);
 	}
 	
 //	public void setDirBackGround( String bgName ){

@@ -1,4 +1,4 @@
-package vues.campanels;
+package vues.campanels.bottom;
 
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;

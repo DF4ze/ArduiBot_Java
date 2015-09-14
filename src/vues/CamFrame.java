@@ -94,6 +94,10 @@ public class CamFrame extends JFrame {
 		bp.stopCam();
 	}
 	
+	public void setDistances( HashMap<Integer, Integer> distances ){
+		bp.setDistances(distances);
+	}
+	
 //	public void setDirBackGround( String bgName ){
 //		bp.setDirBackGround( bgName );
 //	}
