@@ -41,7 +41,7 @@ public class SocketClient {
 			bOk = false;
 		} catch (IOException e) {
 			if( Debug.isEnable() )
-				System.err.println("Aucun serveur à l'écoute du port 2009");
+				System.err.println("Aucun serveur à l'écoute du port "+model.getSelectedSocket().getPort());
 			bOk = false;
 		}
 		

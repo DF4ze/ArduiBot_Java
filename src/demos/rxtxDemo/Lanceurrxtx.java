@@ -4,7 +4,7 @@ import gnu.io.CommPortIdentifier;
 
 import java.util.Enumeration;
 
-public class Lanceur {
+public class Lanceurrxtx {
 
 	/**
 	 * @param args

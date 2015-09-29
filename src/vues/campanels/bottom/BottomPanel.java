@@ -2,7 +2,6 @@ package vues.campanels.bottom;
 
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
-import java.util.HashMap;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -41,8 +40,6 @@ public class BottomPanel extends JPanel {
 	public int getSelectedSocket(){
 		return conP.getSelectedSocket();
 	}
-	public void setDistances( HashMap<Integer, Integer> distances ){
-		distP.setDistances(distances);
-	}
+
 
 }

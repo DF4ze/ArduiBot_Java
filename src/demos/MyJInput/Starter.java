@@ -7,9 +7,9 @@ import java.util.Scanner;
 import net.java.games.input.Component;
 
 
-public class Lanceur implements Observer{
+public class Starter implements Observer{
 
-	public Lanceur() {
+	public Starter() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -22,7 +22,7 @@ public class Lanceur implements Observer{
 		
 		if( cp.isControllerFound() ){
 			// Création de la "vue";
-			Lanceur lc = new Lanceur();
+			Starter lc = new Starter();
 			cm.addObserver(lc);
 			
 			// Lancement du poll

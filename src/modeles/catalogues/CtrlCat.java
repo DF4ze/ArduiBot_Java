@@ -29,6 +29,8 @@ public class CtrlCat extends Observable {
 	
 	//private HashMap<Integer, Integer> distances = new HashMap<Integer, Integer>();
 	
+	private float voltage = 0;
+	
 	
 	private PilotCat oModGraph;
 
@@ -231,13 +233,23 @@ public class CtrlCat extends Observable {
 	}
 
 
-
-
-	public void setDistances(HashMap<Integer, Integer> distances) {
+	public void setDistances(HashMap<Integer, Float> distances) {
 		//this.distances = distances;
 		
 		setChanged();
 		notifyObservers( distances );
+	}
+
+
+
+	public float getVoltage() {
+		return voltage;
+	}
+	public void setVoltage(float voltage) {
+		this.voltage = voltage;
+		
+		setChanged();
+		notifyObservers("VOLTAGE");
 	}
 
 

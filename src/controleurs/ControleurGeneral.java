@@ -248,6 +248,9 @@ public class ControleurGeneral implements ActionListener{
 				//oModCtrl.setDirectionEnable(true);
 				//oModCtrl.setTourelleEnable(true);
 				oModCtrl.setExtraEnable(true);
+				oModSock.setConnected(true);
+			}else{
+				oModSock.setConnected(false);
 			}
 		}else if( action.equals("BTNSTOPSOCKET") ){
 			socket.stop();

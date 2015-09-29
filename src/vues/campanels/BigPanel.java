@@ -11,12 +11,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
-import vues.campanels.bottom.BottomPanel;
-import vues.campanels.bottom.ConnectPanel;
 import modeles.catalogues.CamCat;
 import modeles.catalogues.CtrlCat;
 import modeles.catalogues.PilotCat;
 import modeles.catalogues.SocketCat;
+import vues.campanels.bottom.BottomPanel;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
@@ -136,15 +135,5 @@ public class BigPanel extends JPanel {
 		
 	}
 	
-	public void setDistances( HashMap<Integer, Integer> distances ){
-		bottomP.setDistances(distances);
-	}
-	
-//	public void setDirBackGround( String bgName ){
-//		ctrlP.setDirBackGround( bgName );
-//	}
-//	public void setTourBackGround( String bgName ){
-//		ctrlP.setTourBackGround( bgName );
-//	}
 
 }

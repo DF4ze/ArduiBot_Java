@@ -15,6 +15,7 @@ public class SocketCat extends Observable{
 	private String name;
 	private ArrayList<SocketModel> sockets;
 	private Integer selected = 0;
+	private boolean connected = false;
 
 	public static final String FILESOCKS = "configs/listSocks.json";
 
@@ -105,5 +106,16 @@ public class SocketCat extends Observable{
 
 	public void setSelected(int selected ) {
 		this.selected = selected;
+	}
+
+	public boolean isConnected() {
+		return connected;
+	}
+
+	public void setConnected(boolean connected) {
+		this.connected = connected;
+		
+		setChanged();
+		notifyObservers("SOCKETCONNECTION");
 	}
 }

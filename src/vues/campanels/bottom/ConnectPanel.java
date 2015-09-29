@@ -9,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import modeles.catalogues.CtrlCat;
@@ -28,6 +29,8 @@ public class ConnectPanel extends JPanel implements Observer{
 	private JIconButton btnReadSock;
 	private JComboBox<String> combSockChoix;
 	private DefaultComboBoxModel<String> combModelSockChoix;
+	// temporaire...
+	private JLabel lblVoltage = new JLabel("0v");
 	
 	private SocketCat oModSock;
 	private CtrlCat oModCtrl;
@@ -56,6 +59,7 @@ public class ConnectPanel extends JPanel implements Observer{
 		btnReadSock.setToolTipText("Charger les Sockets du fichier");
 		btnSaveSock.setToolTipText("Sauvegarder les Sockets");
 		combSockChoix.setToolTipText("Sélectionnez un Socket");
+		lblVoltage.setToolTipText("Voltage de la batterie");
 		
 		
 		add( combSockChoix );
@@ -64,6 +68,7 @@ public class ConnectPanel extends JPanel implements Observer{
 		add( btnDelSock );
 		add( btnSaveSock );
 		add( btnReadSock );
+		add( lblVoltage );
 //		add( new JButton("Lina-Joy") );
 //		add( new JButton("Flora") );
 //		add( new JButton("papa") );
@@ -84,8 +89,17 @@ public class ConnectPanel extends JPanel implements Observer{
 				combModelSockChoix = new DefaultComboBoxModel<String>(this.oModSock.getArraySockets());
 				combSockChoix.setModel(combModelSockChoix);
 			}
+			else if( message.equals( "SOCKETCONNECTION") ){
+				if( oModSock.isConnected() )
+					btnConnect.setDown();
+				else
+					btnConnect.setUp();
+			}
+				
 			
 		}else if( o == oModCtrl ){
+			if( message.equals("VOLTAGE") )
+				lblVoltage.setText(oModCtrl.getVoltage()+"v");
 
 		}
 		

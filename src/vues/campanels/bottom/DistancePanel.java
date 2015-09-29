@@ -22,8 +22,8 @@ public class DistancePanel extends JPanel implements Observer{
 	private static final long serialVersionUID = 1L;
 	
 	private ArrayList<JPanel> distsP = new ArrayList<JPanel>();
-	private HashMap<Integer, Integer> distances = new HashMap<Integer, Integer>();
-	private JLabel lbl = new JLabel("Affichage de l'utrason");
+	private HashMap<Integer, Float> distances = new HashMap<Integer, Float>();
+	//private JLabel lbl = new JLabel("Affichage de l'utrason");
 	
 
 	public DistancePanel(CtrlCat oModel) {
@@ -34,11 +34,6 @@ public class DistancePanel extends JPanel implements Observer{
 	}
 
 
-	public void setDistances( HashMap<Integer, Integer> distances ){
-		
-
-	}
-
 
 	@Override
 	public void update(Observable o, Object arg) {
@@ -47,9 +42,9 @@ public class DistancePanel extends JPanel implements Observer{
 			
 			try{
 				@SuppressWarnings("unchecked")
-				HashMap<Integer, Integer> distTemp = (HashMap<Integer, Integer>)arg;
+				HashMap<Integer, Float> distTemp = (HashMap<Integer, Float>)arg;
 				
-				for( Entry<Integer, Integer> distSet : distTemp.entrySet() ){
+				for( Entry<Integer, Float> distSet : distTemp.entrySet() ){
 					distances.put(distSet.getKey(), distSet.getValue());
 				}
 				
@@ -62,7 +57,7 @@ public class DistancePanel extends JPanel implements Observer{
 				
 				SortedSet<Integer> keys = new TreeSet<Integer>(distances.keySet());
 				for( Integer key : keys ){
-					Integer dist = distances.get(key);
+					Integer dist = Math.round( distances.get(key) );
 					
 					JPanel pan = new JPanel();
 					if( dist < 40 )

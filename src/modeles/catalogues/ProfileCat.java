@@ -7,6 +7,8 @@ import java.util.Observable;
 
 import modeles.entites.Profile;
 
+
+// Unused??????
 public class ProfileCat extends Observable{
 	
 	private String name;
