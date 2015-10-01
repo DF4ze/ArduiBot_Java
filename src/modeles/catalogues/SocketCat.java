@@ -2,6 +2,7 @@ package modeles.catalogues;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Observable;
 
 import org.json.simple.parser.ParseException;
@@ -16,6 +17,8 @@ public class SocketCat extends Observable{
 	private ArrayList<SocketModel> sockets;
 	private Integer selected = 0;
 	private boolean connected = false;
+	private Date connectionDate;
+	private Date disconnectionDate;
 
 	public static final String FILESOCKS = "configs/listSocks.json";
 
@@ -115,7 +118,38 @@ public class SocketCat extends Observable{
 	public void setConnected(boolean connected) {
 		this.connected = connected;
 		
+		if( connected )
+			setConnectionDate(new Date());
+		else{
+			setDisconnectionDate(new Date());
+			long duration = getDisconnectionDate().getTime() - getConnectionDate().getTime();
+			if( Debug.isEnable() ){
+				System.out.println("Temps de connexion : "+duration+"ms ");
+				long h = (duration)/3600000;
+				long min = (duration - (h*3600000))/60000;
+				long sec = (duration - (min * 60000))/1000;
+								
+				System.out.println(h+"h "+min+"m "+sec+"s");
+			}
+		}
+		
 		setChanged();
 		notifyObservers("SOCKETCONNECTION");
+	}
+
+	public Date getConnectionDate() {
+		return connectionDate;
+	}
+
+	public void setConnectionDate(Date connectionDate) {
+		this.connectionDate = connectionDate;
+	}
+
+	public Date getDisconnectionDate() {
+		return disconnectionDate;
+	}
+
+	public void setDisconnectionDate(Date disconnectionDate) {
+		this.disconnectionDate = disconnectionDate;
 	}
 }

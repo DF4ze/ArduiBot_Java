@@ -4,6 +4,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Timer;
 
+import modeles.catalogues.SocketCat;
 import controleurs.ControleurReception;
 import controleurs.Debug;
 
@@ -18,8 +19,10 @@ public class ComClientServeur implements Runnable {
 	private Emission emiss = null;
 	private Reception recep = null;
 	private ControleurReception cr;
+	private SocketCat oModSock;
 	
-	public ComClientServeur(Socket s, ControleurReception cr){
+	public ComClientServeur(Socket s, ControleurReception cr, SocketCat oModSock){
+		this.oModSock = oModSock;
 		socket = s;
 		this.cr = cr;
 	}
@@ -48,13 +51,14 @@ public class ComClientServeur implements Runnable {
 			thEmiss = new Timer();
 			thEmiss.scheduleAtFixedRate(emiss, 0, 75);
 			
-			recep = new Reception(socket, cr);
+			recep = new Reception(socket, cr, oModSock);
 			thRecep = new Thread( recep );
 			thRecep.setDaemon(true);
 			thRecep.start();
  
 		} catch (IOException e) {
 			System.err.println("Erreur lors de l'établissement de la connexion");
+			oModSock.setConnected(false);
 		}
 	}
 

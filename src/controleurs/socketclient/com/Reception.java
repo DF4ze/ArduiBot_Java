@@ -4,6 +4,7 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.Observable;
 
+import modeles.catalogues.SocketCat;
 import modeles.dao.communication.beansinfos.IInfo;
 import controleurs.ControleurReception;
 import controleurs.Debug;
@@ -14,9 +15,11 @@ public class Reception extends Observable implements Runnable {
 	private ObjectInputStream inObject;
 	private Socket so;
 	private boolean bRunning = true;
+	private SocketCat oModSock;
 	
-	public Reception( Socket so, ControleurReception cr ){	
+	public Reception( Socket so, ControleurReception cr, SocketCat oModSock ){	
 		this.so = so;
+		this.oModSock = oModSock;
 		addObserver(cr);
 	}
 	
@@ -50,6 +53,7 @@ public class Reception extends Observable implements Runnable {
 					System.err.println("Reception Socket : Type de classe non reconnue : "+e.getMessage());
 			}
 		}
+		oModSock.setConnected(false);
 		if( Debug.isEnable() )
 			System.out.println("Sortie propre du Thread Reception");
 	}

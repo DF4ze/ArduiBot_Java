@@ -93,10 +93,10 @@ public class ControleurGeneral implements ActionListener{
 			cp.start();
 		}else
 			if( Debug.isEnable() )
-				System.out.println( "Controller not Found" );
+				System.out.println( "Joystick not found" );
 
 		// On prépare le socket
-		socket = new SocketClient(oModSock, cr);
+		socket = new SocketClient(oModSock, cr, oModSock);
 
 	}
 

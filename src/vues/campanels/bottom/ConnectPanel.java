@@ -90,10 +90,11 @@ public class ConnectPanel extends JPanel implements Observer{
 				combSockChoix.setModel(combModelSockChoix);
 			}
 			else if( message.equals( "SOCKETCONNECTION") ){
-				if( oModSock.isConnected() )
+				/*if( oModSock.isConnected() )
 					btnConnect.setDown();
 				else
 					btnConnect.setUp();
+					*/
 			}
 				
 			

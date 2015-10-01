@@ -15,10 +15,12 @@ public class SocketClient {
 	private SocketCat model;
 	private ComClientServeur con = null;
 	private ControleurReception cr;
+	private SocketCat oModSock;
 	
-	public SocketClient( SocketCat model, ControleurReception cr ){
+	public SocketClient( SocketCat model, ControleurReception cr, SocketCat oModSock ){
 		this.model = model;
 		this.cr = cr;
+		this.oModSock = oModSock;
 	}
 	
 	public boolean start() {
@@ -30,7 +32,7 @@ public class SocketClient {
 			if( Debug.isEnable() )
 				System.out.println("Connexion établie avec le serveur, "); // Si le message s'affiche c'est que je suis connecté
 		
-			con = new ComClientServeur(socket, cr);
+			con = new ComClientServeur(socket, cr, oModSock);
 			t1 = new Thread( con );
 			t1.setDaemon(true);
 			t1.start();
@@ -44,6 +46,8 @@ public class SocketClient {
 				System.err.println("Aucun serveur à l'écoute du port "+model.getSelectedSocket().getPort());
 			bOk = false;
 		}
+		
+		oModSock.setConnected(bOk);
 		
 		return bOk;
 	}
