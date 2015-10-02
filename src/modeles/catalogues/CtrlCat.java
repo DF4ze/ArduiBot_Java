@@ -14,10 +14,12 @@ public class CtrlCat extends Observable {
 	private boolean takePictureEnable = false;
 	private boolean takeVideoEnable = false;
 	
+	private boolean recoVocEnable = false;
+	
 	private boolean playCamBtnState = true;
 	
 	private boolean reverseYDir = false;
-	private boolean reverseYTour = false;
+	private boolean reverseYTour = true;
 
 	private boolean lightCheck = false;
 	private boolean strobCheck = false;
@@ -25,7 +27,12 @@ public class CtrlCat extends Observable {
 	private boolean standByCheck = true;
 	private boolean webCamService = false;
 
+	private boolean recoVocCheck = false;
+	private boolean sonLocalCheck = true;
+	private boolean sonDistantCheck = false;
+	
 	private boolean reduceCtrl = true;
+	private boolean reduceOpts = true;
 	
 	//private HashMap<Integer, Integer> distances = new HashMap<Integer, Integer>();
 	
@@ -250,6 +257,71 @@ public class CtrlCat extends Observable {
 		
 		setChanged();
 		notifyObservers("VOLTAGE");
+	}
+
+
+
+	public boolean isReduceOpts() {
+		return reduceOpts;
+	}
+
+	public void setReduceOpts(boolean reduceOpts) {
+		this.reduceOpts = reduceOpts;
+		
+		setChanged();
+		notifyObservers("REDUCEOPTS");
+	}
+
+
+
+	public boolean isRecoVocCheck() {
+		return recoVocCheck;
+	}
+
+	public void setRecoVocCheck(boolean recoVocCheck) {
+		this.recoVocCheck = recoVocCheck;
+		
+		setChanged();
+		notifyObservers("RECOVOCCHECK");
+	}
+
+
+
+	public boolean isSonLocalCheck() {
+		return sonLocalCheck;
+	}
+
+	public void setSonLocalCheck(boolean sonLocalCheck) {
+		this.sonLocalCheck = sonLocalCheck;
+		
+		setChanged();
+		notifyObservers("SONLOCALCHECK");
+	}
+
+
+
+	public boolean isSonDistantCheck() {
+		return sonDistantCheck;
+	}
+
+	public void setSonDistantCheck(boolean sonDistantCheck) {
+		this.sonDistantCheck = sonDistantCheck;
+		
+		setChanged();
+		notifyObservers("SONDISTANTCHECK");
+	}
+
+
+
+	public boolean isRecoVocEnable() {
+		return recoVocEnable;
+	}
+
+	public void setRecoVocEnable(boolean recoVocEnable) {
+		this.recoVocEnable = recoVocEnable;
+		
+		setChanged();
+		notifyObservers("RECOVOCENABLE");
 	}
 
 

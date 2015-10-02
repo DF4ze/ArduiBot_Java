@@ -3,6 +3,7 @@ package vues.campanels.bottom;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
@@ -21,6 +22,8 @@ public class BottomPanel extends JPanel {
 
 	public BottomPanel( CtrlCat oModel, SocketCat oModSock ) {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
+		setBorder(BorderFactory.createRaisedBevelBorder());
 		
 		distP = new DistancePanel(oModel);
 		add(distP);

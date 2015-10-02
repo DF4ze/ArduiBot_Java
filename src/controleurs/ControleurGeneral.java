@@ -106,7 +106,7 @@ public class ControleurGeneral implements ActionListener{
 		String action = e.getActionCommand();
 		
 		if( Debug.isEnable() )
-			System.out.println("Action recu : "+action);
+			System.out.println("Controleur General, Action recu : "+action);
 		
 		if (action.equals("BTNCONNECTCAM")) {
 			try {
@@ -230,6 +230,26 @@ public class ControleurGeneral implements ActionListener{
 			oModCtrl.setReduceCtrl(!oModCtrl.isReduceCtrl());
 			
 			
+		}else if( action.equals("REDUCEOPTS") ){
+			oModCtrl.setReduceOpts(!oModCtrl.isReduceOpts());
+			
+			
+		}else if( action.equals("CBLOCALSOUND") ){
+			oModCtrl.setSonLocalCheck(!oModCtrl.isSonLocalCheck());
+			
+			
+		}else if( action.equals("CBDISTANTSOUND") ){
+			oModCtrl.setSonDistantCheck( !oModCtrl.isSonDistantCheck() );
+			
+			
+		}else if( action.equals("CBACTIVRECO") ){
+			oModCtrl.setRecoVocCheck( !oModCtrl.isRecoVocCheck() );
+			
+			
+		}else if( action.equals("RECOVOCENABLE") ){
+			oModCtrl.setRecoVocEnable( !oModCtrl.isRecoVocEnable());
+			
+			
 		}else if( action.equals("BTNADDSOCKET") ){
 			cfAddFrameSock = new AddSocketFrame("Ajouter un Socket", oModSock);
 			cfAddFrameSock.setListener(this);
@@ -237,9 +257,11 @@ public class ControleurGeneral implements ActionListener{
 		}else if( action.equals("OKADDSOCKET") ){
 			oModSock.addSocket( cfAddFrameSock.getValues() );
 			cfAddFrameSock.dispose();
+			
 		}else if( action.equals("ANNULERADDSOCKET") ){
 			oModSock.addSocket( cfAddFrameSock.getValues() );
 			cfAddFrameSock.dispose();
+			
 		}else if( action.equals("BTNDELSOCKET") ){
 			oModSock.delSocket( cfFrame.getSelectedSocket() );
 			
@@ -248,15 +270,20 @@ public class ControleurGeneral implements ActionListener{
 				//oModCtrl.setDirectionEnable(true);
 				//oModCtrl.setTourelleEnable(true);
 				oModCtrl.setExtraEnable(true);
+				oModCtrl.setRecoVocEnable(true);
+				
 				oModSock.setConnected(true);
 			}else{
 				oModSock.setConnected(false);
+				oModCtrl.setRecoVocEnable(false);
 			}
+			
 		}else if( action.equals("BTNSTOPSOCKET") ){
 			socket.stop();
 			oModCtrl.setExtraEnable(false);
 			oModCtrl.setDirectionEnable(false);
 			oModCtrl.setTourelleEnable(false);
+			oModCtrl.setRecoVocEnable(false);
 			
 			
 		}else if (action.equals("BTNSAVESOCKETS")) {			
@@ -288,8 +315,6 @@ public class ControleurGeneral implements ActionListener{
 		}else if (action.equals("SELECTEDSOCKET")) {			
 			oModSock.setSelected( cfFrame.getSelectedSocket() );
 		
-		}//else if( action.equals("DISTANCES") ){
-//			
-//		}
+		}
 	}
 }

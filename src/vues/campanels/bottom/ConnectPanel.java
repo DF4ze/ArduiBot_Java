@@ -5,7 +5,6 @@ import java.awt.event.KeyListener;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -41,7 +40,7 @@ public class ConnectPanel extends JPanel implements Observer{
 		this.oModCtrl = oModCtrl;
 		oModCtrl.addObserver(this);
 
-		setBorder(BorderFactory.createRaisedBevelBorder());
+		
 
 		
 		btnConnect 		= new JIconSwitchButton( new ImageIcon("images/play.png"), new ImageIcon("images/play_over.png"), new ImageIcon("images/play_down.png"), new ImageIcon("images/stop.png"), new ImageIcon("images/stop_over.png"), new ImageIcon("images/stop_down.png") );		

@@ -32,6 +32,7 @@ public class BigPanel extends JPanel {
 	private DevicePanel devP;
 	private JLabel lblAccueil;
 	private BottomPanel bottomP;
+	private OptionsPanel optionsP;
 	
 //	private CtrlCat oModel;
 	private CamCat oModCam;
@@ -44,6 +45,9 @@ public class BigPanel extends JPanel {
 		
 		ctrlP = new ControlPanel( oModel, oModGraph);
 		add( ctrlP, BorderLayout.EAST );
+		
+		optionsP = new OptionsPanel(oModel);
+		add( optionsP, BorderLayout.WEST );
 		
 		bottomP = new BottomPanel( oModel, oModSock);
 		add( bottomP, BorderLayout.SOUTH );
@@ -59,8 +63,8 @@ public class BigPanel extends JPanel {
 	public void setListener( ActionListener ac){
 		ctrlP.setListener( ac );
 		devP.setListener( ac );
-		bottomP.setListener(ac);
-//		conP.setListener( ac );
+		bottomP.setListener( ac );
+		optionsP.setListener( ac );
 	}
 	public void setPilotListener( MouseListener cpCtrlPil ){
 		ctrlP.setPilotListener( cpCtrlPil );
@@ -68,8 +72,7 @@ public class BigPanel extends JPanel {
 	public void setKeyListener( KeyListener cpCtrlPil ){
 		ctrlP.setKeyListener( cpCtrlPil );
 		devP.setKeyListener( cpCtrlPil );
-		bottomP.setKeyListener(cpCtrlPil);
-//		conP.setKeyListener( cpCtrlPil );
+		bottomP.setKeyListener( cpCtrlPil );
 		this.addKeyListener( cpCtrlPil );
 	}
 
