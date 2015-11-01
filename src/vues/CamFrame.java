@@ -94,4 +94,8 @@ public class CamFrame extends JFrame {
 		bp.stopCam();
 	}
 	
+	public String getTextToSay(){
+		return bp.getTextToSay();
+	}
+	
 }

@@ -1,2 +1,2 @@
-java -jar %1
+java -jar "%1"
 PAUSE

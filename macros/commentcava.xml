@@ -1,0 +1,35 @@
+<grammar version="1.0" xml:lang="fr-FR" mode="voice" root="ruleTime" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+  <rule id="ruleTime" scope="public">
+    <example>Ardui recherche * sur Wikipedia</example>
+    <tag>out.action=new Object(); </tag>
+	<one-of>
+		<item>Salut</item>
+		<item>Bonjour</item>
+		<item>Hello</item>
+	</one-of>
+	
+	<one-of>
+		<item>Ardui</item>
+		<item>Arduibote</item>
+		<item>Raspi</item>
+		<item>RaspBot</item>
+		<item>Robot</item>
+		<item>Yuri</item>
+	</one-of>
+	
+    <one-of>
+		<item>comment sa va</item>
+		<item>sa va</item>
+		<item>sa gaze</item> 
+		<item>la forme</item>
+		<item>alors la forme</item>
+		<item>alors la forme aujourd'hui</item>
+	</one-of>
+	
+	
+    <tag>out.action.action='GET_COMMENTCAVA'</tag>
+    <tag>out.action._attributes.uri="http://192.168.1.33/yuri.php";</tag>
+    <tag>out.action._attributes.threashold="0.85";</tag>
+	
+  </rule>
+</grammar>

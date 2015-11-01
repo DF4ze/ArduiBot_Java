@@ -15,6 +15,8 @@ import modeles.catalogues.CamCat;
 import modeles.catalogues.CtrlCat;
 import modeles.catalogues.PilotCat;
 import modeles.catalogues.SocketCat;
+import modeles.dao.communication.beansactions.SpeakAction;
+import modeles.dao.communication.beansactions.VolumeAction;
 import modeles.inputs.JoystickCat;
 import modeles.inputs.KeyCat;
 
@@ -25,6 +27,7 @@ import vues.AddSocketFrame;
 import vues.CamFrame;
 import controleurs.inputs.JoystickControllerPoller;
 import controleurs.socketclient.SocketClient;
+import controleurs.socketclient.com.Emission;
 import exceptions.CamException;
 
 
@@ -41,8 +44,10 @@ public class ControleurGeneral implements ActionListener{
 	private CamFrame 			cfFrame;
 	private AddCamFrame 		cfAddFrameCam;
 	private AddSocketFrame 		cfAddFrameSock;
+	
 	private ControleurPilotage 	cpCtrlPil;
 	private ControleurReception cr;
+//	private ControleurVoix 		cv;
 	
 	private SocketClient 		socket;
 	
@@ -73,6 +78,7 @@ public class ControleurGeneral implements ActionListener{
 		cpCtrlPil = new ControleurPilotage( cfFrame, oModCtrl, oModPilot, oModKey );
 		/*cpCtrlEmiss = */new ControleurEmission( );
 		cr = new ControleurReception(oModCtrl);
+		/*cv = */new ControleurVoix(oModCtrl, oModSock);
 		
 		// Attribution des listeners
 		cfFrame.setListener(this);
@@ -249,6 +255,51 @@ public class ControleurGeneral implements ActionListener{
 		}else if( action.equals("RECOVOCENABLE") ){
 			oModCtrl.setRecoVocEnable( !oModCtrl.isRecoVocEnable());
 			
+//			buttonSay.setActionCommand( "BUTTONSAY" );
+//			rbTTSEspeak.addActionListener(ac);
+//			rbTTSEspeak.setActionCommand( "RBESPEAK" );
+//			rbTTSPico.addActionListener(ac);
+//			rbTTSPico.setActionCommand( "RBPICO" );
+//			textField.addActionListener(ac);
+//			textField.setActionCommand( "TEXTTOSAY" );
+		}else if( action.equals("BUTTONSAY") ){
+			SpeakAction sa = new SpeakAction();
+			oModCtrl.setTextToSay( cfFrame.getTextToSay() );
+			sa.setText(oModCtrl.getTextToSay());
+			if( oModCtrl.getTtsSelected() == CtrlCat.ttsPico )
+				sa.setTts(SpeakAction.ttsPico);
+			else if( oModCtrl.getTtsSelected() == CtrlCat.ttsEspeak )
+				sa.setTts(SpeakAction.ttsEspeak);
+			
+			if( Debug.isEnable() )
+				System.out.println("Texte a lire : "+oModCtrl.getTextToSay());
+			Emission.addAction(sa);
+
+		}else if( action.equals("RBESPEAK") ){
+			oModCtrl.setTtsSelected(CtrlCat.ttsEspeak);
+
+		}else if( action.equals("RBPICO") ){
+			oModCtrl.setTtsSelected(CtrlCat.ttsPico);
+			
+			
+			
+			
+		}else if( action.equals("DISTANTSOUNDPLUS") ){
+			VolumeAction va = new VolumeAction(true, VolumeAction.volumePourCentDefault);
+			Emission.addAction(va);
+
+		}else if( action.equals("DISTANTSOUNDMINUS") ){
+			VolumeAction va = new VolumeAction(false, VolumeAction.volumePourCentDefault);
+			Emission.addAction(va);
+
+		}else if( action.equals("DISTANTSOUNDMUTE") ){
+			oModCtrl.setDistantSoundMute(!oModCtrl.isDistantSoundMute());
+			VolumeAction va = new VolumeAction(!oModCtrl.isDistantSoundMute(), true);
+			
+			Emission.addAction(va);
+			
+			
+			
 			
 		}else if( action.equals("BTNADDSOCKET") ){
 			cfAddFrameSock = new AddSocketFrame("Ajouter un Socket", oModSock);
@@ -271,11 +322,15 @@ public class ControleurGeneral implements ActionListener{
 				//oModCtrl.setTourelleEnable(true);
 				oModCtrl.setExtraEnable(true);
 				oModCtrl.setRecoVocEnable(true);
+				oModCtrl.setTtsEnable(true);
+				oModCtrl.setDistantSoundEnable(true);
 				
 				oModSock.setConnected(true);
 			}else{
 				oModSock.setConnected(false);
 				oModCtrl.setRecoVocEnable(false);
+				oModCtrl.setTtsEnable(false);
+				oModCtrl.setDistantSoundEnable(false);
 			}
 			
 		}else if( action.equals("BTNSTOPSOCKET") ){
@@ -284,6 +339,8 @@ public class ControleurGeneral implements ActionListener{
 			oModCtrl.setDirectionEnable(false);
 			oModCtrl.setTourelleEnable(false);
 			oModCtrl.setRecoVocEnable(false);
+			oModCtrl.setTtsEnable(false);
+			oModCtrl.setDistantSoundEnable(false);
 			
 			
 		}else if (action.equals("BTNSAVESOCKETS")) {			

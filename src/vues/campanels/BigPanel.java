@@ -138,5 +138,7 @@ public class BigPanel extends JPanel {
 		
 	}
 	
-
+	public String getTextToSay(){
+		return optionsP.getTextToSay();
+	}
 }

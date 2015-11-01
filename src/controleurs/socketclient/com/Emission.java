@@ -31,7 +31,8 @@ public class Emission extends TimerTask {
 		boolean send = true;
 		if( lastActionHero != null ){
 			if( lastActionHero.toString().equals(action.toString()) ){
-				send = false;
+				if( !action.isRepeatable() )
+					send = false;
 			}
 				
 		}else
@@ -43,7 +44,7 @@ public class Emission extends TimerTask {
 				fifo.notifyAll();
 			}
 			if( Debug.isEnable() )
-				System.out.println("Send : Last : "+lastActionHero.toString()+" new : "+action.toString());
+				System.out.println("Send : Last : "+lastActionHero.toString()+" new : ("+action.getClass().getName()+") "+action.toString());
 			lastActionHero = action;
 		}else
 			if( Debug.isEnable() )
@@ -122,6 +123,8 @@ public class Emission extends TimerTask {
 				}else if( ia instanceof GetStateAction ){
 					llState.addLast((GetStateAction)ia);
 					
+				}else{
+					llOther.addLast(ia);
 				}
 			}
 			fifo.clear();

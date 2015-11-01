@@ -5,12 +5,15 @@ import java.util.Observable;
 import java.util.Observer;
 
 import modeles.catalogues.CtrlCat;
+import modeles.dao.communication.beansactions.PongAction;
 import modeles.dao.communication.beansinfos.IInfo;
+import modeles.dao.communication.beansinfos.PingInfo;
 import modeles.dao.communication.beansinfos.SensorInfo;
 import modeles.dao.communication.beansinfos.SensorInfoDist;
 import modeles.dao.communication.beansinfos.ShellInfo;
 import modeles.dao.communication.beansinfos.StateInfo;
 import modeles.dao.communication.beansinfos.TextInfo;
+import controleurs.socketclient.com.Emission;
 
 public class ControleurReception implements Observer {
 	
@@ -65,6 +68,12 @@ public class ControleurReception implements Observer {
 			TextInfo ti = (TextInfo)object;
 			if( Debug.isEnable() )
 				System.out.println("Info :" +ti.getInfo());
+			
+		}else if( object instanceof PingInfo ){
+			PingInfo pi = (PingInfo)object;
+			Emission.addAction(new PongAction(pi.getTimeStamp()));
+			if( Debug.isEnable() )
+				System.out.println("Reception Ping" );
 			
 		}else
 			if( Debug.isEnable() )

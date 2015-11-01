@@ -12,6 +12,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import modeles.catalogues.CtrlCat;
+import vues.campanels.options.DistantSoundPanel;
+import vues.campanels.options.TTSPanel;
 import vues.campanels.options.VoicePanel;
 import vues.tools.JIconSwitchButton;
 
@@ -21,6 +23,8 @@ public class OptionsPanel extends JPanel implements Observer{
 
 	private JIconSwitchButton reduceBtn;
 	private VoicePanel voicePanel;
+	private TTSPanel ttsPanel;
+	private DistantSoundPanel dsPanel;
 	
 	private CtrlCat oModel;
 	
@@ -46,31 +50,37 @@ public class OptionsPanel extends JPanel implements Observer{
 		add(reduceBtn, c);
 		
 		voicePanel = new VoicePanel(oModel);
-		c.fill = GridBagConstraints.NONE;
+		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
 		c.gridheight = 1;
 		c.gridwidth = 1;
 		add(voicePanel, c);
 		
-		JPanel emptyP = new JPanel();
+		ttsPanel = new TTSPanel( oModel );
 		c.gridx = 0;
 		c.gridy = 1;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		add(emptyP, c);
+		add(ttsPanel, c);
 		
+		dsPanel = new DistantSoundPanel( oModel );
 		c.gridx = 0;
 		c.gridy = 2;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		add(emptyP, c);
+		add(dsPanel, c);
+		
+
 		
 		
 	}
 
 	public void setListener( ActionListener ac){
 		voicePanel.setListener( ac );
+		ttsPanel.setListener(ac);
+		dsPanel.setListener(ac);
+		
 		reduceBtn.addActionListener(ac);
 		reduceBtn.setActionCommandUP("REDUCEOPTS");
 		reduceBtn.setActionCommandDOWN("REDUCEOPTS");
@@ -82,14 +92,19 @@ public class OptionsPanel extends JPanel implements Observer{
 		if( message.equals( "REDUCEOPTS" ) ){
 			if( oModel.isReduceOpts() ){
 				voicePanel.setVisible(true);
+				ttsPanel.setVisible(true);
+				dsPanel.setVisible(true);
 				
 			}else{
 				voicePanel.setVisible(false);
-				
+				ttsPanel.setVisible(false);
+				dsPanel.setVisible(false);
 			}
 		}	
 	}
 
-	
+	public String getTextToSay(){
+		return ttsPanel.getTextToSay();
+	}
 
 }

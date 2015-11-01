@@ -15,6 +15,9 @@ public class CtrlCat extends Observable {
 	private boolean takeVideoEnable = false;
 	
 	private boolean recoVocEnable = false;
+	private boolean ttsEnable = false;
+	private boolean distantSoundEnable = false;
+	private boolean distantSoundMute = false;
 	
 	private boolean playCamBtnState = true;
 	
@@ -30,6 +33,11 @@ public class CtrlCat extends Observable {
 	private boolean recoVocCheck = false;
 	private boolean sonLocalCheck = true;
 	private boolean sonDistantCheck = false;
+
+	public static final int ttsPico = 1;
+	public static final int ttsEspeak = 2;
+	private String textToSay = "";
+	private int ttsSelected = ttsPico;
 	
 	private boolean reduceCtrl = true;
 	private boolean reduceOpts = true;
@@ -312,11 +320,10 @@ public class CtrlCat extends Observable {
 	}
 
 
-
 	public boolean isRecoVocEnable() {
 		return recoVocEnable;
 	}
-
+	
 	public void setRecoVocEnable(boolean recoVocEnable) {
 		this.recoVocEnable = recoVocEnable;
 		
@@ -325,4 +332,54 @@ public class CtrlCat extends Observable {
 	}
 
 
+	public String getTextToSay() {
+		return textToSay;
+	}
+	
+	public void setTextToSay(String textToSay) {
+		this.textToSay = textToSay;
+	}
+
+	
+	public int getTtsSelected() {
+		return ttsSelected;
+	}
+	
+	public void setTtsSelected(int ttsSelected) {
+		this.ttsSelected = ttsSelected;
+	}
+
+
+	public boolean isTtsEnable() {
+		return ttsEnable;
+	}
+
+	public void setTtsEnable(boolean ttsEnable) {
+		this.ttsEnable = ttsEnable;
+		
+		setChanged();
+		notifyObservers("TTSENABLE");
+	}
+
+
+	public boolean isDistantSoundEnable() {
+		return distantSoundEnable;
+	}
+
+	public void setDistantSoundEnable(boolean distantSoundEnable) {
+		this.distantSoundEnable = distantSoundEnable;
+		setChanged();
+		notifyObservers("DISTANTSOUNDENABLE");
+	}
+
+
+
+	public boolean isDistantSoundMute() {
+		return distantSoundMute;
+	}
+
+	public void setDistantSoundMute(boolean distantSoundMute) {
+		this.distantSoundMute = distantSoundMute;
+	}
+	
 }

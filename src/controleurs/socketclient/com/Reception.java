@@ -35,7 +35,7 @@ public class Reception extends Observable implements Runnable {
 	        	inObject = new ObjectInputStream(so.getInputStream());
 				Object object = inObject.readObject();
 				
-				if( object instanceof IInfo ){
+				if( object instanceof IInfo /*|| object instanceof IAction*/ ){
 					setChanged();
 					notifyObservers(object);
 				}else
