@@ -19,6 +19,7 @@ public class SocketCat extends Observable{
 	private boolean connected = false;
 	private Date connectionDate;
 	private Date disconnectionDate;
+	private int micPort = 2015;
 
 	public static final String FILESOCKS = "configs/listSocks.json";
 
@@ -151,5 +152,14 @@ public class SocketCat extends Observable{
 
 	public void setDisconnectionDate(Date disconnectionDate) {
 		this.disconnectionDate = disconnectionDate;
+	}
+
+
+	public int getMicPort() {
+		return micPort;
+	}
+
+	public void setMicPort(int micPort) {
+		this.micPort = micPort;
 	}
 }

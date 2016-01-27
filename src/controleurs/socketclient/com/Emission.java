@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.TimerTask;
 
-import modeles.dao.communication.FifoSenderAction;
+import modeles.dao.communication.beansFifos.FifoSenderAction;
 import modeles.dao.communication.beansactions.DirectionAction;
 import modeles.dao.communication.beansactions.ExtraAction;
 import modeles.dao.communication.beansactions.GetStateAction;

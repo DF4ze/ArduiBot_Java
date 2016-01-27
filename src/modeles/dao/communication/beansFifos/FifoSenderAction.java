@@ -1,4 +1,4 @@
-package modeles.dao.communication;
+package modeles.dao.communication.beansFifos;
 
 import java.util.LinkedList;
 

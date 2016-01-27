@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 
 import modeles.catalogues.CtrlCat;
 import vues.campanels.options.DistantSoundPanel;
+import vues.campanels.options.InfoPanel;
+import vues.campanels.options.StreamMicPanel;
 import vues.campanels.options.TTSPanel;
 import vues.campanels.options.VoicePanel;
 import vues.tools.JIconSwitchButton;
@@ -25,6 +27,8 @@ public class OptionsPanel extends JPanel implements Observer{
 	private VoicePanel voicePanel;
 	private TTSPanel ttsPanel;
 	private DistantSoundPanel dsPanel;
+	private StreamMicPanel smPanel;
+	private InfoPanel infoPanel;
 	
 	private CtrlCat oModel;
 	
@@ -44,10 +48,13 @@ public class OptionsPanel extends JPanel implements Observer{
 		c.fill = GridBagConstraints.VERTICAL;
 		c.gridx = 1;
 		c.gridy = 0;
-		c.gridheight = 3;
+		c.gridheight = 5;
 		c.gridwidth = 1;
 		c.insets = new Insets(0, 0, 0, 0);
 		add(reduceBtn, c);
+		
+		
+		
 		
 		voicePanel = new VoicePanel(oModel);
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -58,28 +65,29 @@ public class OptionsPanel extends JPanel implements Observer{
 		add(voicePanel, c);
 		
 		ttsPanel = new TTSPanel( oModel );
-		c.gridx = 0;
 		c.gridy = 1;
-		c.gridheight = 1;
-		c.gridwidth = 1;
 		add(ttsPanel, c);
 		
 		dsPanel = new DistantSoundPanel( oModel );
 		c.gridx = 0;
 		c.gridy = 2;
-		c.gridheight = 1;
-		c.gridwidth = 1;
 		add(dsPanel, c);
 		
 
+		smPanel = new StreamMicPanel(oModel);
+		c.gridy = 3;
+		add(smPanel, c);
 		
-		
+		infoPanel = new InfoPanel(oModel);
+		c.gridy = 4;
+		add(infoPanel, c);
 	}
 
 	public void setListener( ActionListener ac){
 		voicePanel.setListener( ac );
 		ttsPanel.setListener(ac);
 		dsPanel.setListener(ac);
+		smPanel.setListener(ac);
 		
 		reduceBtn.addActionListener(ac);
 		reduceBtn.setActionCommandUP("REDUCEOPTS");
@@ -94,11 +102,15 @@ public class OptionsPanel extends JPanel implements Observer{
 				voicePanel.setVisible(true);
 				ttsPanel.setVisible(true);
 				dsPanel.setVisible(true);
+				smPanel.setVisible(true);
+				infoPanel.setVisible(true);
 				
 			}else{
 				voicePanel.setVisible(false);
 				ttsPanel.setVisible(false);
 				dsPanel.setVisible(false);
+				smPanel.setVisible(false);
+				infoPanel.setVisible(false);
 			}
 		}	
 	}

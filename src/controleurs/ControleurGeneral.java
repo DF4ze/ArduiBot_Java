@@ -25,9 +25,10 @@ import org.json.simple.parser.ParseException;
 import vues.AddCamFrame;
 import vues.AddSocketFrame;
 import vues.CamFrame;
+import controleurs.audio.MicroStream;
 import controleurs.inputs.JoystickControllerPoller;
-import controleurs.socketclient.SocketClient;
 import controleurs.socketclient.com.Emission;
+import controleurs.socketclient.com.SocketClient;
 import exceptions.CamException;
 
 
@@ -301,6 +302,15 @@ public class ControleurGeneral implements ActionListener{
 			
 			
 			
+		}else if( action.equals("CBSTREAMMIC") ){
+			oModCtrl.setStreamedMic(!oModCtrl.isStreamedMic());
+			if( oModCtrl.isStreamedMic() )
+				MicroStream.start(oModSock);
+			else
+				MicroStream.stop();
+			
+			
+			
 		}else if( action.equals("BTNADDSOCKET") ){
 			cfAddFrameSock = new AddSocketFrame("Ajouter un Socket", oModSock);
 			cfAddFrameSock.setListener(this);
@@ -324,6 +334,7 @@ public class ControleurGeneral implements ActionListener{
 				oModCtrl.setRecoVocEnable(true);
 				oModCtrl.setTtsEnable(true);
 				oModCtrl.setDistantSoundEnable(true);
+				oModCtrl.setStreamMicEnable(true);
 				
 				oModSock.setConnected(true);
 			}else{
@@ -331,6 +342,7 @@ public class ControleurGeneral implements ActionListener{
 				oModCtrl.setRecoVocEnable(false);
 				oModCtrl.setTtsEnable(false);
 				oModCtrl.setDistantSoundEnable(false);
+				oModCtrl.setStreamMicEnable(false);
 			}
 			
 		}else if( action.equals("BTNSTOPSOCKET") ){
@@ -341,6 +353,7 @@ public class ControleurGeneral implements ActionListener{
 			oModCtrl.setRecoVocEnable(false);
 			oModCtrl.setTtsEnable(false);
 			oModCtrl.setDistantSoundEnable(false);
+			oModCtrl.setStreamMicEnable(false);
 			
 			
 		}else if (action.equals("BTNSAVESOCKETS")) {			
