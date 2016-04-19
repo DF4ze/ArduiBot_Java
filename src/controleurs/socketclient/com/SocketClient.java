@@ -1,4 +1,4 @@
-package controleurs.socketclient;
+package controleurs.socketclient.com;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -6,7 +6,6 @@ import java.net.UnknownHostException;
 import modeles.catalogues.SocketCat;
 import controleurs.ControleurReception;
 import controleurs.Debug;
-import controleurs.socketclient.com.ComClientServeur;
 
 public class SocketClient {
 

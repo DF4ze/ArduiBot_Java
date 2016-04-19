@@ -7,6 +7,7 @@ import controleurs.Debug;
 import modeles.catalogues.SocketCat;
 import modeles.entites.MicrophoneModel;
 
+
 public class SocketClientMicro {
 	private Socket socket;
 	private SocketCat model;
