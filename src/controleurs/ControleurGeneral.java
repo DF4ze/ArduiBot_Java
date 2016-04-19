@@ -14,6 +14,7 @@ import org.json.simple.parser.ParseException;
 
 import controleurs.audio.MicroStream;
 import controleurs.inputs.JoystickControllerPoller;
+import controleurs.socketclient.SocketClient;
 import controleurs.socketclient.com.Emission;
 import exceptions.CamException;
 import modeles.DroneActions;
