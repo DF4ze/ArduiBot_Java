@@ -9,10 +9,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Observable;
 
-import modeles.dao.filerecord.FileIPCamStream;
-import modeles.entites.CamDimension;
-import modeles.entites.CamMode;
-
 import org.json.simple.parser.ParseException;
 
 import com.github.sarxos.webcam.Webcam;
@@ -25,6 +21,9 @@ import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
 
 import controleurs.Debug;
 import exceptions.CamException;
+import modeles.dao.filerecord.FileIPCamStream;
+import modeles.entites.CamDimension;
+import modeles.entites.CamMode;
 
 public class CamCat extends Observable{
 	

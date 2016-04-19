@@ -26,10 +26,12 @@ public class TourelleAction extends GeneralAction {
 	}
 
 	
+	@Override
 	public String getAction() {
 		return IAction.modeServo +"."+ degresX +"."+ degresY;
 	}
 	
+	@Override
 	public boolean isComplete(){
 		boolean bOk = true;
 		if( degresX == null )

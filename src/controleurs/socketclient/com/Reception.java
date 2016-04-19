@@ -4,10 +4,10 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.Observable;
 
-import modeles.catalogues.SocketCat;
-import modeles.dao.communication.beansinfos.IInfo;
 import controleurs.ControleurReception;
 import controleurs.Debug;
+import modeles.catalogues.SocketCat;
+import modeles.dao.communication.beansinfos.IInfo;
 
 
 public class Reception extends Observable implements Runnable {

@@ -11,11 +11,11 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controleurs.Debug;
 import modeles.catalogues.CtrlCat;
 import modeles.catalogues.SocketCat;
 import vues.tools.JIconButton;
 import vues.tools.JIconSwitchButton;
-import controleurs.Debug;
 
 public class ConnectPanel extends JPanel implements Observer{
 

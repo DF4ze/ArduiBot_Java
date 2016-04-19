@@ -10,9 +10,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
-import vues.tools.JIconSwitchButton;
 import controleurs.Debug;
 import modeles.catalogues.CtrlCat;
+import vues.tools.JIconSwitchButton;
 
 public class ExtraPanel extends JPanel implements Observer{
 

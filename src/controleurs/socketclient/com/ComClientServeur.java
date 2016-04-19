@@ -4,9 +4,9 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Timer;
 
-import modeles.catalogues.SocketCat;
 import controleurs.ControleurReception;
 import controleurs.Debug;
+import modeles.catalogues.SocketCat;
 
 
 public class ComClientServeur implements Runnable {

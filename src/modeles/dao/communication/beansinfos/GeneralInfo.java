@@ -11,6 +11,7 @@ public abstract class GeneralInfo implements IInfo {
 	@Override
 	public abstract String getInfo();
 	
+	@Override
 	public String toString(){
 		return getInfo();
 	}

@@ -47,6 +47,7 @@ public class TourellePanel extends JPanel implements Observer {
 
 	private JSlider verticalSpeed;
 	private JSlider horizontalSpeed;
+	private JSlider horizontalPosition;
 
 	private CtrlCat oModel;
 	private PilotCat oModGraph;
@@ -81,8 +82,16 @@ public class TourellePanel extends JPanel implements Observer {
 
 		cbReverseY = new JCheckBox();
 		southP.add( cbReverseY );
-		
 		globalTourP.add(southP, BorderLayout.SOUTH);
+		
+		JPanel northP = new JPanel();
+		northP.setLayout(new BoxLayout(northP, BoxLayout.X_AXIS));
+		horizontalPosition = new JSlider(JSlider.HORIZONTAL, 0, 180, 90);
+		horizontalPosition.setPreferredSize(new Dimension(1, 20));
+		horizontalPosition.setEnabled(false);
+		northP.add(horizontalPosition);
+		globalTourP.add(northP, BorderLayout.NORTH);
+		
 		
 		add( globalTourP );
 

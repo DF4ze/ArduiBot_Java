@@ -1,7 +1,10 @@
 package demos.sockets.d_tchat.client;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.Scanner;
-import java.io.*;
 
 public class Connexion implements Runnable {
 

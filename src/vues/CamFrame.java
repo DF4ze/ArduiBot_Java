@@ -11,12 +11,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JSlider;
 
+import exceptions.CamException;
 import modeles.catalogues.CamCat;
 import modeles.catalogues.CtrlCat;
 import modeles.catalogues.PilotCat;
 import modeles.catalogues.SocketCat;
 import vues.campanels.BigPanel;
-import exceptions.CamException;
 
 public class CamFrame extends JFrame {
 

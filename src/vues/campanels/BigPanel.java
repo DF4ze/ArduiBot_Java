@@ -11,17 +11,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
-import modeles.catalogues.CamCat;
-import modeles.catalogues.CtrlCat;
-import modeles.catalogues.PilotCat;
-import modeles.catalogues.SocketCat;
-import vues.campanels.bottom.BottomPanel;
-
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 
 import controleurs.Debug;
 import exceptions.CamException;
+import modeles.catalogues.CamCat;
+import modeles.catalogues.CtrlCat;
+import modeles.catalogues.PilotCat;
+import modeles.catalogues.SocketCat;
+import vues.campanels.bottom.BottomPanel;
 
 public class BigPanel extends JPanel {
 

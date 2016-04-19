@@ -1,7 +1,7 @@
 package demos.sockets.d_tchat.client;
+
 import java.io.BufferedReader;
 import java.io.IOException;
-
 
 public class Reception implements Runnable {
 

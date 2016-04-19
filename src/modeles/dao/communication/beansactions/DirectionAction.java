@@ -31,6 +31,7 @@ public class DirectionAction extends GeneralAction {
 	public String getAction() {
 		return IAction.modeMotor+"."+vitesse+"."+delta;
 	}
+	@Override
 	public boolean isComplete(){
 		boolean bOk = true;
 		if( vitesse == null )

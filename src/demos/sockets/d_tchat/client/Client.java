@@ -1,6 +1,8 @@
 package demos.sockets.d_tchat.client;
-import java.io.*;
-import java.net.*;
+
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class Client {
 

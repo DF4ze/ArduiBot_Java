@@ -5,13 +5,13 @@ import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.TimerTask;
 
-import modeles.dao.communication.FifoSenderAction;
+import controleurs.Debug;
+import modeles.dao.communication.beansFifos.FifoSenderAction;
 import modeles.dao.communication.beansactions.DirectionAction;
 import modeles.dao.communication.beansactions.ExtraAction;
 import modeles.dao.communication.beansactions.GetStateAction;
 import modeles.dao.communication.beansactions.IAction;
 import modeles.dao.communication.beansactions.TourelleAction;
-import controleurs.Debug;
 
 
 public class Emission extends TimerTask {

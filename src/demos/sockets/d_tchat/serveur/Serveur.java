@@ -1,6 +1,7 @@
 package demos.sockets.d_tchat.serveur;
-import java.io.*;
-import java.net.*;
+
+import java.io.IOException;
+import java.net.ServerSocket;
 
 public class Serveur {
  public static ServerSocket ss = null;

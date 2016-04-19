@@ -7,8 +7,8 @@ import java.awt.Toolkit;
 import java.awt.image.MemoryImageSource;
 import java.util.Observable;
 
-import modeles.DroneActions;
 import controleurs.Debug;
+import modeles.DroneActions;
 
 public class PilotCat extends Observable {
 	

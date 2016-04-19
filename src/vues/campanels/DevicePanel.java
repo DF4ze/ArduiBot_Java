@@ -11,11 +11,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+import controleurs.Debug;
 import modeles.catalogues.CamCat;
 import modeles.catalogues.CtrlCat;
 import vues.tools.JIconButton;
 import vues.tools.JIconSwitchButton;
-import controleurs.Debug;
 
 public class DevicePanel extends JPanel implements Observer{
 

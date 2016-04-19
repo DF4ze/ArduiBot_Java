@@ -40,10 +40,12 @@ public abstract class GeneralAction implements IAction {
 			this.timeStamp = timeStamp;
 	}
 	
+	@Override
 	public String toString(){
 		return getAction() + IAction.serialEndCommand;
 	}
 
+	@Override
 	public boolean isRepeatable() {
 		return repeatable;
 	}

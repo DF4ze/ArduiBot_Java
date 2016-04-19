@@ -20,11 +20,11 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeListener;
 
+import controleurs.Debug;
 import modeles.catalogues.CtrlCat;
 import modeles.catalogues.PilotCat;
 import vues.tools.BgPanel;
 import vues.tools.JMapButton;
-import controleurs.Debug;
 
 public class DirectionPanel extends JPanel implements Observer{
 

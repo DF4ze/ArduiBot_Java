@@ -9,9 +9,6 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import modeles.catalogues.SocketCat;
-import modeles.entites.SocketModel;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -19,6 +16,8 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import controleurs.Debug;
+import modeles.catalogues.SocketCat;
+import modeles.entites.SocketModel;
 
 public class FileSocketStream {
 	

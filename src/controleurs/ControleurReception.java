@@ -13,6 +13,7 @@ import modeles.dao.communication.beansinfos.SensorInfoDist;
 import modeles.dao.communication.beansinfos.ShellInfo;
 import modeles.dao.communication.beansinfos.StateInfo;
 import modeles.dao.communication.beansinfos.TextInfo;
+import modeles.dao.communication.beansinfos.WifiInfo;
 import controleurs.socketclient.com.Emission;
 
 public class ControleurReception implements Observer {
@@ -74,6 +75,15 @@ public class ControleurReception implements Observer {
 			Emission.addAction(new PongAction(pi.getTimeStamp()));
 			if( Debug.isEnable() )
 				System.out.println("Reception Ping" );
+			
+		}else if( object instanceof WifiInfo ){
+			WifiInfo wi = (WifiInfo)object;
+			oModel.setWifiSignal(wi.getSignal());
+			oModel.setWifiQuality(wi.getQuality());
+			oModel.setWifiNoise(wi.getNoise());
+			
+			if( Debug.isEnable() )
+				System.out.println("Reception WifiInfo" );
 			
 		}else
 			if( Debug.isEnable() )

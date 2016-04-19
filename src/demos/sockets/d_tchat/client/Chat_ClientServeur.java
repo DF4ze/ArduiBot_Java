@@ -1,10 +1,10 @@
 package demos.sockets.d_tchat.client;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-
 
 public class Chat_ClientServeur implements Runnable {
 

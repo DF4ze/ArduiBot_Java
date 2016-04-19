@@ -10,6 +10,12 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import org.json.simple.parser.ParseException;
+
+import controleurs.audio.MicroStream;
+import controleurs.inputs.JoystickControllerPoller;
+import controleurs.socketclient.com.Emission;
+import exceptions.CamException;
 import modeles.DroneActions;
 import modeles.catalogues.CamCat;
 import modeles.catalogues.CtrlCat;
@@ -19,16 +25,9 @@ import modeles.dao.communication.beansactions.SpeakAction;
 import modeles.dao.communication.beansactions.VolumeAction;
 import modeles.inputs.JoystickCat;
 import modeles.inputs.KeyCat;
-
-import org.json.simple.parser.ParseException;
-
 import vues.AddCamFrame;
 import vues.AddSocketFrame;
 import vues.CamFrame;
-import controleurs.inputs.JoystickControllerPoller;
-import controleurs.socketclient.SocketClient;
-import controleurs.socketclient.com.Emission;
-import exceptions.CamException;
 
 
 
@@ -301,6 +300,15 @@ public class ControleurGeneral implements ActionListener{
 			
 			
 			
+		}else if( action.equals("CBSTREAMMIC") ){
+			oModCtrl.setStreamedMic(!oModCtrl.isStreamedMic());
+			if( oModCtrl.isStreamedMic() )
+				MicroStream.start(oModSock);
+			else
+				MicroStream.stop();
+			
+			
+			
 		}else if( action.equals("BTNADDSOCKET") ){
 			cfAddFrameSock = new AddSocketFrame("Ajouter un Socket", oModSock);
 			cfAddFrameSock.setListener(this);
@@ -324,6 +332,7 @@ public class ControleurGeneral implements ActionListener{
 				oModCtrl.setRecoVocEnable(true);
 				oModCtrl.setTtsEnable(true);
 				oModCtrl.setDistantSoundEnable(true);
+				oModCtrl.setStreamMicEnable(true);
 				
 				oModSock.setConnected(true);
 			}else{
@@ -331,6 +340,7 @@ public class ControleurGeneral implements ActionListener{
 				oModCtrl.setRecoVocEnable(false);
 				oModCtrl.setTtsEnable(false);
 				oModCtrl.setDistantSoundEnable(false);
+				oModCtrl.setStreamMicEnable(false);
 			}
 			
 		}else if( action.equals("BTNSTOPSOCKET") ){
@@ -341,6 +351,7 @@ public class ControleurGeneral implements ActionListener{
 			oModCtrl.setRecoVocEnable(false);
 			oModCtrl.setTtsEnable(false);
 			oModCtrl.setDistantSoundEnable(false);
+			oModCtrl.setStreamMicEnable(false);
 			
 			
 		}else if (action.equals("BTNSAVESOCKETS")) {			

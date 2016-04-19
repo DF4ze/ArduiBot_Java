@@ -3,12 +3,12 @@ package demos.jinput_joystick;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JToggleButton;
+
 import net.java.games.input.Component;
 import net.java.games.input.Component.Identifier;
 import net.java.games.input.Controller;
@@ -183,7 +183,7 @@ public class JoystickTest {
             try {
                 Thread.sleep(25);
             } catch (InterruptedException ex) {
-                Logger.getLogger(JoystickTest.class.getName()).log(Level.SEVERE, null, ex);
+               // Logger.getLogger(JoystickTest.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

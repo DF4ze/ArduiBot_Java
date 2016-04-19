@@ -1,7 +1,7 @@
 package demos.sockets.d_tchat.serveur;
+
 import java.io.PrintWriter;
 import java.util.Scanner;
-
 
 public class Emission implements Runnable {
 

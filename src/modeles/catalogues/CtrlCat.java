@@ -39,12 +39,16 @@ public class CtrlCat extends Observable {
 	private String textToSay = "";
 	private int ttsSelected = ttsPico;
 	
+	private boolean streamedMic = false;
+	private boolean streamMicEnable = false;
+	
 	private boolean reduceCtrl = true;
 	private boolean reduceOpts = true;
-	
-	//private HashMap<Integer, Integer> distances = new HashMap<Integer, Integer>();
-	
+		
 	private float voltage = 0;
+	private String wifiSignal = "N/A";
+	private String wifiQuality = "N/A";
+	private String wifiNoise = "N/A";
 	
 	
 	private PilotCat oModGraph;
@@ -372,14 +376,69 @@ public class CtrlCat extends Observable {
 		notifyObservers("DISTANTSOUNDENABLE");
 	}
 
-
-
 	public boolean isDistantSoundMute() {
 		return distantSoundMute;
 	}
 
+	
 	public void setDistantSoundMute(boolean distantSoundMute) {
 		this.distantSoundMute = distantSoundMute;
 	}
+
 	
+	
+	public boolean isStreamedMic() {
+		return streamedMic;
+	}
+
+	public void setStreamedMic(boolean streamedMic) {
+		this.streamedMic = streamedMic;
+		
+		setChanged();
+		notifyObservers("STREAMMIC");
+	}
+	public void setStreamMicEnable(boolean StreamMicEnable) {
+		this.streamMicEnable = StreamMicEnable;
+		setChanged();
+		notifyObservers("STREAMMICENABLE");
+	}
+	public boolean isStreamMicEnable() {
+		return this.streamMicEnable;
+	}
+
+
+	public String getWifiSignal() {
+		return wifiSignal;
+	}
+
+	public void setWifiSignal(String signalWifi) {
+		this.wifiSignal = signalWifi;
+		
+		setChanged();
+		notifyObservers("WIFISIGNAL");
+	}
+
+
+
+	public String getWifiQuality() {
+		return wifiQuality;
+	}
+
+	public void setWifiQuality(String wifiQuality) {
+		this.wifiQuality = wifiQuality;
+		setChanged();
+		notifyObservers("WIFIQUALITY");
+	}
+
+
+
+	public String getWifiNoise() {
+		return wifiNoise;
+	}
+
+	public void setWifiNoise(String wifiNoise) {
+		this.wifiNoise = wifiNoise;
+		setChanged();
+		notifyObservers("WIFINOISE");
+	}
 }
